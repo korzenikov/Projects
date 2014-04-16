@@ -1,14 +1,18 @@
 ﻿namespace ParallelDataLoadingPrj
 {
+    using System;
+
     public class Program
     {
         public static void Main(string[] args)
         {
-            var executor1 = new AsyncLazyBasedExecutor();
-            executor1.IntializeAsync().Wait();
+            Console.WriteLine("AsyncLazy based loader");
+            var loader1 = new AsyncLazyBasedLoader();
+            loader1.LoadAsync().Wait();
 
-            var executor2 = new TaskBasedExecutor();
-            executor2.IntializeAsync().Wait();
+            Console.WriteLine("Task based loader");
+            var loader2 = new TaskBasedLoader();
+            loader2.LoadAsync().Wait();
         }
     }
 }

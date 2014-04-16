@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace ParallelDataLoadingPrj
 {
-    public class AsyncLazyBasedExecutor
+    public class AsyncLazyBasedLoader
     {
         private AsyncLazy<string> _aData;
 
@@ -14,6 +14,17 @@ namespace ParallelDataLoadingPrj
         private AsyncLazy<string> _dData;
 
         private AsyncLazy<string> _eData;
+
+        public async Task LoadAsync()
+        {
+            _aData = new AsyncLazy<string>(() => LoadAAsync());
+            _bData = new AsyncLazy<string>(() => LoadBAsync());
+            _cData = new AsyncLazy<string>(() => LoadCAsync());
+            _dData = new AsyncLazy<string>(() => LoadDAsync());
+            _eData = new AsyncLazy<string>(() => LoadEAsync());
+            await Task.WhenAll(_eData.Value, _dData.Value, _cData.Value, _bData.Value, _aData.Value);
+            Console.WriteLine("A: {0}, B: {1}, C: {2}, D: {3}, E: {4}", _aData.Value.Result, _bData.Value.Result, _cData.Value.Result, _dData.Value.Result, _eData.Value.Result);
+        }
 
         private async Task<string> LoadAAsync()
         {
@@ -52,17 +63,6 @@ namespace ParallelDataLoadingPrj
             await Task.Delay(1000);
             var cResult = await _cData;
             return cResult + "E";
-        }
-        
-        public async Task IntializeAsync()
-        {
-            _aData = new AsyncLazy<string>(() => LoadAAsync());
-            _bData = new AsyncLazy<string>(() => LoadBAsync());
-            _cData = new AsyncLazy<string>(() => LoadCAsync());
-            _dData = new AsyncLazy<string>(() => LoadDAsync());
-            _eData = new AsyncLazy<string>(() => LoadEAsync());
-            await Task.WhenAll(_eData.Value, _dData.Value, _cData.Value, _bData.Value, _aData.Value);
-            Console.WriteLine("A: {0}, B: {1}, C: {2}, D: {3}, E: {4}", _aData.Value.Result, _bData.Value.Result, _cData.Value.Result, _dData.Value.Result, _eData.Value.Result);
         }
     }
 }
