@@ -1,6 +1,6 @@
 ﻿namespace GraphViewer
 {
-    partial class Form1
+    partial class DependenciesViewerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -66,6 +66,7 @@
             this.ClientSize = new System.Drawing.Size(1122, 617);
             this.Controls.Add(this.gViewer);
             this.Name = "Form1";
+            this.Text = "Dependencies Viewer";
             this.ResumeLayout(false);
 
         }

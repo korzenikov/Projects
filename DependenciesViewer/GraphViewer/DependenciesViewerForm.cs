@@ -7,9 +7,9 @@ using Microsoft.Msagl.Drawing;
 
 namespace GraphViewer
 {
-    public partial class Form1 : Form
+    public partial class DependenciesViewerForm : Form
     {
-        public Form1()
+        public DependenciesViewerForm()
         {
             InitializeComponent();
             var graph = new Graph("graph");
