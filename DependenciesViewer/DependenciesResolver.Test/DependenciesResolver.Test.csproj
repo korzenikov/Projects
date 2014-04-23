@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DependenciesViewer\DependenciesResolver\DependenciesResolver.csproj">
+    <ProjectReference Include="..\DependenciesResolver\DependenciesResolver.csproj">
       <Project>{69f3d90b-ab6b-406c-8cde-bba2b6841d63}</Project>
       <Name>DependenciesResolver</Name>
     </ProjectReference>
