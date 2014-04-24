@@ -10,12 +10,9 @@ namespace DependenciesResolver
     {
         private readonly Assembly _assembly;
 
-        private readonly bool _getOnlyAssemblyTypes;
-
-        public DependenciesResolver(Assembly assembly, bool getOnlyAssemblyTypes)
+        public DependenciesResolver(Assembly assembly)
         {
             _assembly = assembly;
-            _getOnlyAssemblyTypes = getOnlyAssemblyTypes;
         }
 
         public IEnumerable<ClassInfo> GetAllClasses()
@@ -43,7 +40,6 @@ namespace DependenciesResolver
             }
         }
 
-
         private IEnumerable<Type> GetPropertyTypes(Type entityType)
         {
             var propertyTypes = new List<Type>();
@@ -65,8 +61,7 @@ namespace DependenciesResolver
                     referencedType = propertyType;
                 }
 
-                bool addType = !_getOnlyAssemblyTypes || _assembly.DefinedTypes.Contains(referencedType);
-                if (addType)
+                if (_assembly.DefinedTypes.Contains(referencedType))
                 {
                     propertyTypes.Add(referencedType);
                 }

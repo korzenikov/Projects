@@ -3,11 +3,10 @@ using System.Linq;
 using System.Reflection;
 using Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace DependenciesResolver.Test
 {
-    using FluentAssertions;
-
     [TestClass]
     public class DependenciesResolverTest
     {
@@ -15,7 +14,7 @@ namespace DependenciesResolver.Test
         public void GetAllClassesTest()
         {
             Assembly entitiesAssembly = typeof(ClassA).Assembly;
-            var resolver = new DependenciesResolver(entitiesAssembly, true);
+            var resolver = new DependenciesResolver(entitiesAssembly);
             var classes = resolver.GetAllClasses().ToArray();
 
             classes.Length.Should().Be(5);
@@ -33,7 +32,7 @@ namespace DependenciesResolver.Test
         {
             Type classB = typeof(ClassB);
             Assembly entitiesAssembly = classB.Assembly;
-            var resolver = new DependenciesResolver(entitiesAssembly, true);
+            var resolver = new DependenciesResolver(entitiesAssembly);
             var classesFromClassB = resolver.GetClassesFromRootType(classB).ToArray();
             classesFromClassB.Length.Should().Be(2);
             classesFromClassB.Should().Contain(x => x.Type == typeof(ClassB)).And.Contain(x => x.Type == typeof(ClassD));
