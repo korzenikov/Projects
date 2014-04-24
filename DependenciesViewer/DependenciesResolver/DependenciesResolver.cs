@@ -10,9 +10,12 @@ namespace DependenciesResolver
     {
         private readonly Assembly _assembly;
 
-        public DependenciesResolver(Assembly assembly)
+        private readonly bool _getOnlyAssemblyTypes;
+
+        public DependenciesResolver(Assembly assembly, bool getOnlyAssemblyTypes)
         {
             _assembly = assembly;
+            _getOnlyAssemblyTypes = getOnlyAssemblyTypes;
         }
 
         public IEnumerable<ClassInfo> GetAllClasses()
@@ -45,19 +48,27 @@ namespace DependenciesResolver
         {
             var propertyTypes = new List<Type>();
 
-            foreach (var propertyType in entityType.GetProperties().Select(propertyInfo => propertyInfo.PropertyType).Where(propertyType => !propertyType.IsPrimitive))
+            foreach (var propertyType in entityType.GetProperties().Select(propertyInfo => propertyInfo.PropertyType))
             {
-                if (propertyType.IsGenericType &&
+                Type referencedType;
+                if (propertyType.IsArray)
+                {
+                    referencedType = propertyType.GetElementType();
+                }
+                else if (propertyType.IsGenericType &&
                     typeof(IEnumerable).IsAssignableFrom(propertyType.GetGenericTypeDefinition()))
                 {
-                    propertyTypes.Add(propertyType.GenericTypeArguments.First());
+                    referencedType = propertyType.GenericTypeArguments.First();
                 }
-                else if (propertyType.IsClass
-                    && !propertyType.IsArray
-                    && propertyType != typeof(string))
+                else
                 {
+                    referencedType = propertyType;
+                }
 
-                    propertyTypes.Add(propertyType);
+                bool addType = !_getOnlyAssemblyTypes || _assembly.DefinedTypes.Contains(referencedType);
+                if (addType)
+                {
+                    propertyTypes.Add(referencedType);
                 }
             }
 

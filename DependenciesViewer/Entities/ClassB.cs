@@ -2,6 +2,8 @@
 {
     public class ClassB
     {
-        public ClassD D { get; set; }
+        public string Name { get; set; }
+
+        public ClassD[] Ds { get; set; }
     }
 }

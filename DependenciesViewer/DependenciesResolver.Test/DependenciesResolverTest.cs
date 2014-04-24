@@ -6,27 +6,44 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DependenciesResolver.Test
 {
+    using FluentAssertions;
+
     [TestClass]
     public class DependenciesResolverTest
     {
         [TestMethod]
         public void GetAllClassesTest()
         {
-            Assembly entitiesAssembly = typeof (ClassA).Assembly;
-            var resolver = new DependenciesResolver(entitiesAssembly);
+            Assembly entitiesAssembly = typeof(ClassA).Assembly;
+            var resolver = new DependenciesResolver(entitiesAssembly, true);
             var classes = resolver.GetAllClasses().ToArray();
-            Assert.AreEqual(5, classes.Length);
 
+            classes.Length.Should().Be(5);
+
+            classes.Should()
+                .Contain(x => x.Type == typeof(ClassA))
+                .And.Contain(x => x.Type == typeof(ClassB))
+                .And.Contain(x => x.Type == typeof(ClassC))
+                .And.Contain(x => x.Type == typeof(ClassD))
+                .And.Contain(x => x.Type == typeof(ClassE));
         }
 
         [TestMethod]
         public void GetClassesFromRootTypeTest()
         {
-            Type classA = typeof(ClassA);
-            Assembly entitiesAssembly = classA.Assembly;
-            var resolver = new DependenciesResolver(entitiesAssembly);
-            var classes = resolver.GetClassesFromRootType(classA).ToArray();
-            Assert.AreEqual(5, classes.Length);
+            Type classB = typeof(ClassB);
+            Assembly entitiesAssembly = classB.Assembly;
+            var resolver = new DependenciesResolver(entitiesAssembly, true);
+            var classesFromClassB = resolver.GetClassesFromRootType(classB).ToArray();
+            classesFromClassB.Length.Should().Be(2);
+            classesFromClassB.Should().Contain(x => x.Type == typeof(ClassB)).And.Contain(x => x.Type == typeof(ClassD));
+
+            Type classC = typeof(ClassC);
+            var classesFromClassC = resolver.GetClassesFromRootType(classC).ToArray();
+            classesFromClassC.Length.Should().Be(3);
+            classesFromClassC.Should().Contain(x => x.Type == typeof(ClassC))
+                .And.Contain(x => x.Type == typeof(ClassD))
+                .And.Contain(x => x.Type == typeof(ClassE));
         }
     }
 }

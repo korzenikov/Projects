@@ -16,7 +16,7 @@ namespace GraphViewer
 
             Type rootType = typeof(ClassA);
             Assembly entitiesAssembly = rootType.Assembly;
-            var resolver = new DependenciesResolver.DependenciesResolver(entitiesAssembly);
+            var resolver = new DependenciesResolver.DependenciesResolver(entitiesAssembly, true);
             var classes = resolver.GetClassesFromRootType(rootType).ToArray();
             foreach (var classInfo in classes)
             {
@@ -34,7 +34,8 @@ namespace GraphViewer
 
         private string GetNodeId(Type type)
         {
-            return type.FullName.Replace("Entities.", string.Empty);
+            //return type.FullName.Replace("Entities.", string.Empty);
+            return type.FullName;
         }
     }
 }
