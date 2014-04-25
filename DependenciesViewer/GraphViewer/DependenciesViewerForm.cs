@@ -9,6 +9,8 @@ using Microsoft.Msagl.Drawing;
 
 namespace GraphViewer
 {
+    using System.Collections.Generic;
+
     public partial class DependenciesViewerForm : Form
     {
         private const string RootIsUndefined = "None";
@@ -22,7 +24,7 @@ namespace GraphViewer
 
         private string GetNodeId(Type type)
         {
-            return type.FullName.Replace("PriceMaster.Entities.", string.Empty);
+            return type.FullName;
         }
 
         private void SelectAssemblyButton_Click(object sender, EventArgs e)
@@ -45,7 +47,7 @@ namespace GraphViewer
            
             _assembly = Assembly.ReflectionOnlyLoadFrom(assemblyFile);
             RootTypeComboBox.Items.Add(RootIsUndefined);
-            RootTypeComboBox.Items.AddRange(_assembly.GetTypes().Select(x => x.FullName).ToArray());
+            RootTypeComboBox.Items.AddRange(_assembly.GetTypes().Select(x => GetNodeId(x)).ToArray());
             RootTypeComboBox.SelectedIndex = 0;
         }
 
@@ -60,7 +62,12 @@ namespace GraphViewer
             {
                 Type type = classInfo.Type;
                 var rootId = GetNodeId(type);
-                graph.AddNode(rootId);
+                var node = graph.AddNode(rootId);
+                node.LabelText = type.Name;
+                if (type == rooType)
+                {
+                    node.Attr.FillColor = Color.PaleGreen;
+                }
                 foreach (var referencedType in classInfo.ReferencedTypes)
                 {
                     graph.AddEdge(rootId, GetNodeId(referencedType));
