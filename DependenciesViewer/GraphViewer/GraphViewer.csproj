@@ -90,10 +90,6 @@
       <Project>{69f3d90b-ab6b-406c-8cde-bba2b6841d63}</Project>
       <Name>DependenciesResolver</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{1050920b-5799-4326-afbc-6866bfa238a0}</Project>
-      <Name>Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
