@@ -1,0 +1,13 @@
+﻿<Window x:Class="GraphViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Dependencies Viewer" Loaded="MainWindow_OnLoaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <WindowsFormsHost Grid.Row="1" x:Name="WindowsFormsHost">
+        </WindowsFormsHost>
+    </Grid>
+</Window>

@@ -9,8 +9,6 @@ using Microsoft.Msagl.Drawing;
 
 namespace GraphViewer
 {
-    using System.Collections.Generic;
-
     public partial class DependenciesViewerForm : Form
     {
         private const string RootIsUndefined = "None";
