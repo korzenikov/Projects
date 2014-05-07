@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace CourseraTasks
@@ -30,15 +29,10 @@ namespace CourseraTasks
             int p = n / 2;
             Sort(array, l, l + p - 1);
             Sort(array, l + p, r);
-            var result = Merge(array, l, r, l + p - 1);
-            for (int i = 0; i < n; i++)
-            {
-                array[l + i] = result[i];
-            }
-            
+            Merge(array, l, r, l + p - 1);
         }
 
-        private static int[] Merge(int[] array, int l, int r, int m)
+        private static void Merge(int[] array, int l, int r, int m)
         {
             int n = r - l + 1;
             var result = new int[n];
@@ -58,7 +52,10 @@ namespace CourseraTasks
                 }
             }
 
-            return result;
+            for (int t = 0; t < n; t++)
+            {
+                array[l + t] = result[t];
+            }
         }
 
         private static long SortAndCountInversions(int[] array, int l, int r)
@@ -72,20 +69,12 @@ namespace CourseraTasks
             int p = n / 2;
             var leftInversions = SortAndCountInversions(array, l, l + p - 1);
             var rightInversions = SortAndCountInversions(array, l + p, r);
-            var result = MergeAndCountInversions(array, l, r, l + p - 1);
-            var mergedArray = result.Item1;
-            for (int i = 0; i < n; i++)
-            {
-                
-                array[l + i] = mergedArray[i];
-            }
-
-            var splitInversions = result.Item2;
+            var splitInversions =  MergeAndCountInversions(array, l, r, l + p - 1);
             return leftInversions + rightInversions + splitInversions;
         }
 
 
-        private static Tuple<int[], long> MergeAndCountInversions(int[] array, int l, int r, int m)
+        private static long MergeAndCountInversions(int[] array, int l, int r, int m)
         {
             int n = r - l + 1;
             var result = new int[n];
@@ -107,7 +96,12 @@ namespace CourseraTasks
                 }
             }
 
-            return Tuple.Create(result, inversions);
+            for (int t = 0; t < n; t++)
+            {
+                array[l + t] = result[t];
+            }
+
+            return inversions;
         }
     }
 }
