@@ -9,11 +9,11 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void SortTest()
         {
-            var array1 = new[] {5, 6, 7, 1, 2};
+            var array1 = new[] { 5, 6, 7, 1, 2 };
 
             var actual1 = MergeSort.Sort(array1);
 
-            var expected1 = new[] {1, 2, 5, 6, 7};
+            var expected1 = new[] { 1, 2, 5, 6, 7 };
 
             actual1.Should().Equal(expected1);
 
@@ -33,25 +33,19 @@ namespace CourseraTasks.Test
 
             var actual1 = MergeSort.CountInversions(array1);
 
-            const int expected1 = 6;
-
-            actual1.Should().Be(expected1);
+            actual1.Should().Be(6);
 
             int[] array2 = { 2, 4, 6, 8, 1, 3, 7, 9, 10 };
 
             var actual2 = MergeSort.CountInversions(array2);
 
-            const int expected2 = 8;
-
-            actual2.Should().Be(expected2);
+            actual2.Should().Be(8);
 
             int[] array3 = { 1, 3, 5, 2, 4, 6};
 
             var actual3 = MergeSort.CountInversions(array3);
 
-            const int expected3 = 3;
-
-            actual3.Should().Be(expected3);
+            actual3.Should().Be(3);
         }
     }
 }

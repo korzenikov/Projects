@@ -21,7 +21,7 @@ namespace CourseraTasks
         private static void Sort(int[] array, int l, int r)
         {
             int n = r - l + 1;
-            if (n <= 1)
+            if (n == 1)
             {
                 return;
             }
@@ -61,7 +61,7 @@ namespace CourseraTasks
         private static long SortAndCountInversions(int[] array, int l, int r)
         {
             int n = r - l + 1;
-            if (n <= 1)
+            if (n == 1)
             {
                 return 0;
             }
@@ -69,10 +69,9 @@ namespace CourseraTasks
             int p = n / 2;
             var leftInversions = SortAndCountInversions(array, l, l + p - 1);
             var rightInversions = SortAndCountInversions(array, l + p, r);
-            var splitInversions =  MergeAndCountInversions(array, l, r, l + p - 1);
+            var splitInversions = MergeAndCountInversions(array, l, r, l + p - 1);
             return leftInversions + rightInversions + splitInversions;
         }
-
 
         private static long MergeAndCountInversions(int[] array, int l, int r, int m)
         {

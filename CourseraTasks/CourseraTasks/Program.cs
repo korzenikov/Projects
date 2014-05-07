@@ -7,7 +7,7 @@ namespace CourseraTasks
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             TextReader inputReader = Console.In;
             TextWriter outputReader = Console.Out;
@@ -24,7 +24,8 @@ namespace CourseraTasks
                 if (numberStr == null)
                 {
                     break;
-                } 
+                }
+ 
                 yield return int.Parse(numberStr);
             }
         }
