@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30324.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseraTasks", "CourseraTasks\CourseraTasks.csproj", "{0582374E-ED58-417D-B23E-6E186C954076}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseraTasks.Test", "CourseraTasks.Test\CourseraTasks.Test.csproj", "{B7A2858E-D4EF-43E4-B80B-2DD492C8A69A}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpTasks", "FSharpTasks\FSharpTasks.fsproj", "{B2913BA3-878C-4B71-BF50-685ABE7CFC63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B7A2858E-D4EF-43E4-B80B-2DD492C8A69A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7A2858E-D4EF-43E4-B80B-2DD492C8A69A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7A2858E-D4EF-43E4-B80B-2DD492C8A69A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2913BA3-878C-4B71-BF50-685ABE7CFC63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2913BA3-878C-4B71-BF50-685ABE7CFC63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2913BA3-878C-4B71-BF50-685ABE7CFC63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2913BA3-878C-4B71-BF50-685ABE7CFC63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
