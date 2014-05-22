@@ -48,6 +48,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CourseraTasks.FSharp\CourseraTasks.FSharp.fsproj">
+      <Project>{d13749db-b29e-47f8-ac2e-7b5ec71dd6c8}</Project>
+      <Name>CourseraTasks.FSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

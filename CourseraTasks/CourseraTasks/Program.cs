@@ -13,6 +13,7 @@ namespace CourseraTasks
             TextWriter outputReader = Console.Out;
             var numbers = GetNumbers(inputReader).ToArray();
             var result = MergeSort.CountInversions(numbers);
+            var result2 = CourseraTasks.FSharp.MergeSort.mergeSort(numbers.Take(100));
             outputReader.WriteLine(result);
         }
 
