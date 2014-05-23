@@ -12,9 +12,14 @@ namespace CourseraTasks
             TextReader inputReader = Console.In;
             TextWriter outputReader = Console.Out;
             var numbers = GetNumbers(inputReader).ToArray();
-            var result = MergeSort.CountInversions(numbers);
-            var result2 = CourseraTasks.FSharp.MergeSort.mergeSort(numbers.Take(100));
-            outputReader.WriteLine(result);
+            var result1 = QuickSort.SortAndCount(numbers.ToArray(), (arr, l, r) => l);
+            outputReader.WriteLine(result1);
+
+            var result2 = QuickSort.SortAndCount(numbers.ToArray(), (arr, l, r) => r);
+            outputReader.WriteLine(result2);
+
+            var result3 = QuickSort.SortAndCount(numbers.ToArray(),  QuickSort.GetMedian);
+            outputReader.WriteLine(result3);
         }
 
         private static IEnumerable<int> GetNumbers(TextReader inputReader)

@@ -17,7 +17,7 @@ namespace CourseraTasks.Test
 
             actual1.Should().Equal(expected1);
 
-            int[] array2 = { 2, 4, 6, 8, 1, 3, 7, 9, 10 };
+            var array2 = new[] { 2, 4, 6, 8, 1, 3, 7, 9, 10 };
 
             var actual2 = MergeSort.Sort(array2);
 
@@ -35,13 +35,13 @@ namespace CourseraTasks.Test
 
             actual1.Should().Be(6);
 
-            int[] array2 = { 2, 4, 6, 8, 1, 3, 7, 9, 10 };
+            var array2 =  new[] { 2, 4, 6, 8, 1, 3, 7, 9, 10 };
 
             var actual2 = MergeSort.CountInversions(array2);
 
             actual2.Should().Be(8);
 
-            int[] array3 = { 1, 3, 5, 2, 4, 6};
+            var array3 = new[] { 1, 3, 5, 2, 4, 6};
 
             var actual3 = MergeSort.CountInversions(array3);
 

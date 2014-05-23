@@ -8,15 +8,17 @@
   
   tailRecursiveMerge left right []
 
-let rec mergeSort list =
-    let length = list |> Seq.length
-        
-    if (Seq.length list <= 1) then
-        list
-    else
-        let left  = list |> Seq.take (length / 2) |> mergeSort
-        let right = list |> Seq.skip (length / 2) |> mergeSort
-        merge (left |> List.ofSeq) (right |> List.ofSeq) |> Seq.ofList
+let mergeSort (list:seq<_>) =
+    let rec mergeSortList (list:List<_>) =
+        let length = list.Length
+        if (length <= 1) then
+            list
+        else
+            let left  = list |> Seq.take (length / 2) |> List.ofSeq |> mergeSortList
+            let right = list |> Seq.skip (length / 2) |> List.ofSeq |> mergeSortList
+            merge left right
+     
+    list |> List.ofSeq |> mergeSortList
     
 let array = [9; 8; 7; 6; 5; 4; 3; 2; 1; 10]
 
