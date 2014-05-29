@@ -1,4 +1,13 @@
-﻿let merge left right  =
+﻿let split list = 
+   let rec splitRec (list:List<_>) count total acc = 
+        if count = total then
+            (List.rev acc, list)
+        else
+            splitRec list.Tail (count + 1) total (list.Head :: acc)
+   
+   splitRec list 0 (list.Length/2) []
+
+let merge left right  =
   let rec tailRecursiveMerge left right acc = 
       match left, right with
       | [], list | list, [] -> List.rev acc @  list
@@ -8,21 +17,27 @@
   
   tailRecursiveMerge left right []
 
+
 let mergeSort (list:seq<_>) =
-    let rec mergeSortList (list:List<_>) =
-        let length = list.Length
-        if (length <= 1) then
-            list
-        else
-            let left  = list |> Seq.take (length / 2) |> List.ofSeq |> mergeSortList
-            let right = list |> Seq.skip (length / 2) |> List.ofSeq |> mergeSortList
-            merge left right
-     
+    let rec mergeSortList list =
+        match list with
+        | [] -> [] | head::[] -> list
+        | _ ->
+            let parts = split list
+            match parts with
+                | (left, right) -> merge (mergeSortList left) (mergeSortList right)
+
     list |> List.ofSeq |> mergeSortList
-    
+
+
 let array = [9; 8; 7; 6; 5; 4; 3; 2; 1; 10]
 
+
 printfn "%A" (mergeSort array)   
+
+
+
+//printfn "%A" (mergeSort array)   
 //[<EntryPoint>]
 //let main argv = 
 //    printfn "%A" argv
