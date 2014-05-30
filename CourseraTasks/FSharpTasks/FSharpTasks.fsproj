@@ -50,6 +50,13 @@
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CourseraTasks.FSharp\CourseraTasks.FSharp.fsproj">
+      <Name>CourseraTasks.FSharp</Name>
+      <Project>{d13749db-b29e-47f8-ac2e-7b5ec71dd6c8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
