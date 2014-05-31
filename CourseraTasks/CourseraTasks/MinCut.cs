@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace CourseraTasks
 {
@@ -48,17 +46,7 @@ namespace CourseraTasks
 
         public static int GetCrossingEdgesCount(MergedNode node1, MergedNode node2, IEnumerable<int>[] adjacencyList)
         {
-            int crossingEdges = 0;
-            foreach (var n1 in node1.Nodes)
-            {
-                foreach (var n2 in node2.Nodes)
-                {
-                    if (adjacencyList[n1].Contains(n2))
-                        crossingEdges++;
-                }
-            }
-
-            return crossingEdges;
+            return node1.Nodes.Sum(n1 => node2.Nodes.Count(n2 => adjacencyList[n1].Contains(n2)));
         }
 
         public class MergedNode
@@ -68,17 +56,22 @@ namespace CourseraTasks
                 Nodes = nodes.ToImmutableList();
             }
 
+            public MergedNode(ImmutableList<int> nodes)
+            {
+                Nodes = nodes;
+            }
+
             public MergedNode(int node)
             {
                 Nodes = ImmutableList.Create(node);
             }
 
+            public ImmutableList<int> Nodes { get; private set; }
+
             public MergedNode Merge(MergedNode node)
             {
-                return new MergedNode(Nodes.Concat(node.Nodes));
+                return new MergedNode(Nodes.AddRange(node.Nodes));
             }
-
-            public ImmutableList<int> Nodes { get; private set; }
         }
     }
 }

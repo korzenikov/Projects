@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseraTasks.Test
@@ -10,12 +9,7 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void GetMinCutTest()
         {
-            var adjacencyList = new[] {
-                new [] { 1, 3 },
-                new [] { 0, 2, 3 },
-                new [] { 1, 3 },
-                new [] { 0, 1, 2 },
-            };
+            var adjacencyList = new[] { new[] { 1, 3 }, new[] { 0, 2, 3 }, new[] { 1, 3 }, new[] { 0, 1, 2 } };
 
             var actual = MinCut.GetMinCut(adjacencyList);
             actual.Should().BeInRange(2, 3);
@@ -24,12 +18,7 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void GetMinCutNTest()
         {
-            var adjacencyList = new[] {
-                new [] { 1, 3 },
-                new [] { 0, 2, 3 },
-                new [] { 1, 3 },
-                new [] { 0, 1, 2 },
-            };
+            var adjacencyList = new[] { new[] { 1, 3 }, new[] { 0, 2, 3 }, new[] { 1, 3 }, new[] { 0, 1, 2 }, };
             var actual = MinCut.GetMinCutN(adjacencyList, 10000);
             actual.Should().Be(2);
         }
@@ -37,12 +26,7 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void AreConnectedTest()
         {
-            var adjacencyList = new[] {
-                new [] { 1, 3 },
-                new [] { 0, 2, 3 },
-                new [] { 1, 3 },
-                new [] { 0, 1, 2 },
-            };
+            var adjacencyList = new[] { new[] { 1, 3 }, new[] { 0, 2, 3 }, new[] { 1, 3 }, new[] { 0, 1, 2 }, };
 
             var node0 = new MinCut.MergedNode(0);
             var node2 = new MinCut.MergedNode(2);
@@ -58,12 +42,7 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void GetCrossingEdgesCount()
         {
-            var adjacencyList = new[] {
-                new [] { 1, 3 },
-                new [] { 0, 2, 3 },
-                new [] { 1, 3 },
-                new [] { 0, 1, 2 },
-            };
+            var adjacencyList = new[] { new[] { 1, 3 }, new[] { 0, 2, 3 }, new[] { 1, 3 }, new[] { 0, 1, 2 }, };
 
             var node0 = new MinCut.MergedNode(0);
             var node1 = new MinCut.MergedNode(1);
