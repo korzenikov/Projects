@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks
 {
@@ -24,23 +22,10 @@ namespace CourseraTasks
                 var numbers = parts.Skip(1).Select(x => int.Parse(x) - 1).ToArray();
                 adjacencyList.Add(numbers);
             }
-            int result = MinCut.GetMinCutN(adjacencyList.ToArray(), 100000);
+
+            int result = MinCut.GetMinCutN(adjacencyList.ToArray(), 100);
             Console.WriteLine(result);
             outputReader.WriteLine(result);
-        }
-
-        private static IEnumerable<int> GetNumbers(TextReader inputReader) 
-        {
-            while (true)
-            {
-                string numberStr = inputReader.ReadLine();
-                if (numberStr == null)
-                {
-                    break;
-                }
-
-                yield return int.Parse(numberStr);
-            }
         }
     }
 }
