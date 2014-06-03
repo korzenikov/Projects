@@ -11,18 +11,17 @@ namespace CourseraTasks
     {
         public static int GetMinCutN(IEnumerable<int>[] adjacencyList, int n)
         {
-            return Enumerable.Repeat(0, n).Select(_ => GetMinCut(adjacencyList)).Min();
+            var r = new Random();
+            return Enumerable.Repeat(0, n).Select(_ => GetMinCut(adjacencyList, r)).Min();
         }
 
-        public static int GetMinCut(IEnumerable<int>[] adjacencyList)
+        public static int GetMinCut(IEnumerable<int>[] adjacencyList, Random r)
         {
             var nodes = new List<MergedNode>();
             for (int i = 0; i < adjacencyList.Length; i++)
             {
                 nodes.Add(new MergedNode(i));
             }
-
-            Random r = new Random();
 
             while (nodes.Count > 2)
             {

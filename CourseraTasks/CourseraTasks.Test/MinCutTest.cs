@@ -16,8 +16,8 @@ namespace CourseraTasks.Test
                 new [] { 1, 3 },
                 new [] { 0, 1, 2 },
             };
-
-            var actual = MinCut.GetMinCut(adjacencyList);
+            var r = new Random();
+            var actual = MinCut.GetMinCut(adjacencyList, r);
             actual.Should().BeInRange(2, 3);
         }
 

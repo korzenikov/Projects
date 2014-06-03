@@ -24,7 +24,7 @@ namespace CourseraTasks
                 var numbers = parts.Skip(1).Select(x => int.Parse(x) - 1).ToArray();
                 adjacencyList.Add(numbers);
             }
-            int result = MinCut.GetMinCutN(adjacencyList.ToArray(), 100);
+            int result = MinCut.GetMinCutN(adjacencyList.ToArray(), 100000);
             Console.WriteLine(result);
             outputReader.WriteLine(result);
         }
