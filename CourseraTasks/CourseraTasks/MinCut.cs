@@ -7,13 +7,12 @@ namespace CourseraTasks
 {
     public class MinCut
     {
-        public static int GetMinCutN(IEnumerable<int>[] adjacencyList, int n)
+        public static int GetMinCutN(HashSet<int>[] adjacencyList, int n)
         {
-            var r = new Random();
-            return Enumerable.Repeat(0, n).Select(_ => GetMinCut(adjacencyList, r)).Min();
+            return Enumerable.Repeat(0, n).Select(_ => GetMinCut(adjacencyList, new Random((int)DateTime.Now.Ticks & 0x0000FFFF))).Min();
         }
 
-        public static int GetMinCut(IEnumerable<int>[] adjacencyList, Random r)
+        public static int GetMinCut(HashSet<int>[] adjacencyList, Random r)
         {
             var nodes = new List<MergedNode>();
             for (int i = 0; i < adjacencyList.Length; i++)
@@ -38,38 +37,35 @@ namespace CourseraTasks
             return GetCrossingEdgesCount(nodes[0], nodes[1], adjacencyList);
         }
 
-        public static bool AreConnected(MergedNode node1, MergedNode node2, IEnumerable<int>[] adjacencyList)
+        public static bool AreConnected(MergedNode node1, MergedNode node2, HashSet<int>[] adjacencyList)
         {
             return node1.Nodes.Any(n1 => node2.Nodes.Any(n2 => adjacencyList[n1].Contains(n2)));
         }
 
-        public static int GetCrossingEdgesCount(MergedNode node1, MergedNode node2, IEnumerable<int>[] adjacencyList)
+        public static int GetCrossingEdgesCount(MergedNode node1, MergedNode node2, HashSet<int>[] adjacencyList)
         {
             return node1.Nodes.Sum(n1 => node2.Nodes.Count(n2 => adjacencyList[n1].Contains(n2)));
         }
 
         public class MergedNode
         {
-            public MergedNode(IEnumerable<int> nodes)
-            {
-                Nodes = nodes.ToImmutableList();
-            }
-
-            public MergedNode(ImmutableList<int> nodes)
+            public MergedNode(List<int> nodes)
             {
                 Nodes = nodes;
             }
 
             public MergedNode(int node)
             {
-                Nodes = ImmutableList.Create(node);
+                Nodes = new List<int> { node };
             }
 
-            public ImmutableList<int> Nodes { get; private set; }
+            public List<int> Nodes { get; private set; }
 
             public MergedNode Merge(MergedNode node)
             {
-                return new MergedNode(Nodes.AddRange(node.Nodes));
+                var nodes = Nodes.ToList();
+                nodes.AddRange(node.Nodes);
+                return new MergedNode(nodes);
             }
         }
     }
