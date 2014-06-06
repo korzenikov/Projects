@@ -25,7 +25,6 @@ namespace CourseraTasks
             }
 
             int result = MinCut.GetMinCutN(adjacencyList.ToArray(), 50000);
-            Console.WriteLine(result);
             outputReader.WriteLine(result);
         }
     }
