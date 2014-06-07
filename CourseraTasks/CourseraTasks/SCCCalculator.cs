@@ -30,25 +30,25 @@ namespace CourseraTasks
         public static IEnumerable<int> DepthFirstSeach(Node[] adjacencyList, ISet<int> exploredNodes, int startNode, bool reversed)
         {
             var nodesToVisit = new Stack<int>();
-            var discoveredNodes = new HashSet<int>();
             nodesToVisit.Push(startNode);
+            exploredNodes.Add(startNode);
             while (nodesToVisit.Count != 0)
             {
                 var node = nodesToVisit.Peek();
-                if (exploredNodes.Contains(node))
+
+                var adjacentNodes = reversed ? adjacencyList[node].InEdges : adjacencyList[node].OutEdges;
+                var unexploredAdjacentNodes = adjacentNodes.Where(x => !exploredNodes.Contains(x)).ToArray();
+
+                if (unexploredAdjacentNodes.Length == 0)
                 {
                     nodesToVisit.Pop();
                     yield return node;
                 }
                 else
                 {
-                    exploredNodes.Add(node);
-                    var nodes = reversed ? adjacencyList[node].InEdges : adjacencyList[node].OutEdges;
-                    var unexploredNodes = nodes.Where(x => !exploredNodes.Contains(x) && !discoveredNodes.Contains(x)).ToArray();
-
-                    foreach (var adjancentNode in unexploredNodes)
+                    foreach (var adjancentNode in unexploredAdjacentNodes)
                     {
-                        discoveredNodes.Add(adjancentNode);
+                        exploredNodes.Add(adjancentNode);
                         nodesToVisit.Push(adjancentNode);
                     }
                 }
