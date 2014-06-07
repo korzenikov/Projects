@@ -8,36 +8,45 @@ namespace CourseraTasks
 {
     public class SCCCalculator
     {
-        public static IEnumerable<int[]> GetSCCs(Node[] adjacencyList)
+        private ISet<int> _exploredNodes;
+        private Node[] _adjacencyList;
+
+        public SCCCalculator(Node[] adjacencyList)
         {
-            var nodes = DepthFirstSeachLoop(adjacencyList, Enumerable.Range(0, adjacencyList.Length), true).SelectMany(x => x).Reverse().ToArray();
-            return DepthFirstSeachLoop(adjacencyList, nodes, false);
+            _adjacencyList = adjacencyList;
+            _exploredNodes = new HashSet<int>();
         }
 
-        public static IEnumerable<int[]> DepthFirstSeachLoop(Node[] adjacencyList, IEnumerable<int> nodes, bool reverse)
+        public IEnumerable<int[]> GetSCCs()
         {
-            var exploredNodes = new HashSet<int>();
+            var nodes = DepthFirstSeachLoop(Enumerable.Range(0, _adjacencyList.Length), true).SelectMany(x => x).Reverse().ToArray();
+            return DepthFirstSeachLoop(nodes, false);
+        }
+
+        public IEnumerable<int[]> DepthFirstSeachLoop(IEnumerable<int> nodes, bool reverse)
+        {
+            _exploredNodes = new HashSet<int>();
             foreach (var node in nodes)
             {
-                if (!exploredNodes.Contains(node))
+                if (!_exploredNodes.Contains(node))
                 {
-                    var result = DepthFirstSeach(adjacencyList, exploredNodes, node, reverse).ToArray();
+                    var result = DepthFirstSeach(node, reverse).ToArray();
                     yield return result;
                 }
             }
         }
 
-        public static IEnumerable<int> DepthFirstSeach(Node[] adjacencyList, ISet<int> exploredNodes, int startNode, bool reversed)
+        public IEnumerable<int> DepthFirstSeach(int startNode, bool reversed)
         {
             var nodesToVisit = new Stack<int>();
             nodesToVisit.Push(startNode);
-            exploredNodes.Add(startNode);
+            _exploredNodes.Add(startNode);
             while (nodesToVisit.Count != 0)
             {
                 var node = nodesToVisit.Peek();
 
-                var adjacentNodes = reversed ? adjacencyList[node].InEdges : adjacencyList[node].OutEdges;
-                var unexploredAdjacentNodes = adjacentNodes.Where(x => !exploredNodes.Contains(x)).ToArray();
+                var adjacentNodes = reversed ? _adjacencyList[node].InEdges : _adjacencyList[node].OutEdges;
+                var unexploredAdjacentNodes = adjacentNodes.Where(x => !_exploredNodes.Contains(x)).ToArray();
 
                 if (unexploredAdjacentNodes.Length == 0)
                 {
@@ -48,7 +57,7 @@ namespace CourseraTasks
                 {
                     foreach (var adjancentNode in unexploredAdjacentNodes)
                     {
-                        exploredNodes.Add(adjancentNode);
+                        _exploredNodes.Add(adjancentNode);
                         nodesToVisit.Push(adjancentNode);
                     }
                 }

@@ -27,10 +27,12 @@ namespace CourseraTasks.Test
             };
             var nodes = GetNodes(adjacencyList);
 
-            IEnumerable<int> vertices1 = SCCCalculator.DepthFirstSeach(nodes, new HashSet<int>(), 0, true);
+            var calculator1 = new SCCCalculator(nodes);
+            IEnumerable<int> vertices1 = calculator1.DepthFirstSeach(0, true);
             vertices1.Should().HaveCount(9);
 
-            IEnumerable<int> vertices2 = SCCCalculator.DepthFirstSeach(nodes, new HashSet<int>(), 1, true);
+            var calculator2 = new SCCCalculator(nodes);
+            IEnumerable<int> vertices2 = calculator2.DepthFirstSeach(1, true);
             vertices2.Should().HaveCount(3);
 
 
@@ -42,8 +44,8 @@ namespace CourseraTasks.Test
             };
 
             var nodes2 = GetNodes(adjacencyList2);
-
-            IEnumerable<int> vertices3 = SCCCalculator.DepthFirstSeach(nodes2, new HashSet<int>(), 0, false);
+            var calculator3 = new SCCCalculator(nodes2);
+            IEnumerable<int> vertices3 = calculator3.DepthFirstSeach(0, false);
             vertices3.Should().HaveCount(3);
         }
 
@@ -62,11 +64,12 @@ namespace CourseraTasks.Test
                 new[] { 2, 6 }
             };
             var nodes = GetNodes(adjacencyList);
-
-            var result1 = SCCCalculator.DepthFirstSeachLoop(nodes, Enumerable.Range(0, nodes.Length), true).ToArray();
+            var calculator1 = new SCCCalculator(nodes);
+            var result1 = calculator1.DepthFirstSeachLoop(Enumerable.Range(0, nodes.Length), true).ToArray();
             result1.Length.Should().BeLessOrEqualTo(3);
 
-            var result2 = SCCCalculator.DepthFirstSeachLoop(nodes, Enumerable.Range(0, nodes.Length).Reverse(), true).ToArray();
+            var calculator2 = new SCCCalculator(nodes);
+            var result2 = calculator2.DepthFirstSeachLoop(Enumerable.Range(0, nodes.Length).Reverse(), true).ToArray();
             result2.Length.Should().BeLessOrEqualTo(3);
         }
 
@@ -85,7 +88,8 @@ namespace CourseraTasks.Test
                 new[] { 2, 6 }
             };
             var nodes = GetNodes(adjacencyList);
-            var components = SCCCalculator.GetSCCs(nodes).ToArray();
+            var calculator = new SCCCalculator(nodes);
+            var components = calculator.GetSCCs().ToArray();
             components.Should().HaveCount(3);
             components[0].Should().BeEquivalentTo(new[] { 0, 6, 3 });
             components[1].Should().BeEquivalentTo(new[] { 8, 5, 2 });

@@ -38,7 +38,9 @@ namespace CourseraTasks
                 }
             }
 
-            var components = SCCCalculator.GetSCCs(adjacencyList).ToArray();
+            var calculator = new SCCCalculator(adjacencyList);
+
+            var components = calculator.GetSCCs().ToArray();
             var top5Components = components.OrderByDescending(x => x.Length).Take(5).ToArray();
             var result = string.Join(",", top5Components.Select(x => x.Length));
             outputReader.WriteLine(result);
