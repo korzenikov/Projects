@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
-namespace CourseraTasks
+namespace CourseraTasks.CSharp
 {
     public class MinCut
     {

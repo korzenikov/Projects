@@ -68,6 +68,10 @@
     <Compile Include="SCCCalculatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CourseraTasks.CSharp\CourseraTasks.CSharp.csproj">
+      <Project>{3a7e7cd8-d703-4487-9279-f5bf3751711e}</Project>
+      <Name>CourseraTasks.CSharp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CourseraTasks\CourseraTasks.csproj">
       <Project>{0582374e-ed58-417d-b23e-6e186c954076}</Project>
       <Name>CourseraTasks</Name>

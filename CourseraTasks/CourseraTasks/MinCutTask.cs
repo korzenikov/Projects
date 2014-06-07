@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseraTasks.CSharp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,25 +8,29 @@ namespace CourseraTasks
 {
     public class MinCutTask
     {
-        public void Run(TextReader inputReader, TextWriter outputReader)
+        public void Run()
         {
-            var adjacencyList = new List<HashSet<int>>();
-            while (true)
+            using (var reader = new StreamReader("kargerMinCut.txt"))
+            using (var writer = new StreamWriter("output.txt"))
             {
-                string row = inputReader.ReadLine();
-                if (row == null)
+                var adjacencyList = new List<HashSet<int>>();
+                while (true)
                 {
-                    break;
+                    string row = reader.ReadLine();
+                    if (row == null)
+                    {
+                        break;
+                    }
+
+                    var parts = row.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    var numbers = parts.Skip(1).Select(x => int.Parse(x) - 1).ToArray();
+
+                    adjacencyList.Add(new HashSet<int>(numbers));
                 }
 
-                var parts = row.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                var numbers = parts.Skip(1).Select(x => int.Parse(x) - 1).ToArray();
-
-                adjacencyList.Add(new HashSet<int>(numbers));
+                int result = MinCut.GetMinCutN(adjacencyList.ToArray(), 50000);
+                writer.WriteLine(result);
             }
-
-            int result = MinCut.GetMinCutN(adjacencyList.ToArray(), 50000);
-            outputReader.WriteLine(result);
         }
     }
 }

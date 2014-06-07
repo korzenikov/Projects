@@ -11,6 +11,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpTasks", "FSharpTasks\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CourseraTasks.FSharp", "CourseraTasks.FSharp\CourseraTasks.FSharp.fsproj", "{D13749DB-B29E-47F8-AC2E-7B5EC71DD6C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseraTasks.CSharp", "CourseraTasks.CSharp\CourseraTasks.CSharp.csproj", "{3A7E7CD8-D703-4487-9279-F5BF3751711E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D13749DB-B29E-47F8-AC2E-7B5EC71DD6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D13749DB-B29E-47F8-AC2E-7B5EC71DD6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D13749DB-B29E-47F8-AC2E-7B5EC71DD6C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A7E7CD8-D703-4487-9279-F5BF3751711E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A7E7CD8-D703-4487-9279-F5BF3751711E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A7E7CD8-D703-4487-9279-F5BF3751711E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A7E7CD8-D703-4487-9279-F5BF3751711E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
