@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CourseraTasks.CSharp
 {
@@ -15,6 +11,7 @@ namespace CourseraTasks.CSharp
         }
 
         public ICollection<int> OutEdges { get; private set; }
+
         public ICollection<int> InEdges { get; private set; }
     }
 }

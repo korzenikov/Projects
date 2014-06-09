@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks.CSharp
 {
@@ -17,10 +13,9 @@ namespace CourseraTasks.CSharp
         {
             return SortAndCountInternal(array, 0, array.Length - 1, pivotSelector);
         }
-        
-        public static int Partition(int[] array, int l, int r, Func<int[],int,int,int> pivotSelector)
+
+        public static int Partition(int[] array, int l, int r, Func<int[], int, int, int> pivotSelector)
         {
-            var length = r - l + 1;
             var pivot = pivotSelector(array, l, r);
             Swap(array, pivot, l);
             int j = l + 1;
@@ -63,7 +58,7 @@ namespace CourseraTasks.CSharp
 
         public static int GetMedian(int[] array, int l, int r)
         {
-            int mid =  l + (r - l + 1) / 2 - 1 + (r - l + 1) % 2;
+            int mid = l + (r - l + 1) / 2 - 1 + (r - l + 1) % 2;
             if (array[l] < array[mid])
             {
                if (array[mid] < array[r])
