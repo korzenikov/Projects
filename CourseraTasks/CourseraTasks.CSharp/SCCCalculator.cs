@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks.CSharp
 {
-    public class SCCCalculator
+    public class SccCalculator
     {
-        private ISet<int> _exploredNodes;
-        private Node[] _adjacencyList;
+        private readonly Node[] _adjacencyList;
 
-        public SCCCalculator(Node[] adjacencyList)
+        private readonly ISet<int> _exploredNodes;
+
+        public SccCalculator(Node[] adjacencyList)
         {
             _adjacencyList = adjacencyList;
             _exploredNodes = new HashSet<int>();
         }
 
-        public IEnumerable<int[]> GetSCCs()
+        public IEnumerable<int[]> GetSccs()
         {
             var nodes = DepthFirstSeachLoop(Enumerable.Range(0, _adjacencyList.Length), true).SelectMany(x => x).Reverse().ToArray();
             return DepthFirstSeachLoop(nodes, false);
@@ -25,14 +23,16 @@ namespace CourseraTasks.CSharp
 
         public IEnumerable<int[]> DepthFirstSeachLoop(IEnumerable<int> nodes, bool reverse)
         {
-            _exploredNodes = new HashSet<int>();
+            _exploredNodes.Clear();
             foreach (var node in nodes)
             {
-                if (!_exploredNodes.Contains(node))
+                if (_exploredNodes.Contains(node))
                 {
-                    var result = DepthFirstSeach(node, reverse).ToArray();
-                    yield return result;
+                    continue;
                 }
+
+                var result = DepthFirstSeach(node, reverse).ToArray();
+                yield return result;
             }
         }
 
@@ -63,6 +63,5 @@ namespace CourseraTasks.CSharp
                 }
             }
         }
-
     }
 }
