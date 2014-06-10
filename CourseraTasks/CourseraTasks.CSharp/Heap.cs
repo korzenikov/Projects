@@ -1,18 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CourseraTasks.CSharp
 {
-    using System.Linq;
-
     public abstract class Heap<T>
     {
-        protected Heap()
-        {
-        }
-
         protected List<T> Values { get; set; }
-
-        public abstract void Insert(T value);
 
         public T Top()
         {
@@ -28,6 +21,13 @@ namespace CourseraTasks.CSharp
             return max;
         }
 
+        public void Insert(T value)
+        {
+            Values.Add(value);
+            BubbleUp(Values.Count - 1);
+        }
+
+
         protected void Build(IEnumerable<T> values)
         {
             Values = values.ToList();
@@ -38,6 +38,8 @@ namespace CourseraTasks.CSharp
         }
 
         protected abstract void Heapify(int i);
+
+        protected abstract bool ShouldBeHigher(int i, int j);
 
         protected int Parent(int i)
         {
@@ -59,6 +61,16 @@ namespace CourseraTasks.CSharp
             T temp = Values[i];
             Values[i] = Values[j];
             Values[j] = temp;
+        }
+
+        private void BubbleUp(int i)
+        {
+            while (i > 0 && ShouldBeHigher(i, Parent(i)))
+            {
+                var parent = Parent(i);
+                SwapElements(i, parent);
+                i = parent;
+            }
         }
     }
 }

@@ -13,12 +13,6 @@ namespace CourseraTasks.CSharp
             return heap;
         }
 
-        public override void Insert(T value)
-        {
-            Values.Add(value);
-            BubbleUp(Values.Count - 1);
-        }
-
         protected override void Heapify(int i)
         {
             int l = Left(i);
@@ -36,14 +30,9 @@ namespace CourseraTasks.CSharp
             }
         }
 
-        private void BubbleUp(int i)
+        protected override bool ShouldBeHigher(int i, int j)
         {
-            while (i > 0 && Values[Parent(i)].CompareTo(Values[i]) < 0)
-            {
-                var parent = Parent(i);
-                SwapElements(i, parent);
-                i = parent;
-            }
+            return Values[i].CompareTo(Values[j]) > 0;
         }
     }
 }
