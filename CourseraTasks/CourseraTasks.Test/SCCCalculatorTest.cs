@@ -13,7 +13,7 @@ namespace CourseraTasks.Test
     public class SccCalculatorTest
     {
         [TestMethod]
-        public void DepthFirstSeachTest()
+        public void DepthFirstSearchTest()
         {
             var adjacencyList = new[]
                 {
