@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CourseraTasks.CSharp
@@ -30,6 +31,15 @@ namespace CourseraTasks.CSharp
         {
             _values.Add(value);
             BubbleUp(_values.Count - 1);
+        }
+
+        public void ChangeKey(int i, T value)
+        {
+            if (ShouldBeHigher(_values[i], value))
+                throw new ArgumentException("Cannot assign this value to specified element", "value");
+
+            _values[i] = value;
+            BubbleUp(i);
         }
 
         protected abstract bool ShouldBeHigher(T element1, T element2);
