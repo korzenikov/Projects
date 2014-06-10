@@ -7,7 +7,7 @@ namespace CourseraTasks
     {
         public static void Main(string[] args)
         {
-            var task = new SCCCalculatorTask();
+            var task = new SccCalculatorTask();
             task.Run();
         }
     }

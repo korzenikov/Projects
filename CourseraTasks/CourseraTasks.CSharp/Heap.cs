@@ -2,14 +2,42 @@
 
 namespace CourseraTasks.CSharp
 {
+    using System.Linq;
+
     public abstract class Heap<T>
     {
-        protected List<T> Values { get; set; }
-
         protected Heap()
         {
-            Values = new List<T>(); 
         }
+
+        protected List<T> Values { get; set; }
+
+        public abstract void Insert(T value);
+
+        public T Top()
+        {
+            return Values[0];
+        }
+
+        public T ExtractTop()
+        {
+            T max = Values[0];
+            Values[0] = Values[Values.Count - 1];
+            Values.RemoveAt(Values.Count - 1);
+            Heapify(0);
+            return max;
+        }
+
+        protected void Build(IEnumerable<T> values)
+        {
+            Values = values.ToList();
+            for (int i = Values.Count / 2; i >= 0; i--)
+            {
+                Heapify(i);
+            }
+        }
+
+        protected abstract void Heapify(int i);
 
         protected int Parent(int i)
         {
@@ -26,10 +54,11 @@ namespace CourseraTasks.CSharp
             return 2 * i + 2;
         }
 
-        public abstract void Build(IEnumerable<T> values);
-
-        public abstract void Insert(T value);
-
-        public abstract void Remove(T value);
+        protected void SwapElements(int i, int j)
+        {
+            T temp = Values[i];
+            Values[i] = Values[j];
+            Values[j] = temp;
+        }
     }
 }

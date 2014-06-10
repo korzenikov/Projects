@@ -1,14 +1,12 @@
-﻿using CourseraTasks.CSharp;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class SCCCalculatorTask
+    public class SccCalculatorTask
     {
         public void Run()
         {
@@ -42,9 +40,9 @@ namespace CourseraTasks
                     }
                 }
 
-                var calculator = new SCCCalculator(adjacencyList);
+                var calculator = new SccCalculator(adjacencyList);
 
-                var components = calculator.GetSCCs().ToArray();
+                var components = calculator.GetSccs().ToArray();
                 var top5Components = components.OrderByDescending(x => x.Length).Take(5).ToArray();
                 var result = string.Join(",", top5Components.Select(x => x.Length));
                 writer.WriteLine(result);
