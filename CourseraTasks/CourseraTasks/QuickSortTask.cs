@@ -1,7 +1,8 @@
-﻿using CourseraTasks.CSharp;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
+using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {

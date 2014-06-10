@@ -15,7 +15,7 @@ namespace CourseraTasks.Test
         public void MaximumTest()
         {
             const int N = 100;
-            var minHeap = MaxHeap<int>.Create(Enumerable.Range(0, N));
+            var minHeap = new MaxHeap<int>(Enumerable.Range(0, N));
 
             for (int i = 0; i < N; i++)
             {

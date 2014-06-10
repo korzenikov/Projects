@@ -5,67 +5,86 @@ namespace CourseraTasks.CSharp
 {
     public abstract class Heap<T>
     {
-        protected List<T> Values { get; set; }
+        private List<T> _values;
+
+        protected Heap(IEnumerable<T> values)
+        {
+            Build(values);
+        }
 
         public T Top()
         {
-            return Values[0];
+            return _values[0];
         }
 
         public T ExtractTop()
         {
-            T max = Values[0];
-            Values[0] = Values[Values.Count - 1];
-            Values.RemoveAt(Values.Count - 1);
+            T max = _values[0];
+            _values[0] = _values[_values.Count - 1];
+            _values.RemoveAt(_values.Count - 1);
             Heapify(0);
             return max;
         }
 
         public void Insert(T value)
         {
-            Values.Add(value);
-            BubbleUp(Values.Count - 1);
+            _values.Add(value);
+            BubbleUp(_values.Count - 1);
         }
 
+        protected abstract bool ShouldBeHigher(T element1, T element2);
 
-        protected void Build(IEnumerable<T> values)
+        private static int Parent(int i)
         {
-            Values = values.ToList();
-            for (int i = Values.Count / 2; i >= 0; i--)
+            return (i + 1) / 2 - 1;
+        }
+
+        private static int Left(int i)
+        {
+            return 2 * i + 1;
+        }
+
+        private static int Right(int i)
+        {
+            return 2 * i + 2;
+        }
+
+        private void SwapElements(int i, int j)
+        {
+            T temp = _values[i];
+            _values[i] = _values[j];
+            _values[j] = temp;
+        }
+
+        private void Build(IEnumerable<T> values)
+        {
+            _values = values.ToList();
+            for (int i = _values.Count / 2; i >= 0; i--)
             {
                 Heapify(i);
             }
         }
 
-        protected abstract void Heapify(int i);
-
-        protected abstract bool ShouldBeHigher(int i, int j);
-
-        protected int Parent(int i)
+        private void Heapify(int i)
         {
-            return (i + 1) / 2 - 1;
-        }
-
-        protected int Left(int i)
-        {
-            return 2 * i + 1;
-        }
-
-        protected int Right(int i)
-        {
-            return 2 * i + 2;
-        }
-
-        protected void SwapElements(int i, int j)
-        {
-            T temp = Values[i];
-            Values[i] = Values[j];
-            Values[j] = temp;
+            int l = Left(i);
+            int r = Right(i);
+            int indexOfElementToElevate;
+            if (l < _values.Count && ShouldBeHigher(_values[l], _values[i]))
+                indexOfElementToElevate = l;
+            else indexOfElementToElevate = i;
+            if (r < _values.Count && ShouldBeHigher(_values[r], _values[indexOfElementToElevate]))
+                indexOfElementToElevate = r;
+            if (indexOfElementToElevate != i)
+            {
+                SwapElements(i, indexOfElementToElevate);
+                Heapify(indexOfElementToElevate);
+            }
         }
 
         private void BubbleUp(int i)
         {
-            while (i > 0 && ShouldBeHigher(i, Parent(i)))
+            while (i > 0 && ShouldBeHigher(_values[i], _values[Parent(i)]))
             {
                 var parent = Parent(i);
                 SwapElements(i, parent);

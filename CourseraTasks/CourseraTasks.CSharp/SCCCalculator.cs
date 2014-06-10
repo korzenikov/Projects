@@ -31,12 +31,12 @@ namespace CourseraTasks.CSharp
                     continue;
                 }
 
-                var result = DepthFirstSeach(node, reverse).ToArray();
+                var result = DepthFirstSearch(node, reverse).ToArray();
                 yield return result;
             }
         }
 
-        public IEnumerable<int> DepthFirstSeach(int startNode, bool reversed)
+        public IEnumerable<int> DepthFirstSearch(int startNode, bool reversed)
         {
             var nodesToVisit = new Stack<int>();
             nodesToVisit.Push(startNode);

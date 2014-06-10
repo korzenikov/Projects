@@ -15,7 +15,7 @@ namespace CourseraTasks.Test
         public void MinimumTest()
         {
             const int N = 100;
-            var minHeap = MinHeap<int>.Create(Enumerable.Range(0, N).Reverse());
+            var minHeap = new MinHeap<int>(Enumerable.Range(0, N).Reverse());
 
             for (int i = 0; i < N; i++)
             {

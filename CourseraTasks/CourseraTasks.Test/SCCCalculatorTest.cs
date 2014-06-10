@@ -22,18 +22,18 @@ namespace CourseraTasks.Test
             var nodes = GetNodes(adjacencyList);
 
             var calculator1 = new SccCalculator(nodes);
-            IEnumerable<int> vertices1 = calculator1.DepthFirstSeach(0, true);
+            IEnumerable<int> vertices1 = calculator1.DepthFirstSearch(0, true);
             vertices1.Should().HaveCount(9);
 
             var calculator2 = new SccCalculator(nodes);
-            IEnumerable<int> vertices2 = calculator2.DepthFirstSeach(1, true);
+            IEnumerable<int> vertices2 = calculator2.DepthFirstSearch(1, true);
             vertices2.Should().HaveCount(3);
 
             var adjacencyList2 = new[] { new[] { 1, 2 }, new int[] { }, new[] { 1 }, };
 
             var nodes2 = GetNodes(adjacencyList2);
             var calculator3 = new SccCalculator(nodes2);
-            IEnumerable<int> vertices3 = calculator3.DepthFirstSeach(0, false);
+            IEnumerable<int> vertices3 = calculator3.DepthFirstSearch(0, false);
             vertices3.Should().HaveCount(3);
         }
 
@@ -70,7 +70,7 @@ namespace CourseraTasks.Test
             components[2].Should().BeEquivalentTo(new[] { 7, 1, 4 });
         }
 
-        private Node[] GetNodes(int[][] adjacencyList)
+        private static Node[] GetNodes(int[][] adjacencyList)
         {            
             var nodes = new Node[adjacencyList.Length];
 
