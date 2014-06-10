@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Edge.cs" />
+    <Compile Include="DirectedWeightedGraph.cs" />
     <Compile Include="Heap.cs" />
     <Compile Include="MaxHeap.cs" />
     <Compile Include="MergeSort.cs" />

@@ -15,4 +15,18 @@ namespace CourseraTasks.CSharp
             return element1.CompareTo(element2) < 0;
         }
     }
+
+    public class MinHeap<TKey, TValue> : Heap<TKey, TValue>
+        where TKey : IComparable<TKey>
+    {
+        public MinHeap(IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
+            : base(keyValuePairs)
+        {
+        }
+
+        protected override bool ShouldBeHigher(TKey key1, TKey key2)
+        {
+            return key1.CompareTo(key2) < 0;
+        }
+    }
 }

@@ -10,10 +10,15 @@ namespace CourseraTasks.Test
     public class ShortestPathFinderTest
     {
         [TestMethod]
-        public void DepthFirstSeachTest()
+        public void FindTest()
         {
-            var edges = new[] { new Edge(0, 1, 1), new Edge(0, 2, 4), new Edge(1, 3, 6), new Edge(2, 3, 3) };
-            var nodes = ShortestPathFinder.Find(edges, 0);
+            var graph = new DirectedWeightedGraph(4);
+            graph.AddEdge(0, 1, 1);
+            graph.AddEdge(0, 2, 4);
+            graph.AddEdge(1, 2, 2);
+            graph.AddEdge(1, 3, 6);
+            graph.AddEdge(2, 3, 3);
+            var nodes = ShortestPathFinder.Find(graph, 0);
             nodes.Should().Equal(new[] { 0, 1, 3, 6 });
         }
     }

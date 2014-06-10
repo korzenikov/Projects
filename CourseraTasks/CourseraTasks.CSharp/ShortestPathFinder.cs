@@ -5,20 +5,38 @@ namespace CourseraTasks.CSharp
 {
     public class ShortestPathFinder
     {
-        public static IEnumerable<int> Find(IEnumerable<Edge> edges, int source)
+        public static IEnumerable<int> Find(DirectedWeightedGraph graph, int source)
         {
-            var dist = new Dictionary<int, int>();
+            var dist = new int[graph.Nodes.Count];
             dist[source] = 0;
-            var vertices = edges.SelectMany(edge => new[] { edge.From, edge.To }).Distinct().ToArray();
-            foreach (var vertex in vertices)
+            for (int i = 0; i < dist.Length; i++)
             {
-                if (vertex != source)
+                if (i != source)
                 {
-                    dist[vertex] = int.MaxValue;
+                    dist[i] = int.MaxValue;
                 }
             }
 
-            return Enumerable.Empty<int>();
+            var closestNodes = new MinHeap<int, int>(dist.Select((d, i) => new KeyValuePair<int, int>(d, i)));
+            var exploredNodes = new HashSet<int>();
+
+            while (!closestNodes.IsEmpty)
+            {
+                var node = closestNodes.ExtractTop();
+                exploredNodes.Add(node);
+                foreach (var edge in graph.Nodes[node].Edges.Where(e => !exploredNodes.Contains(e.Node)))
+                {
+                    var alt = dist[node] + edge.Weight;
+                    if (alt < dist[edge.Node])
+                    {
+                        dist[edge.Node] = alt;
+                        closestNodes.ChangeKey(edge.Node, alt);
+                    }
+                
+                }
+            }
+
+            return dist;
         }
     }
 }
