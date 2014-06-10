@@ -36,7 +36,7 @@ namespace CourseraTasks.Test
 
             var pivot3 = QuickSort.Partition(array3, 0, array3.Length - 1, QuickSort.GetMedian);
 
-            var expected3 = new[]  { 2, 1, 5, 7, 6 };
+            var expected3 = new[] { 2, 1, 5, 7, 6 };
 
             pivot3.Should().Be(2);
 
