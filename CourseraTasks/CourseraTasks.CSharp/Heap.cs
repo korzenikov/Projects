@@ -13,9 +13,25 @@ namespace CourseraTasks.CSharp
             Build(values);
         }
 
-        public T Top()
+        public Heap()
         {
-            return _values[0];
+            _values = new List<T>();
+        }
+
+        public int Count 
+        { 
+            get
+            {
+                return _values.Count;
+            }
+        }
+
+        public T Top
+        {
+            get
+            {
+                return _values[0];
+            }
         }
 
         public T ExtractTop()

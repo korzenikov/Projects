@@ -44,6 +44,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Heap.cs" />
     <Compile Include="MaxHeap.cs" />
+    <Compile Include="MedianMaintenance.cs" />
     <Compile Include="MergeSort.cs" />
     <Compile Include="MinCut.cs" />
     <Compile Include="MinHeap.cs" />

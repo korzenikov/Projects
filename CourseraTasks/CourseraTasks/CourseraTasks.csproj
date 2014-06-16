@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MedianMaintenanceTask.cs" />
     <Compile Include="MergeSortTask.cs" />
     <Compile Include="MinCutTask.cs" />
     <Compile Include="Program.cs" />

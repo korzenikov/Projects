@@ -9,6 +9,11 @@ namespace CourseraTasks.CSharp
         public MaxHeap(IEnumerable<T> values) : base(values)
         {
         }
+
+        public MaxHeap() : base()
+        {
+            
+        }
         
         protected override bool ShouldBeHigher(T element1, T element2)
         {

@@ -7,7 +7,7 @@ namespace CourseraTasks
     {
         public static void Main(string[] args)
         {
-            var task = new ShortestPathFinderTask();
+            var task = new MedianMaintenanceTask();
             task.Run();
         }
     }

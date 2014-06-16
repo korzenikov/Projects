@@ -59,6 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MedianMaintenanceTest.cs" />
     <Compile Include="MergeSortTest.cs" />
     <Compile Include="MaxHeapTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

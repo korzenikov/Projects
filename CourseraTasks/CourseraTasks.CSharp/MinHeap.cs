@@ -10,6 +10,10 @@ namespace CourseraTasks.CSharp
         {
         }
 
+        public MinHeap() : base()
+        {
+        }
+
         protected override bool ShouldBeHigher(T element1, T element2)
         {
             return element1.CompareTo(element2) < 0;
