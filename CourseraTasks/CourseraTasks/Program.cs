@@ -7,7 +7,7 @@ namespace CourseraTasks
     {
         public static void Main(string[] args)
         {
-            var task = new MedianMaintenanceTask();
+            var task = new TwoSumAlgorithmTask();
             task.Run();
         }
     }

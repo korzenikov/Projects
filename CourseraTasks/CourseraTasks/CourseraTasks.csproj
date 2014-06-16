@@ -51,6 +51,7 @@
     <Compile Include="QuickSortTask.cs" />
     <Compile Include="SccCalculatorTask.cs" />
     <Compile Include="ShortestPathFinderTask.cs" />
+    <Compile Include="TwoSumAlgorithmTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

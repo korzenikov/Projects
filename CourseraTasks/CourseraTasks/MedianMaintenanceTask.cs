@@ -13,8 +13,8 @@ namespace CourseraTasks
         public void Run()
         {
             using (var reader = new StreamReader("Median.txt"))
-            using (var writer = Console.Out)
-            //using (var writer = new StreamWriter("output.txt"))
+            //using (var writer = Console.Out)
+            using (var writer = new StreamWriter("output.txt"))
             {
                 var numbers = GetNumbers(reader);
                 var sum = MedianMaintenance.GetMedians(numbers).Sum() % 10000;

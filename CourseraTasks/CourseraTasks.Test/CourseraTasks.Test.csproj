@@ -68,6 +68,7 @@
     <Compile Include="SccCalculatorTest.cs" />
     <Compile Include="MinHeapTest.cs" />
     <Compile Include="ShortestPathFinderTest.cs" />
+    <Compile Include="TwoSumAlgorithmTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseraTasks.CSharp\CourseraTasks.CSharp.csproj">
