@@ -124,13 +124,14 @@ let distance (p1: int[]) (p2: int[]) = (squaredDiffs p1 p2) |> Array.sum
 // Suppose we have an Array of Example:
 // </F# QUICK-STARTER>  
  
+let K = 1
 
  // The classifier function should probably
 // look like this - except that this one will
 // classify everything as a 0:
 let classify (unknown:int[]) =
-    examples |> Array.minBy (fun x -> distance x.Pixels unknown) |> (fun x -> x.Label)
- 
+    let decisions = examples |> Seq.sortBy (fun x -> distance x.Pixels unknown) |> Seq.take K |> Seq.map (fun x -> x.Label)
+    decisions |> Seq.groupBy (fun x -> x) |> Seq.maxBy (fun (key, values) -> Seq.length values) |> (fun (key, values) -> key)
 // [ YOUR CODE GOES HERE! ]
  
  
