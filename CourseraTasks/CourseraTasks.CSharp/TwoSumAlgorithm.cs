@@ -1,27 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks.CSharp
 {
     public class TwoSumAlgorithm
     {
-        private HashSet<long> _numbersSet;
-        private long[] _numbers;
+        private readonly HashSet<long> _numbersSet;
+        private readonly long[] _numbers;
 
         public TwoSumAlgorithm(IEnumerable<long> numbers)
         {
             _numbers = numbers.Distinct().ToArray();
+            Array.Sort(_numbers);
             _numbersSet = new HashSet<long>(_numbers);
         }
 
         public bool CheckSum(long sum)
         {
-            foreach (var number in _numbers)
+            var lastIndex = Array.BinarySearch(_numbers, sum);
+            if (lastIndex < 0)
             {
-                var complementaryValue = sum -  number;
+                lastIndex = ~lastIndex;
+            }
+
+            for (int index = 0; index < lastIndex; index++)
+            {
+                var number = _numbers[index];
+                var complementaryValue = sum - number;
                 if (number != complementaryValue && _numbersSet.Contains(complementaryValue))
                 {
                     return true;
@@ -29,6 +35,33 @@ namespace CourseraTasks.CSharp
             }
 
             return false;
+        }
+
+        public int CheckSequence(long from, long to)
+        {
+            int count = 0;
+            int lastIndex = 0;
+            for (long sum = from; sum < to; sum++)
+            {
+                lastIndex = Array.BinarySearch(_numbers, lastIndex, _numbers.Length - lastIndex, sum);
+                if (lastIndex < 0)
+                {
+                    lastIndex = ~lastIndex;
+                }
+
+                for (int index = 0; index < lastIndex; index++)
+                {
+                    var number = _numbers[index];
+                    var complementaryValue = sum - number;
+                    if (number != complementaryValue && _numbersSet.Contains(complementaryValue))
+                    {
+                        count++;
+                        break;
+                    }
+                }
+            }
+
+            return count;
         }
     }
 }   
