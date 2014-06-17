@@ -1,11 +1,9 @@
-﻿using CourseraTasks.CSharp;
-using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
@@ -14,7 +12,6 @@ namespace CourseraTasks
         public void Run()
         {
             using (var reader = new StreamReader("algo1-programming_prob-2sum.txt"))
-            //using (var writer = Console.Out)
             using (var writer = new StreamWriter("output.txt"))
             {
                 var numbers = GetNumbers(reader);
