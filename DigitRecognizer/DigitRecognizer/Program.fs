@@ -21,9 +21,6 @@
 // syntax which could come in handy. Run them,
 // see what happens, and tweak them to fit your goals!
 
-  
-
-  
 open System
 open System.IO
 
@@ -33,11 +30,8 @@ open System.IO
  
 let path = "D:\\trainingsample.csv"
 
-let strings  = File.ReadAllLines(path)
+let strings = File.ReadAllLines(path)
 
-
- 
- 
 // 2. EXTRACTING COLUMNS
  
 // Break each line of the file into an array of string,
@@ -69,9 +63,6 @@ let convertedRow row = row |> Array.map convert
  
 let integerRows = rows |> Array.map convertedRow
  
-// [ YOUR CODE GOES HERE! ]
- 
- 
 // 5. CONVERTING ARRAYS TO RECORDS
  
 // Rather than dealing with a raw array of ints,
@@ -88,9 +79,6 @@ let example (row:int[]) = { Label = row.[0]; Pixels = row.[1..]}
  
 let examples = integerRows |> Array.map example
 
-// [ YOUR CODE GOES HERE! ]
- 
- 
 // 6. COMPUTING DISTANCES
  
 // We need to compute the distance between images
@@ -113,15 +101,14 @@ let map2PointsExample (P1: int[]) (P2: int[]) =
     Array.map2 (fun p1 p2 -> p1 + p2) P1 P2
 // </F# QUICK-STARTER>  
 
+let squaredDiffs (P1: int[]) (P2: int[]) = 
+    Array.map2 (fun p1 p2 -> (p1 - p2)*(p1 - p2)) P1 P2
 
 // Having a function like
-let distance (p1: int[]) (p2: int[]) = 42
+let distance (p1: int[]) (p2: int[]) = (squaredDiffs p1 p2) |> Array.sum
 // would come in very handy right now,
 // except that in this case, 
 // 42 is likely not the right answer
- 
-// [ YOUR CODE GOES HERE! ]
- 
  
 // 7. WRITING THE CLASSIFIER FUNCTION
  
@@ -135,25 +122,6 @@ let distance (p1: int[]) (p2: int[]) = 42
 // Array.minBy can be handy here, to find
 // the closest element in the Array of examples.
 // Suppose we have an Array of Example:
-let someData = 
-    [| { Label = 0; Pixels = [| 0; 1 |] };
-       { Label = 1; Pixels = [| 9; 2 |] };
-       { Label = 2; Pixels = [| 3; 4 |] }; |]
-// We can find for instance 
-// the element with largest first pixel
-let findThatGuy = 
-    someData 
-    |> Array.maxBy (fun x -> x.Pixels.[0])
-// </F# QUICK-STARTER> 
-
- 
-// <F# QUICK-STARTER> 
-// F# and closures work very well together
-let immutableValue = 42
-let functionWithClosure (x: int) =
-    if x > immutableValue // using outside value
-    then true
-    else false
 // </F# QUICK-STARTER>  
  
 
@@ -161,13 +129,7 @@ let functionWithClosure (x: int) =
 // look like this - except that this one will
 // classify everything as a 0:
 let classify (unknown:int[]) =
-    // do something smart here
-    // like find the Example with
-    // the shortest distance to
-    // the unknown element...
-    // and use the training examples
-    // in a closure...
-    0 
+    examples |> Array.minBy (fun x -> distance x.Pixels unknown) |> (fun x -> x.Label)
  
 // [ YOUR CODE GOES HERE! ]
  
@@ -185,6 +147,25 @@ let classify (unknown:int[]) =
 // whether your classifier returns the correct answer,
 // and compute the % correctly predicted.
  
+let path2 = "D:\\validationsample.csv"
+
+let allRows2 = File.ReadAllLines(path2) |> Array.map split 
+
+let rows2 = allRows2.[1 .. ]
+ 
+let integerRows2 = rows2 |> Array.map convertedRow
+ 
+let validationSamples = integerRows2 |> Array.map example
+
+let actualLabels = validationSamples |> Array.map (fun sample -> classify sample.Pixels) 
+
+let expectedLabels = validationSamples |> Array.map (fun sample -> sample.Label)
+
+let comparisons = Array.map2 (fun expected actual -> expected = actual) expectedLabels actualLabels
+
+let percentage = Convert.ToDouble((comparisons |> Array.filter (fun p -> p)).Length) / Convert.ToDouble(comparisons.Length)
+
+printfn "%A" (percentage * 100.0)
  
 // [ YOUR CODE GOES HERE! ]
 //[<EntryPoint>]
