@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -13,7 +14,7 @@ namespace CourseraTasks
             using (var reader = new StreamReader("dijkstraData.txt"))
             using (var writer = new StreamWriter("output.txt"))
             {
-                var graph = new DirectedWeightedGraph(200);
+                var graph = new DirectedWeightedGraph();
                 while (true)
                 {
                     string row = reader.ReadLine();
@@ -23,12 +24,12 @@ namespace CourseraTasks
                     }
 
                     var parts = row.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    var from = int.Parse(parts[0]) - 1;
+                    var from = int.Parse(parts[0], CultureInfo.InvariantCulture) - 1;
                     foreach (var part in parts.Skip(1))
                     {
-                        var tuple = part.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
-                        var to = int.Parse(tuple[0]) - 1;
-                        var weight = int.Parse(tuple[1]);
+                        var tuple = part.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        var to = int.Parse(tuple[0], CultureInfo.InvariantCulture) - 1;
+                        var weight = int.Parse(tuple[1], CultureInfo.InvariantCulture);
                         graph.AddEdge(from, to, weight);
                     }
                 }

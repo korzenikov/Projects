@@ -1,8 +1,10 @@
-﻿using CourseraTasks.CSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+
+using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
@@ -23,7 +25,7 @@ namespace CourseraTasks
                     }
 
                     var parts = row.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    var numbers = parts.Skip(1).Select(x => int.Parse(x) - 1).ToArray();
+                    var numbers = parts.Skip(1).Select(x => int.Parse(x, CultureInfo.InvariantCulture) - 1).ToArray();
 
                     adjacencyList.Add(new HashSet<int>(numbers));
                 }

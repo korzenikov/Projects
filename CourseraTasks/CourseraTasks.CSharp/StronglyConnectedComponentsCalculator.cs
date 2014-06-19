@@ -3,25 +3,25 @@ using System.Linq;
 
 namespace CourseraTasks.CSharp
 {
-    public class SccCalculator
+    public class StronglyConnectedComponentsCalculator
     {
-        private readonly Node[] _adjacencyList;
+        private readonly DirectedGraph _graph;
 
         private readonly ISet<int> _exploredNodes;
 
-        public SccCalculator(Node[] adjacencyList)
+        public StronglyConnectedComponentsCalculator(DirectedGraph graph)
         {
-            _adjacencyList = adjacencyList;
+            _graph = graph;
             _exploredNodes = new HashSet<int>();
         }
 
-        public IEnumerable<int[]> GetSccs()
+        public IEnumerable<int[]> GetStronglyConnectedComponents()
         {
-            var nodes = DepthFirstSeachLoop(Enumerable.Range(0, _adjacencyList.Length), true).SelectMany(x => x).Reverse().ToArray();
-            return DepthFirstSeachLoop(nodes, false);
+            var nodes = DepthFirstSearchLoop(Enumerable.Range(0, _graph.NodesCount), true).SelectMany(x => x).Reverse().ToArray();
+            return DepthFirstSearchLoop(nodes, false);
         }
 
-        public IEnumerable<int[]> DepthFirstSeachLoop(IEnumerable<int> nodes, bool reverse)
+        public IEnumerable<int[]> DepthFirstSearchLoop(IEnumerable<int> nodes, bool reverse)
         {
             _exploredNodes.Clear();
             foreach (var node in nodes)
@@ -45,7 +45,7 @@ namespace CourseraTasks.CSharp
             {
                 var node = nodesToVisit.Peek();
 
-                var adjacentNodes = reversed ? _adjacencyList[node].InEdges : _adjacencyList[node].OutEdges;
+                var adjacentNodes = reversed ? _graph.GetInNodes(node) : _graph.GetOutNodes(node);
                 var unexploredAdjacentNodes = adjacentNodes.Where(x => !_exploredNodes.Contains(x)).ToArray();
 
                 if (unexploredAdjacentNodes.Length == 0)

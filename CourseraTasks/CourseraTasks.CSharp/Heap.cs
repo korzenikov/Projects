@@ -13,7 +13,7 @@ namespace CourseraTasks.CSharp
             Build(values);
         }
 
-        public Heap()
+        protected Heap()
         {
             _values = new List<T>();
         }

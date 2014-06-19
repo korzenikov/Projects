@@ -12,7 +12,7 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void FindTest()
         {
-            var graph = new DirectedWeightedGraph(4);
+            var graph = new DirectedWeightedGraph();
             graph.AddEdge(0, 1, 1);
             graph.AddEdge(0, 2, 4);
             graph.AddEdge(1, 2, 2);

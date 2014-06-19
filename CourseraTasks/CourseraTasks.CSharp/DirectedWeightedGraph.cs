@@ -1,48 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks.CSharp
 {
     public class DirectedWeightedGraph
     {
-        private Node[] _nodes;
+        private readonly List<Node> _nodes;
 
-        public DirectedWeightedGraph(int nodesCount)
+        public DirectedWeightedGraph()
         {
-            _nodes = new Node[nodesCount];
-            for (int i = 0; i < nodesCount; i++)
-            {
-                _nodes[i] = new Node();
-            }
+            _nodes = new List<Node>();
         }
 
-        public ReadOnlyCollection<Node> Nodes
+        public int NodesCount
         {
             get
             {
-                return new ReadOnlyCollection<Node>(_nodes);
+                return _nodes.Count;
             }
         }
 
         public void AddEdge(int from, int to, int weight)
         {
-            _nodes[from].AddEdge(to, weight);
+            var node = GetOrCreateNode(from);
+            GetOrCreateNode(to);
+            node.AddEdge(to, weight);
         }
 
-        public class Node
+        public IEnumerable<WeightedEdge> GetEdges(int node)
         {
-            private  List<WeightedEdge> _edges;
+            return _nodes[node].Edges;
+        }
+
+        private Node GetOrCreateNode(int nodeIndex)
+        {
+            var missedNodesCount = nodeIndex - _nodes.Count + 1;
+            for (int i = 0; i < missedNodesCount; i++)
+            {
+                _nodes.Add(new Node());
+            }
+
+            return _nodes[nodeIndex];
+        }
+
+        private class Node
+        {
+            private readonly List<WeightedEdge> _edges;
 
             public Node()
-	        {
+            {
                 _edges = new List<WeightedEdge>();
             }
             
-            public ReadOnlyCollection<WeightedEdge> Edges 
+            public IEnumerable<WeightedEdge> Edges 
             { 
                 get 
                 {
@@ -53,20 +63,6 @@ namespace CourseraTasks.CSharp
             public void AddEdge(int to, int weight)
             {
                 _edges.Add(new WeightedEdge(to, weight));
-            }
-
-            public class WeightedEdge
-            {
-                public WeightedEdge (int node, int weight)
-	            {
-                    Node = node;
-                    Weight = weight;
-                }
-
-                public int Node { get; private set; }
-
-                public int Weight { get; private set; }
-        
             }
         }
     }

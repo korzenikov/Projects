@@ -7,7 +7,7 @@ namespace CourseraTasks.CSharp
     {
         public static IEnumerable<int> Find(DirectedWeightedGraph graph, int source)
         {
-            var dist = new int[graph.Nodes.Count];
+            var dist = new int[graph.NodesCount];
             dist[source] = 0;
             for (int i = 0; i < dist.Length; i++)
             {
@@ -24,15 +24,14 @@ namespace CourseraTasks.CSharp
             {
                 var node = closestNodes.ExtractTop();
                 exploredNodes.Add(node);
-                foreach (var edge in graph.Nodes[node].Edges.Where(e => !exploredNodes.Contains(e.Node)))
+                foreach (var edge in graph.GetEdges(node).Where(e => !exploredNodes.Contains(e.EndNode)))
                 {
                     var alt = dist[node] + edge.Weight;
-                    if (alt < dist[edge.Node])
+                    if (alt < dist[edge.EndNode])
                     {
-                        dist[edge.Node] = alt;
-                        closestNodes.ChangeKey(edge.Node, alt);
+                        dist[edge.EndNode] = alt;
+                        closestNodes.ChangeKey(edge.EndNode, alt);
                     }
-                
                 }
             }
 

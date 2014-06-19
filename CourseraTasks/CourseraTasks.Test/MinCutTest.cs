@@ -34,9 +34,9 @@ namespace CourseraTasks.Test
         {
             var adjacencyList = new[] { new HashSet<int> { 1, 3 }, new HashSet<int> { 0, 2, 3 }, new HashSet<int> { 1, 3 }, new HashSet<int> { 0, 1, 2 } };
 
-            var node0 = new MinCut.MergedNode(0);
-            var node2 = new MinCut.MergedNode(2);
-            var node3 = new MinCut.MergedNode(3);
+            var node0 = new MergedNode(0);
+            var node2 = new MergedNode(2);
+            var node3 = new MergedNode(3);
 
             var actual1 = MinCut.AreConnected(node0, node3, adjacencyList);
             actual1.Should().Be(true);
@@ -50,10 +50,10 @@ namespace CourseraTasks.Test
         {
             var adjacencyList = new[] { new HashSet<int> { 1, 3 }, new HashSet<int> { 0, 2, 3 }, new HashSet<int> { 1, 3 }, new HashSet<int> { 0, 1, 2 } };
 
-            var node0 = new MinCut.MergedNode(0);
-            var node1 = new MinCut.MergedNode(1);
-            var node2 = new MinCut.MergedNode(2);
-            var node3 = new MinCut.MergedNode(3);
+            var node0 = new MergedNode(0);
+            var node1 = new MergedNode(1);
+            var node2 = new MergedNode(2);
+            var node3 = new MergedNode(3);
 
             var actual1 = MinCut.GetCrossingEdgesCount(node0.Merge(node1), node2.Merge(node3), adjacencyList);
             actual1.Should().Be(3);
