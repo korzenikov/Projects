@@ -1,13 +1,10 @@
-﻿using System;
-using System.IO;
-
-namespace CourseraTasks
+﻿namespace CourseraTasks
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            var task = new TwoSumAlgorithmTask();
+            var task = new MinCutTask();
             task.Run();
         }
     }

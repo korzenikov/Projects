@@ -43,7 +43,7 @@ namespace CourseraTasks.CSharp
             return max;
         }
 
-        public void Insert(T value)
+        public void Add(T value)
         {
             _values.Add(value);
             BubbleUp(_values.Count - 1);
@@ -110,11 +110,12 @@ namespace CourseraTasks.CSharp
         }
     }
 
-    public abstract class Heap<TKey,TValue>
+    public abstract class Heap<TKey, TValue>
     {
-        private List<KeyValuePair<TKey,TValue>> _keyValuePairs;
+        private List<KeyValuePair<TKey, TValue>> _keyValuePairs;
 
-        protected Heap(IEnumerable<KeyValuePair<TKey,TValue>> keyValuePairs)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        protected Heap(IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
             Build(keyValuePairs);
         }
@@ -143,7 +144,7 @@ namespace CourseraTasks.CSharp
 
         public void Insert(TKey key, TValue value)
         {
-            _keyValuePairs.Add(new KeyValuePair<TKey,TValue>(key, value));
+            _keyValuePairs.Add(new KeyValuePair<TKey, TValue>(key, value));
             BubbleUp(_keyValuePairs.Count - 1);
         }
 

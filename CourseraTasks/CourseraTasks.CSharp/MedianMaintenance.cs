@@ -17,8 +17,9 @@ namespace CourseraTasks.CSharp
                 min = enumerator.Current;
                 yield return enumerator.Current;
             }
-            MaxHeap<int> smallestNumbers = new MaxHeap<int>();
-            MinHeap<int> largestNumbers = new MinHeap<int>();
+
+            var smallestNumbers = new MaxHeap<int>();
+            var largestNumbers = new MinHeap<int>();
             if (enumerator.MoveNext())
             {
                 int next;
@@ -32,8 +33,8 @@ namespace CourseraTasks.CSharp
                     next = enumerator.Current;
                 }
 
-                smallestNumbers.Insert(min);
-                largestNumbers.Insert(next);
+                smallestNumbers.Add(min);
+                largestNumbers.Add(next);
 
                 yield return min;
             }
@@ -46,12 +47,12 @@ namespace CourseraTasks.CSharp
                     if (number > largestNumbers.Top)
                     {
                         var top = largestNumbers.ExtractTop();
-                        smallestNumbers.Insert(top);
-                        largestNumbers.Insert(number);
+                        smallestNumbers.Add(top);
+                        largestNumbers.Add(number);
                     }
                     else
                     {
-                        smallestNumbers.Insert(number);
+                        smallestNumbers.Add(number);
                     }
                 }
                 else
@@ -59,12 +60,12 @@ namespace CourseraTasks.CSharp
                     if (number < smallestNumbers.Top)
                     {
                         var top = smallestNumbers.ExtractTop();
-                        largestNumbers.Insert(top);
-                        smallestNumbers.Insert(number);
+                        largestNumbers.Add(top);
+                        smallestNumbers.Add(number);
                     }
                     else
                     {
-                        largestNumbers.Insert(number);
+                        largestNumbers.Add(number);
                     }
                 }
                 yield return smallestNumbers.Top;

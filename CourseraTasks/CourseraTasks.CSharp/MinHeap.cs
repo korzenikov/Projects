@@ -10,7 +10,7 @@ namespace CourseraTasks.CSharp
         {
         }
 
-        public MinHeap() : base()
+        public MinHeap()
         {
         }
 

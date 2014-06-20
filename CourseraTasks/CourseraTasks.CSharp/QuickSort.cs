@@ -2,7 +2,7 @@
 
 namespace CourseraTasks.CSharp
 {
-    public class QuickSort
+    public static class Quicksort
     {
         public static void Sort(int[] array, Func<int[],int,int,int> pivotSelector)
         {

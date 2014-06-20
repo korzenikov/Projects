@@ -6,7 +6,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class QuickSortTask
+    public class QuicksortTask
     {
         public void Run()
         {
@@ -14,13 +14,13 @@ namespace CourseraTasks
               using (var writer = new StreamWriter("output.txt"))
               {
                   var numbers = GetNumbers(reader).ToArray();
-                  var result1 = QuickSort.SortAndCount(numbers.ToArray(), (arr, l, r) => l);
+                  var result1 = Quicksort.SortAndCount(numbers.ToArray(), (arr, l, r) => l);
                   writer.WriteLine(result1);
 
-                  var result2 = QuickSort.SortAndCount(numbers.ToArray(), (arr, l, r) => r);
+                  var result2 = Quicksort.SortAndCount(numbers.ToArray(), (arr, l, r) => r);
                   writer.WriteLine(result2);
 
-                  var result3 = QuickSort.SortAndCount(numbers.ToArray(), QuickSort.GetMedian);
+                  var result3 = Quicksort.SortAndCount(numbers.ToArray(), Quicksort.GetMedian);
                   writer.WriteLine(result3);
               }
         }

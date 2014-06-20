@@ -15,7 +15,7 @@ namespace CourseraTasks
             using (var reader = new StreamReader("kargerMinCut.txt"))
             using (var writer = new StreamWriter("output.txt"))
             {
-                var adjacencyList = new List<HashSet<int>>();
+                var adjacencyList = new List<IEnumerable<int>>();
                 while (true)
                 {
                     string row = reader.ReadLine();
@@ -27,10 +27,11 @@ namespace CourseraTasks
                     var parts = row.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     var numbers = parts.Skip(1).Select(x => int.Parse(x, CultureInfo.InvariantCulture) - 1).ToArray();
 
-                    adjacencyList.Add(new HashSet<int>(numbers));
+                    adjacencyList.Add(numbers);
                 }
 
-                int result = MinCut.GetMinCutN(adjacencyList.ToArray(), 50000);
+                int result = Enumerable.Repeat(0, 250).Select(_ => MinCut.GetMinCut(adjacencyList)).Min();
+
                 writer.WriteLine(result);
             }
         }

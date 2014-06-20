@@ -49,7 +49,7 @@
     <Compile Include="MinCutTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuickSortTask.cs" />
+    <Compile Include="QuicksortTask.cs" />
     <Compile Include="StronglyConnectedComponentsCalculatorTask.cs" />
     <Compile Include="ShortestPathFinderTask.cs" />
     <Compile Include="TwoSumAlgorithmTask.cs" />

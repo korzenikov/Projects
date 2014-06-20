@@ -10,9 +10,8 @@ namespace CourseraTasks.CSharp
         {
         }
 
-        public MaxHeap() : base()
+        public MaxHeap()
         {
-            
         }
         
         protected override bool ShouldBeHigher(T element1, T element2)
