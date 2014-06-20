@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 
 using CourseraTasks.CSharp;
@@ -13,22 +12,9 @@ namespace CourseraTasks
             using (var reader = new StreamReader("IntegerArray.txt"))
             using (var writer = new StreamWriter("output.txt"))
             {
-                var numbers = GetNumbers(reader).ToArray();
+                var numbers = SequenceOfNumbersReader.GetNumbers(reader).ToArray();
                 var result = MergeSort.CountInversions(numbers);
                 writer.WriteLine(result);
-            }
-        }
-
-        private static IEnumerable<int> GetNumbers(TextReader inputReader)
-        {
-            while (true)
-            {
-                string numberStr = inputReader.ReadLine();
-                if (numberStr == null)
-                {
-                    break;
-                }
-                yield return int.Parse(numberStr);
             }
         }
     }

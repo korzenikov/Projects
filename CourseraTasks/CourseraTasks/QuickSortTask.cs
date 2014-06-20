@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 
 using CourseraTasks.CSharp;
@@ -13,7 +12,7 @@ namespace CourseraTasks
               using (var reader = new StreamReader("QuickSort.txt"))
               using (var writer = new StreamWriter("output.txt"))
               {
-                  var numbers = GetNumbers(reader).ToArray();
+                  var numbers = SequenceOfNumbersReader.GetNumbers(reader).ToArray();
                   var result1 = Quicksort.SortAndCount(numbers.ToArray(), (arr, l, r) => l);
                   writer.WriteLine(result1);
 
@@ -23,20 +22,6 @@ namespace CourseraTasks
                   var result3 = Quicksort.SortAndCount(numbers.ToArray(), Quicksort.GetMedian);
                   writer.WriteLine(result3);
               }
-        }
-
-        private static IEnumerable<int> GetNumbers(TextReader inputReader)
-        {
-            while (true)
-            {
-                string numberStr = inputReader.ReadLine();
-                if (numberStr == null)
-                {
-                    break;
-                }
-
-                yield return int.Parse(numberStr);
-            }
         }
     }
 }

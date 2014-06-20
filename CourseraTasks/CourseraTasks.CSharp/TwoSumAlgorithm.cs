@@ -16,7 +16,7 @@ namespace CourseraTasks.CSharp
             _numbersSet = new HashSet<long>(_numbers);
         }
 
-        public bool CheckSum(long sum)
+        public bool CanGetSum(long sum)
         {
             var lastIndex = Array.BinarySearch(_numbers, sum);
             if (lastIndex < 0)

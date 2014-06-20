@@ -26,7 +26,7 @@ namespace CourseraTasks
                         int count = 0;
                         for (var i = range.Item1; i < range.Item2; i++)
                         {
-                            if (twoSumAlgorithm.CheckSum(i))
+                            if (twoSumAlgorithm.CanGetSum(i))
                             {
                                 count++;
                             }

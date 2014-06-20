@@ -50,6 +50,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuicksortTask.cs" />
+    <Compile Include="SequenceOfNumbersReader.cs" />
     <Compile Include="StronglyConnectedComponentsCalculatorTask.cs" />
     <Compile Include="ShortestPathFinderTask.cs" />
     <Compile Include="TwoSumAlgorithmTask.cs" />

@@ -15,18 +15,7 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void DepthFirstSearchTest()
         {
-            var graph1 = new DirectedGraph();
-            graph1.AddEdge(0, 3);
-            graph1.AddEdge(1, 7);
-            graph1.AddEdge(2, 5);
-            graph1.AddEdge(3, 6);
-            graph1.AddEdge(4, 1);
-            graph1.AddEdge(5, 8);
-            graph1.AddEdge(6, 0);
-            graph1.AddEdge(7, 4);
-            graph1.AddEdge(7, 5);
-            graph1.AddEdge(8, 2);
-            graph1.AddEdge(8, 6);
+            var graph1 = GetTestGraph();
 
             var calculator1 = new StronglyConnectedComponentsCalculator(graph1);
             IEnumerable<int> vertices1 = calculator1.DepthFirstSearch(0, true);
@@ -49,18 +38,7 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void DepthFirstSearchLoopTest()
         {
-            var graph = new DirectedGraph();
-            graph.AddEdge(0, 3);
-            graph.AddEdge(1, 7);
-            graph.AddEdge(2, 5);
-            graph.AddEdge(3, 6);
-            graph.AddEdge(4, 1);
-            graph.AddEdge(5, 8);
-            graph.AddEdge(6, 0);
-            graph.AddEdge(7, 4);
-            graph.AddEdge(7, 5);
-            graph.AddEdge(8, 2);
-            graph.AddEdge(8, 6);
+            var graph = GetTestGraph();
 
             var calculator1 = new StronglyConnectedComponentsCalculator(graph);
             var result1 = calculator1.DepthFirstSearchLoop(Enumerable.Range(0, graph.NodesCount), true).ToArray();
@@ -74,6 +52,18 @@ namespace CourseraTasks.Test
         [TestMethod]
         public void GetStronglyConnectedComponentsTest()
         {
+            var graph = GetTestGraph();
+
+            var calculator = new StronglyConnectedComponentsCalculator(graph);
+            var components = calculator.GetStronglyConnectedComponents().ToArray();
+            components.Should().HaveCount(3);
+            components[0].Should().BeEquivalentTo(new[] { 0, 6, 3 });
+            components[1].Should().BeEquivalentTo(new[] { 8, 5, 2 });
+            components[2].Should().BeEquivalentTo(new[] { 7, 1, 4 });
+        }
+
+        private static DirectedGraph GetTestGraph()
+        {
             var graph = new DirectedGraph();
             graph.AddEdge(0, 3);
             graph.AddEdge(1, 7);
@@ -86,13 +76,7 @@ namespace CourseraTasks.Test
             graph.AddEdge(7, 5);
             graph.AddEdge(8, 2);
             graph.AddEdge(8, 6);
-
-            var calculator = new StronglyConnectedComponentsCalculator(graph);
-            var components = calculator.GetStronglyConnectedComponents().ToArray();
-            components.Should().HaveCount(3);
-            components[0].Should().BeEquivalentTo(new[] { 0, 6, 3 });
-            components[1].Should().BeEquivalentTo(new[] { 8, 5, 2 });
-            components[2].Should().BeEquivalentTo(new[] { 7, 1, 4 });
+            return graph;
         }
     }
 }
