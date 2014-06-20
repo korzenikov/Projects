@@ -26,6 +26,10 @@ namespace CourseraTasks.CSharp
                 var node1 = nodes.First(node => node.Nodes.Contains(edge.From));
                 var node2 = nodes.First(node => node.Nodes.Contains(edge.To));
                 edges.RemoveAt(edgeIndex);
+                if (node1 == node2)
+                {
+                    continue;
+                }
                 nodes.Remove(node1);
                 nodes.Remove(node2);
                 nodes.Add(node1.Merge(node2));
