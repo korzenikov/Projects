@@ -17,12 +17,12 @@ namespace CourseraTasks.CSharp
                 }
             }
 
-            var closestNodes = new MinHeap<int, int>(dist.Select((d, i) => new KeyValuePair<int, int>(d, i)));
+            var closestNodes = new MinPriorityQueue<int, int>(dist.Select((d, i) => new KeyValuePair<int, int>(i, d)));
             var exploredNodes = new HashSet<int>();
 
             while (!closestNodes.IsEmpty)
             {
-                var node = closestNodes.ExtractTop();
+                var node = closestNodes.ExtractHighestPriorityElement();
                 exploredNodes.Add(node);
                 foreach (var edge in graph.GetEdges(node).Where(e => !exploredNodes.Contains(e.EndNode)))
                 {
@@ -30,7 +30,7 @@ namespace CourseraTasks.CSharp
                     if (alt < dist[edge.EndNode])
                     {
                         dist[edge.EndNode] = alt;
-                        closestNodes.ChangeKey(edge.EndNode, alt);
+                        closestNodes.ChangePriority(edge.EndNode, alt);
                     }
                 }
             }
