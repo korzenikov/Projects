@@ -48,7 +48,7 @@ namespace CourseraTasks.CSharp
             BubbleUp(_values.Count - 1);
         }
 
-        protected abstract bool ShouldBeHigher(T element1, T element2);
+        protected abstract bool IsHigherPriority(T priority1, T priority2);
 
         private static int Parent(int i)
         {
@@ -86,10 +86,10 @@ namespace CourseraTasks.CSharp
             int l = Left(i);
             int r = Right(i);
             int indexOfElementToElevate;
-            if (l < _values.Count && ShouldBeHigher(_values[l], _values[i]))
+            if (l < Count && IsHigherPriority(GetPriority(l), GetPriority(i)))
                 indexOfElementToElevate = l;
             else indexOfElementToElevate = i;
-            if (r < _values.Count && ShouldBeHigher(_values[r], _values[indexOfElementToElevate]))
+            if (r < Count && IsHigherPriority(GetPriority(r), GetPriority(indexOfElementToElevate)))
                 indexOfElementToElevate = r;
             if (indexOfElementToElevate != i)
             {
@@ -100,12 +100,17 @@ namespace CourseraTasks.CSharp
 
         private void BubbleUp(int i)
         {
-            while (i > 0 && ShouldBeHigher(_values[i], _values[Parent(i)]))
+            while (i > 0 && IsHigherPriority(GetPriority(i), GetPriority(Parent(i))))
             {
                 var parent = Parent(i);
                 SwapElements(i, parent);
                 i = parent;
             }
+        }
+
+        private T GetPriority(int index)
+        {
+            return _values[index];
         }
     }
 }

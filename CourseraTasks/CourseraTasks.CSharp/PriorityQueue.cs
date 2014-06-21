@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CourseraTasks.CSharp
 {
-    public abstract class PriorityQueue<TElement, TPriority>
+    public abstract class PriorityQueue<TElement, TPriority> : Heap<TPriority>
     {
         private List<KeyValuePair<TElement, TPriority>> _keyValuePairs;
 
@@ -14,11 +14,11 @@ namespace CourseraTasks.CSharp
             Build(keyValuePairs);
         }
 
-        public bool IsEmpty
+        public int Count
         {
             get
             {
-                return _keyValuePairs.Count == 0;
+                return _keyValuePairs.Count;
             }
         }
 
@@ -45,16 +45,14 @@ namespace CourseraTasks.CSharp
         public void ChangePriority(TElement key, TPriority priority)
         {
             var keyValuePair = _keyValuePairs.Single(pair => pair.Key.Equals(key));
-            var i = _keyValuePairs.IndexOf(keyValuePair);
+            var index = _keyValuePairs.IndexOf(keyValuePair);
 
-            if (!IsHigherPriority(priority, _keyValuePairs[i].Value))
+            if (!IsHigherPriority(priority, GetPriority(index)))
                 throw new ArgumentException("Cannot decrease priority of specified element", "priority");
 
-            _keyValuePairs[i] = new KeyValuePair<TElement, TPriority>(key, priority);
-            BubbleUp(i);
+            _keyValuePairs[index] = new KeyValuePair<TElement, TPriority>(key, priority);
+            BubbleUp(index);
         }
-
-        protected abstract bool IsHigherPriority(TPriority priority1, TPriority priority2);
 
         private static int Parent(int i)
         {
@@ -92,10 +90,10 @@ namespace CourseraTasks.CSharp
             int l = Left(i);
             int r = Right(i);
             int indexOfElementToElevate;
-            if (l < _keyValuePairs.Count && IsHigherPriority(_keyValuePairs[l].Value, _keyValuePairs[i].Value))
+            if (l < Count && IsHigherPriority(GetPriority(l), GetPriority(i)))
                 indexOfElementToElevate = l;
             else indexOfElementToElevate = i;
-            if (r < _keyValuePairs.Count && IsHigherPriority(_keyValuePairs[r].Value, _keyValuePairs[indexOfElementToElevate].Value))
+            if (r < Count && IsHigherPriority(GetPriority(r), GetPriority(indexOfElementToElevate)))
                 indexOfElementToElevate = r;
             if (indexOfElementToElevate != i)
             {
@@ -106,12 +104,17 @@ namespace CourseraTasks.CSharp
 
         private void BubbleUp(int i)
         {
-            while (i > 0 && IsHigherPriority(_keyValuePairs[i].Value, _keyValuePairs[Parent(i)].Value))
+            while (i > 0 && IsHigherPriority(GetPriority(i), GetPriority(Parent(i))))
             {
                 var parent = Parent(i);
                 SwapElements(i, parent);
                 i = parent;
             }
+        }
+
+        private TPriority GetPriority(int index)
+        {
+            return _keyValuePairs[index].Value;
         }
     }
 }

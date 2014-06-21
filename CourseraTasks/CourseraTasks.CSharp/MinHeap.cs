@@ -14,7 +14,7 @@ namespace CourseraTasks.CSharp
         {
         }
 
-        protected override bool ShouldBeHigher(T element1, T element2)
+        protected override bool IsHigherPriority(T element1, T element2)
         {
             return element1.CompareTo(element2) < 0;
         }
