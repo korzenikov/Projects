@@ -12,14 +12,14 @@ namespace CourseraTasks.Test
     public class MaxHeapTest
     {
         [TestMethod]
-        public void MaximumTest()
+        public void ExtractMaxTest()
         {
             const int N = 100;
-            var minHeap = new MaxHeap<int>(Enumerable.Range(0, N));
+            var maxHeap = new MaxPriorityQuery<int>(Enumerable.Range(0, N));
 
             for (int i = 0; i < N; i++)
             {
-                minHeap.ExtractTop().Should().Be(N - i - 1);
+                maxHeap.ExtractMax().Should().Be(N - i - 1);
             }
         }
     }

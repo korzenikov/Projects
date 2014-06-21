@@ -10,13 +10,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CourseraTasks.Test
 {
     [TestClass]
-    public class MinPriorityQueueTest
+    public class PriorityQueueTest
     {
         [TestMethod]
         public void ExtractHighestPriorityElementTest()
         {
             const int N = 100;
-            var minHeap = new MinPriorityQueue<int, int>(Enumerable.Range(0, N).Select(x => new KeyValuePair<int, int>(x, x)).Reverse());
+            var minHeap = new PriorityQueue<int, int>(Enumerable.Range(0, N).Select(x => new KeyValuePair<int, int>(x, x)).Reverse());
 
             for (int i = 0; i < N; i++)
             {

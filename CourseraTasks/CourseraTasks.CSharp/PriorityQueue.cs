@@ -4,36 +4,23 @@ using System.Linq;
 
 namespace CourseraTasks.CSharp
 {
-    public abstract class PriorityQueue<TElement, TPriority> : Heap<TPriority>
+    public class PriorityQueue<TElement, TPriority> : PriorityQueueBase<TElement, TPriority> 
+        where TPriority : IComparable<TPriority>
     {
         private List<KeyValuePair<TElement, TPriority>> _keyValuePairs;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
-        protected PriorityQueue(IEnumerable<KeyValuePair<TElement, TPriority>> keyValuePairs)
+        public PriorityQueue(IEnumerable<KeyValuePair<TElement, TPriority>> keyValuePairs)
         {
             Build(keyValuePairs);
         }
 
-        public int Count
+        public override int Count
         {
             get
             {
                 return _keyValuePairs.Count;
             }
-        }
-
-        public TElement Top()
-        {
-            return _keyValuePairs[0].Key;
-        }
-
-        public TElement ExtractHighestPriorityElement()
-        {
-            TElement top = _keyValuePairs[0].Key;
-            _keyValuePairs[0] = _keyValuePairs[_keyValuePairs.Count - 1];
-            _keyValuePairs.RemoveAt(_keyValuePairs.Count - 1);
-            Heapify(0);
-            return top;
         }
 
         public void Add(TElement key, TPriority value)
@@ -44,8 +31,7 @@ namespace CourseraTasks.CSharp
 
         public void ChangePriority(TElement key, TPriority priority)
         {
-            var keyValuePair = _keyValuePairs.Single(pair => pair.Key.Equals(key));
-            var index = _keyValuePairs.IndexOf(keyValuePair);
+            var index = GetElementIndex(key);
 
             if (!IsHigherPriority(priority, GetPriority(index)))
                 throw new ArgumentException("Cannot decrease priority of specified element", "priority");
@@ -54,67 +40,47 @@ namespace CourseraTasks.CSharp
             BubbleUp(index);
         }
 
-        private static int Parent(int i)
-        {
-            return (i + 1) / 2 - 1;
-        }
-
-        private static int Left(int i)
-        {
-            return 2 * i + 1;
-        }
-
-        private static int Right(int i)
-        {
-            return 2 * i + 2;
-        }
-
-        private void SwapElements(int i, int j)
+        protected override void SwapElements(int i, int j)
         {
             var temp = _keyValuePairs[i];
             _keyValuePairs[i] = _keyValuePairs[j];
             _keyValuePairs[j] = temp;
         }
 
+        protected override TPriority GetPriority(int index)
+        {
+            return _keyValuePairs[index].Value;
+        }
+
+        protected override TElement GetElement(int index)
+        {
+            return _keyValuePairs[index].Key;
+        }
+
+        protected override void RemoveAt(int index)
+        {
+            _keyValuePairs.RemoveAt(index);
+        }
+
+        protected override bool IsHigherPriority(TPriority priority1, TPriority priority2)
+        {
+            return priority1.CompareTo(priority2) < 0;
+        }
+
+        private int GetElementIndex(TElement key)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (Equals(GetElement(i), key)) return i;
+            }
+
+            return -1;
+        }
+
         private void Build(IEnumerable<KeyValuePair<TElement, TPriority>> keyValuePairs)
         {
             _keyValuePairs = keyValuePairs.ToList();
-            for (int i = _keyValuePairs.Count / 2; i >= 0; i--)
-            {
-                Heapify(i);
-            }
-        }
-
-        private void Heapify(int i)
-        {
-            int l = Left(i);
-            int r = Right(i);
-            int indexOfElementToElevate;
-            if (l < Count && IsHigherPriority(GetPriority(l), GetPriority(i)))
-                indexOfElementToElevate = l;
-            else indexOfElementToElevate = i;
-            if (r < Count && IsHigherPriority(GetPriority(r), GetPriority(indexOfElementToElevate)))
-                indexOfElementToElevate = r;
-            if (indexOfElementToElevate != i)
-            {
-                SwapElements(i, indexOfElementToElevate);
-                Heapify(indexOfElementToElevate);
-            }
-        }
-
-        private void BubbleUp(int i)
-        {
-            while (i > 0 && IsHigherPriority(GetPriority(i), GetPriority(Parent(i))))
-            {
-                var parent = Parent(i);
-                SwapElements(i, parent);
-                i = parent;
-            }
-        }
-
-        private TPriority GetPriority(int index)
-        {
-            return _keyValuePairs[index].Value;
+            HeapifyAll();
         }
     }
 }

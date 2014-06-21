@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CourseraTasks.CSharp
 {
@@ -11,43 +7,26 @@ namespace CourseraTasks.CSharp
         public static IEnumerable<int> GetMedians(IEnumerable<int> sequence)
         {
             var enumerator = sequence.GetEnumerator();
-            int min = 0;
+
+            var smallestNumbers = new MaxPriorityQuery<int>();
+            var largestNumbers = new MinPriorityQuery<int>();
+
             if (enumerator.MoveNext())
             {
-                min = enumerator.Current;
-                yield return enumerator.Current;
+                var number = enumerator.Current;
+                smallestNumbers.Add(number);
+                yield return smallestNumbers.Max;
             }
-
-            var smallestNumbers = new MaxHeap<int>();
-            var largestNumbers = new MinHeap<int>();
-            if (enumerator.MoveNext())
-            {
-                int next;
-                if (enumerator.Current < min)
-                {
-                    next = min;
-                    min = enumerator.Current;
-                }
-                else
-                {
-                    next = enumerator.Current;
-                }
-
-                smallestNumbers.Add(min);
-                largestNumbers.Add(next);
-
-                yield return min;
-            }
-
+            
             while (enumerator.MoveNext())
             {
                 var number = enumerator.Current;
                 if (smallestNumbers.Count <= largestNumbers.Count)
                 {
-                    if (number > largestNumbers.Top)
+                    if (number > largestNumbers.Min)
                     {
-                        var top = largestNumbers.ExtractTop();
-                        smallestNumbers.Add(top);
+                        var min = largestNumbers.ExtractMin();
+                        smallestNumbers.Add(min);
                         largestNumbers.Add(number);
                     }
                     else
@@ -57,10 +36,10 @@ namespace CourseraTasks.CSharp
                 }
                 else
                 {
-                    if (number < smallestNumbers.Top)
+                    if (number < smallestNumbers.Max)
                     {
-                        var top = smallestNumbers.ExtractTop();
-                        largestNumbers.Add(top);
+                        var max = smallestNumbers.ExtractMax();
+                        largestNumbers.Add(max);
                         smallestNumbers.Add(number);
                     }
                     else
@@ -68,7 +47,8 @@ namespace CourseraTasks.CSharp
                         largestNumbers.Add(number);
                     }
                 }
-                yield return smallestNumbers.Top;
+
+                yield return smallestNumbers.Max;
             }
         }
     }

@@ -45,8 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectedGraph.cs" />
+    <Compile Include="PriorityQueueBase.cs" />
     <Compile Include="MergedNode.cs" />
-    <Compile Include="MinPriorityQueue.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="TwoSumAlgorithm.cs" />
     <Compile Include="DirectedWeightedGraph.cs" />

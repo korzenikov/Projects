@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using CourseraTasks.CSharp;
 
@@ -13,14 +12,14 @@ namespace CourseraTasks.Test
     public class MinHeapTest
     {
         [TestMethod]
-        public void ExtractTopTest()
+        public void ExtractMinTest()
         {
             const int N = 100;
-            var minHeap = new MinHeap<int>(Enumerable.Range(0, N).Reverse());
+            var minHeap = new MinPriorityQuery<int>(Enumerable.Range(0, N).Reverse());
 
             for (int i = 0; i < N; i++)
             {
-                minHeap.ExtractTop().Should().Be(i);
+                minHeap.ExtractMin().Should().Be(i);
             }
         }
     }

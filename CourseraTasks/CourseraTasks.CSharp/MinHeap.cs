@@ -3,15 +3,28 @@ using System.Collections.Generic;
 
 namespace CourseraTasks.CSharp
 {
-    public class MinHeap<T> : Heap<T>
+    public class MinPriorityQuery<T> : PriorityQuery<T>
         where T : IComparable<T>
     {
-        public MinHeap(IEnumerable<T> values) : base(values)
+        public MinPriorityQuery(IEnumerable<T> values) : base(values)
         {
         }
 
-        public MinHeap()
+        public MinPriorityQuery()
         {
+        }
+
+        public T Min
+        {
+            get
+            {
+                return HighestPriorityElement;
+            }
+        }
+
+        public T ExtractMin()
+        {
+            return ExtractHighestPriorityElement();
         }
 
         protected override bool IsHigherPriority(T element1, T element2)

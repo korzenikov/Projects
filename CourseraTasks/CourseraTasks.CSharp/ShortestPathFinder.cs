@@ -17,7 +17,7 @@ namespace CourseraTasks.CSharp
                 }
             }
 
-            var closestNodes = new MinPriorityQueue<int, int>(dist.Select((d, i) => new KeyValuePair<int, int>(i, d)));
+            var closestNodes = new PriorityQueue<int, int>(dist.Select((d, i) => new KeyValuePair<int, int>(i, d)));
             var exploredNodes = new HashSet<int>();
 
             while (closestNodes.Count != 0)
