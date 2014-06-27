@@ -15,7 +15,7 @@ namespace CourseraTasks
             using (var reader = new StreamReader("kargerMinCut.txt"))
             using (var writer = new StreamWriter("output.txt"))
             {
-                var adjacencyList = new List<IEnumerable<int>>();
+                var graph = new DirectedGraph();
                 while (true)
                 {
                     string row = reader.ReadLine();
@@ -25,12 +25,14 @@ namespace CourseraTasks
                     }
 
                     var parts = row.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    var numbers = parts.Skip(1).Select(x => int.Parse(x, CultureInfo.InvariantCulture) - 1).ToArray();
-
-                    adjacencyList.Add(numbers);
+                    var numbers = parts.Select(x => int.Parse(x, CultureInfo.InvariantCulture) - 1).ToArray();
+                    foreach (var number in numbers.Skip(1))
+	                {
+		                graph.AddEdge(numbers[0], number);
+                    }
                 }
 
-                int result = Enumerable.Repeat(0, 250).Select(_ => MinCut.GetMinCut(adjacencyList)).Min();
+                int result = Enumerable.Repeat(0, 250).Select(_ => MinCut.GetMinCut(graph)).Min();
 
                 writer.WriteLine(result);
             }
