@@ -19,28 +19,36 @@ let read path =
     |> Array.map example
  
   
-let trainingExpamples = read "D:\\trainingsample.csv"
+let trainingSamples = read "trainingsample.csv"
 
 let distance (p1: int[]) (p2: int[]) = (p1, p2) ||> Array.map2 (fun p1 p2 -> (p1 - p2)*(p1 - p2)) |> Array.sum
  
-let K = 1
+let K = 10
 
-let classify (unknown:int[]) =
-    trainingExpamples 
+let closestSamples (unknown:int[]) = 
+  trainingSamples 
     |> Seq.sortBy (fun x -> distance x.Pixels unknown) 
     |> Seq.take K 
+
+let classify (unknown:int[]) =
+    closestSamples unknown
     |> Seq.groupBy (fun x -> x.Label) 
     |> Seq.maxBy (fun (key, values) -> Seq.length values) 
     |> (fun (key, values) -> key)
 
-let validationSamples = read "D:\\validationsample.csv"
+let validationSamples = read "validationsample.csv"
 
-let percentage = validationSamples |> Array.averageBy (fun x -> if (classify x.Pixels) = x.Label then 1.0 else 0.0)
+let unrecognizedSamples = validationSamples |> Array.map (fun x -> (x, (classify x.Pixels))) |> Array.filter (fun x -> ((fst x)).Label <> (snd x)) |> Array.map (fun x -> (fst x))
 
-printfn "%A" (percentage * 100.0)
+let options = unrecognizedSamples |> Array.map (fun x -> (x.Label, (closestSamples x.Pixels) |> Array.ofSeq |> Array.map (fun s -> s.Label)))
+
+printfn "%A" options
+
+
+//printfn "%A" (unrecognizedSamples |> Seq.length)
+
+
+//let percentage = validationSamples |> Array.averageBy (fun x -> if (classify x.Pixels) = x.Label then 1.0 else 0.0)
+
+//printfn "%A" (percentage * 100.0)
  
-// [ YOUR CODE GOES HERE! ]
-//[<EntryPoint>]
-//let main argv = 
-//    printfn "%A" argv
-//    0 // return an integer exit code

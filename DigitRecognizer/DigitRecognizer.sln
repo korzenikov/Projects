@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DigitRecognizer", "DigitRecognizer\DigitRecognizer.fsproj", "{9BA8819B-294C-4646-96FB-B626365460DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84C80645-D8B0-4440-A3CB-0419679C7B99}"
+	ProjectSection(SolutionItems) = preProject
+		DigitRecognizer\trainingsample.csv = DigitRecognizer\trainingsample.csv
+		DigitRecognizer\validationsample.csv = DigitRecognizer\validationsample.csv
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
