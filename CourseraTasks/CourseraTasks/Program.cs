@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            var task = new MinCutTask();
+            var task = new JobSchedulerTask();
             task.Run();
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -27,8 +26,8 @@ namespace CourseraTasks
                     var parts = row.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     var numbers = parts.Select(x => int.Parse(x, CultureInfo.InvariantCulture) - 1).ToArray();
                     foreach (var number in numbers.Skip(1))
-	                {
-		                graph.AddEdge(numbers[0], number);
+                    {
+                        graph.AddEdge(numbers[0], number);
                     }
                 }
 
