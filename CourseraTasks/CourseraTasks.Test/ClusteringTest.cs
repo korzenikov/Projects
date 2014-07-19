@@ -37,5 +37,21 @@ namespace CourseraTasks.Test
            Clustering.GetMaxSpacing(graph, 3).Should().Be(2);
            Clustering.GetMaxSpacing(graph, 2).Should().Be(5);
         }
+
+
+        [TestMethod]
+        public void GetMaxClustersTest()
+        {
+            var numbers = new int[] { 0, 1, 2, 7 };
+            int clusters = Clustering.GetMaxClusters(numbers, 3, 1);
+            clusters.Should().Be(2);
+        }
+
+        [TestMethod]
+        public void GetModificationsTest()
+        {
+            var modifications = Clustering.GetModifications(0, 24, 2, 0).ToArray();
+            modifications.Should().HaveCount(300);
+        }
     }
 }

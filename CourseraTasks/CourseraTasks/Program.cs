@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            ITask task = new ClusteringBigTask();
+            ITask task = new ClusteringTask();
             task.Run();
         }
     }
