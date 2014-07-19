@@ -9,7 +9,6 @@ namespace CourseraTasks.CSharp
     {
         private List<KeyValuePair<TElement, TPriority>> _keyValuePairs;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public PriorityQueue(IEnumerable<KeyValuePair<TElement, TPriority>> keyValuePairs)
         {
             Build(keyValuePairs);

@@ -36,7 +36,7 @@ namespace CourseraTasks.Test
 
             actual1.Should().Be(6);
 
-            var array2 =  new[] { 2, 4, 6, 8, 1, 3, 7, 9, 10 };
+            var array2 = new[] { 2, 4, 6, 8, 1, 3, 7, 9, 10 };
 
             var actual2 = MergeSort.CountInversions(array2);
 

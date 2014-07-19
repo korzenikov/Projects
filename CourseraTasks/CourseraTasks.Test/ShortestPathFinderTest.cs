@@ -1,11 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CourseraTasks.CSharp;
+
+using FluentAssertions;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CourseraTasks.CSharp;
 
 using FluentAssertions;
 
 namespace CourseraTasks.Test
 {
-  
     [TestClass]
     public class ShortestPathFinderTest
     {
