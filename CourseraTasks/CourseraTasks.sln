@@ -14,16 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseraTasks.CSharp", "CourseraTasks.CSharp\CourseraTasks.CSharp.csproj", "{3A7E7CD8-D703-4487-9279-F5BF3751711E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BFD82E06-1BD2-45E0-A88E-3B9348CC476F}"
-	ProjectSection(SolutionItems) = preProject
-		clustering1.txt = clustering1.txt
-		dijkstraData.txt = dijkstraData.txt
-		edges.txt = edges.txt
-		IntegerArray.txt = IntegerArray.txt
-		jobs.txt = jobs.txt
-		kargerMinCut.txt = kargerMinCut.txt
-		Median.txt = Median.txt
-		QuickSort.txt = QuickSort.txt
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
