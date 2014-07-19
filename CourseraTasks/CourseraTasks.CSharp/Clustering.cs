@@ -71,18 +71,19 @@ namespace CourseraTasks.CSharp
 
         public static IEnumerable<int> GetModifications(int number, int totalBits, int bitsToModify, int startBit)
         {
-            if (bitsToModify != 0)
+            
+            for (int i = startBit; i < totalBits; i++)
             {
-                for (int i = startBit; i < totalBits; i++)
-                {
-                    var modifiedNumber = IsBitSet(number, i) ? ClearBit(number, i) : SetBit(number, i);
-                    foreach (var n in GetModifications(modifiedNumber, totalBits, bitsToModify - 1, i + 1))
-                    {
-                        yield return n;
-                    }
-
+                var modifiedNumber = IsBitSet(number, i) ? ClearBit(number, i) : SetBit(number, i);
+                if (bitsToModify == 1)
                     yield return modifiedNumber;
+                else
+                foreach (var n in GetModifications(modifiedNumber, totalBits, bitsToModify - 1, i + 1))
+                {
+                    yield return n;
                 }
+
+                
             }
         }
 

@@ -51,7 +51,7 @@ namespace CourseraTasks.Test
         public void GetModificationsTest()
         {
             var modifications = Clustering.GetModifications(0, 24, 2, 0).ToArray();
-            modifications.Should().HaveCount(300);
+            modifications.Should().HaveCount(276);
         }
     }
 }
