@@ -75,6 +75,7 @@
     <Compile Include="ShortestPathFinderTest.cs" />
     <Compile Include="TwoSumAlgorithmTest.cs" />
     <Compile Include="PriorityQueueTest.cs" />
+    <Compile Include="UnionFindTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseraTasks.CSharp\CourseraTasks.CSharp.csproj">

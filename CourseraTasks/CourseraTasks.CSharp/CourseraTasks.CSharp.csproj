@@ -61,6 +61,7 @@
     <Compile Include="Quicksort.cs" />
     <Compile Include="StronglyConnectedComponentsCalculator.cs" />
     <Compile Include="ShortestPathFinder.cs" />
+    <Compile Include="UnionFind.cs" />
     <Compile Include="WeightedEdge.cs" />
   </ItemGroup>
   <ItemGroup>
