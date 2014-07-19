@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClusteringTask.cs" />
+    <Compile Include="DirectedWeightedGraphReader.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ITask.cs" />
     <Compile Include="MedianMaintenanceTask.cs" />
     <Compile Include="MergeSortTask.cs" />
     <Compile Include="MinCutTask.cs" />
