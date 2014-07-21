@@ -8,7 +8,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class JobSchedulerTask
+    public class JobSchedulerTask : ITask
     {
         public void Run()
         {

@@ -155,3 +155,6 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 /ParallelDataLoadingSln/packages/TaskHelpers.Sources.0.3
+/CourseraTasks/packages/FluentAssertions.3.0.107
+/CourseraTasks/packages/Microsoft.Bcl.Immutable.1.0.34
+/DependenciesViewer/packages/FluentAssertions.2.2.0.0

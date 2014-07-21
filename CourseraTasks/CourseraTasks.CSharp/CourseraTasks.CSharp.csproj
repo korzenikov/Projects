@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clustering.cs" />
     <Compile Include="DirectedGraph.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="JobScheduler.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Quicksort.cs" />
     <Compile Include="StronglyConnectedComponentsCalculator.cs" />
     <Compile Include="ShortestPathFinder.cs" />
+    <Compile Include="UnionFind.cs" />
     <Compile Include="WeightedEdge.cs" />
   </ItemGroup>
   <ItemGroup>

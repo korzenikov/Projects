@@ -3,6 +3,7 @@
 using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using CourseraTasks.CSharp;
 
 namespace CourseraTasks.Test
 {

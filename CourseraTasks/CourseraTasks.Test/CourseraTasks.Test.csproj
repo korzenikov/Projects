@@ -77,6 +77,8 @@
     <Compile Include="PriorityQueueTest.cs" />
     <Compile Include="PrimsAlgorithmTest.cs" />
     <Compile Include="JobSchedulerTest.cs" />
+    <Compile Include="ClusteringTest.cs" />
+    <Compile Include="UnionFindTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseraTasks.CSharp\CourseraTasks.CSharp.csproj">

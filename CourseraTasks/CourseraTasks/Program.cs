@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            var task = new JobSchedulerTask();
+            ITask task = new ClusteringTask();
             task.Run();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CourseraTasks.CSharp
@@ -24,7 +25,12 @@ namespace CourseraTasks.CSharp
         {
             var node = GetOrCreateNode(from);
             GetOrCreateNode(to);
-            node.AddEdge(to, weight);
+            node.AddEdge(from, to, weight);
+        }
+
+        public IEnumerable<WeightedEdge> GetEdges()
+        {
+            return _nodes.SelectMany(node => node.Edges);
         }
 
         public IEnumerable<WeightedEdge> GetEdges(int node)
@@ -60,9 +66,9 @@ namespace CourseraTasks.CSharp
                 }
             }
 
-            public void AddEdge(int to, int weight)
+            public void AddEdge(int from, int to, int weight)
             {
-                _edges.Add(new WeightedEdge(to, weight));
+                _edges.Add(new WeightedEdge(from, to, weight));
             }
         }
     }
