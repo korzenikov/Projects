@@ -48,6 +48,9 @@
     <Compile Include="DirectedWeightedGraphReader.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ITask.cs" />
+    <Compile Include="BigKnapsackSolverTask.cs" />
+    <Compile Include="KnapsackReader.cs" />
+    <Compile Include="KnapsackSolverTask.cs" />
     <Compile Include="MedianMaintenanceTask.cs" />
     <Compile Include="MergeSortTask.cs" />
     <Compile Include="MinCutTask.cs" />
@@ -83,6 +86,12 @@
     <Content Include="InputFiles\IntegerArray.txt" />
     <Content Include="InputFiles\jobs.txt" />
     <Content Include="InputFiles\kargerMinCut.txt" />
+    <Content Include="InputFiles\knapsack1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InputFiles\knapsack_big.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="InputFiles\Median.txt" />
     <Content Include="InputFiles\QuickSort.txt" />
   </ItemGroup>

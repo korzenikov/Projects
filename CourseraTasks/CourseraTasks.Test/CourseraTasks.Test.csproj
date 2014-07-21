@@ -64,6 +64,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="BigKnapsackSolverTest.cs" />
+    <Compile Include="KnapsackSolverTest.cs" />
     <Compile Include="MedianMaintenanceTest.cs" />
     <Compile Include="MergeSortTest.cs" />
     <Compile Include="MaxHeapTest.cs" />

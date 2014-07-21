@@ -44,8 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BigKnapsackSolver.cs" />
     <Compile Include="Clustering.cs" />
     <Compile Include="DirectedGraph.cs" />
+    <Compile Include="Knapsack.cs" />
+    <Compile Include="KnapsackSolver.cs" />
+    <Compile Include="KnapsackItem.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="JobScheduler.cs" />
     <Compile Include="PriorityQueueBase.cs" />
