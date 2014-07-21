@@ -36,6 +36,8 @@ namespace CourseraTasks.CSharp
         {
             if (i < 0)
                 return 0;
+            if (w == 0)
+                return 0;
 
             int cost;
             if (_calculatedMaxCosts[i].TryGetValue(w, out cost))
