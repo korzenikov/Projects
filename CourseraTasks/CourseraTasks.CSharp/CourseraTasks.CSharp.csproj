@@ -52,10 +52,12 @@
     <Compile Include="KnapsackItem.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="JobScheduler.cs" />
+    <Compile Include="OptimalSearchTreeFinder.cs" />
     <Compile Include="PriorityQueueBase.cs" />
     <Compile Include="MergedNode.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="PrimsAlgorithm.cs" />
+    <Compile Include="TreeNode.cs" />
     <Compile Include="TwoSumAlgorithm.cs" />
     <Compile Include="DirectedWeightedGraph.cs" />
     <Compile Include="GlobalSuppressions.cs" />

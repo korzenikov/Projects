@@ -55,7 +55,6 @@
     <Compile Include="MergeSortTask.cs" />
     <Compile Include="MinCutTask.cs" />
     <Compile Include="JobSchedulerTask.cs" />
-    <Compile Include="OptimalSearchTreeFinder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuicksortTask.cs" />
