@@ -4,7 +4,7 @@ namespace CourseraTasks.CSharp
 {
     public static class Quicksort
     {
-        public static void Sort(int[] array, Func<int[],int,int,int> pivotSelector)
+        public static void Sort(int[] array, Func<int[], int, int, int> pivotSelector)
         {
             SortInternal(array, 0, array.Length - 1, pivotSelector);
         }
@@ -33,7 +33,7 @@ namespace CourseraTasks.CSharp
             return j - 1;
         }
 
-        public static void SortInternal(int[] array, int l, int r, Func<int[],int,int,int> pivotSelector)
+        public static void SortInternal(int[] array, int l, int r, Func<int[], int, int, int> pivotSelector)
         {
             if (r - l < 0)
             {
@@ -45,7 +45,7 @@ namespace CourseraTasks.CSharp
             SortInternal(array, pivot + 1, r, pivotSelector);
         }
 
-        public static int SortAndCountInternal(int[] array, int l, int r, Func<int[],int,int,int> pivotSelector)
+        public static int SortAndCountInternal(int[] array, int l, int r, Func<int[], int, int, int> pivotSelector)
         {
             if (r - l < 0)
             {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 
 namespace CourseraTasks.CSharp
@@ -18,6 +19,8 @@ namespace CourseraTasks.CSharp
 
         public MergedNode Merge(MergedNode node)
         {
+            if (node == null)
+                throw new ArgumentNullException("node");
             return new MergedNode(Nodes.Union(node.Nodes));
         }
     }

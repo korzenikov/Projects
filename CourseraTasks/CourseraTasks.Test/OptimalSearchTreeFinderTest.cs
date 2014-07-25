@@ -1,7 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CourseraTasks.CSharp;
+
 using FluentAssertions;
-using CourseraTasks.CSharp;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseraTasks.Test
 {

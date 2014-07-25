@@ -1,15 +1,14 @@
-﻿using CourseraTasks.CSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class ClusteringBigTask  : ITask
+    public class ClusteringBigTask : ITask
     {
         public void Run()
         {
@@ -21,7 +20,7 @@ namespace CourseraTasks
                 int numberOfNodes = int.Parse(firtsRowParts[0]);
                 int numberOfBits = int.Parse(firtsRowParts[1]);
 
-                List<int> numbers = new List<int>(numberOfNodes);
+                var numbers = new List<int>(numberOfNodes);
                 while (true)
                 {
                     string row = reader.ReadLine();
@@ -42,9 +41,9 @@ namespace CourseraTasks
             }
         }
 
-        private int GetNumber(IEnumerable<byte> bits)
+        private static int GetNumber(IEnumerable<byte> bits)
         {
-            return bits.Aggregate(0, (acc, element) => 2*acc + element);
+            return bits.Aggregate(0, (acc, element) => 2 * acc + element);
         }
     }
 }

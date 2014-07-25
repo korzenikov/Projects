@@ -5,7 +5,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class QuicksortTask
+    public class QuicksortTask : ITask
     {
         public void Run()
         {

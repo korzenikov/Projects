@@ -1,11 +1,10 @@
-﻿using CourseraTasks.CSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+
+using CourseraTasks.CSharp;
+
 using FluentAssertions;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseraTasks.Test
 {

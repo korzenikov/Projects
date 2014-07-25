@@ -1,11 +1,10 @@
-﻿using CourseraTasks.CSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+
+using CourseraTasks.CSharp;
+
 using FluentAssertions;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseraTasks.Test
 {
@@ -23,7 +22,7 @@ namespace CourseraTasks.Test
             }
 
             unionFind.Union(0, 1);
-            var group1 =  unionFind.Find(0);
+            var group1 = unionFind.Find(0);
             unionFind.Find(1).Should().Be(group1);
 
             unionFind.Union(2, 3);

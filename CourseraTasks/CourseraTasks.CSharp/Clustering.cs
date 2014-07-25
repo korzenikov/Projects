@@ -1,40 +1,34 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks.CSharp
 {
     public static class Clustering
     {
-        public static int GetMaxSpacing(DirectedWeightedGraph graph, int k)
+        public static int GetMaxSpacing(DirectedWeightedGraph graph, int clusterCount)
         {
-            int clusterCount = graph.NodesCount;
-            var unionFind = new UnionFind(clusterCount);
+            int currentClusterCount = graph.NodesCount;
+            var unionFind = new UnionFind(currentClusterCount);
             var edges = new PriorityQueue<WeightedEdge, int>(graph.GetEdges().Select(e => new KeyValuePair<WeightedEdge, int>(e, e.Weight)));
-            while (clusterCount >= k)
+            while (currentClusterCount >= clusterCount)
             {
                 var edge = edges.ExtractHighestPriorityElement();
                 var cluster1 = unionFind.Find(edge.StartNode);
                 var cluster2 = unionFind.Find(edge.EndNode);
                 if (cluster1 != cluster2)
                 {
-                    if (clusterCount == k)
+                    if (currentClusterCount == clusterCount)
                     {
                         return edge.Weight;
                     }
 
                     unionFind.Union(cluster1, cluster2);
-                    clusterCount--;
+                    currentClusterCount--;
                 }
             }
 
             return 0;
         }
-
 
         public static int GetMaxClusters(IEnumerable<int> numbers, int bits, int maxSpacing)
         {
@@ -71,7 +65,6 @@ namespace CourseraTasks.CSharp
 
         public static IEnumerable<int> GetModifications(int number, int totalBits, int bitsToModify, int startBit)
         {
-            
             for (int i = startBit; i < totalBits; i++)
             {
                 var modifiedNumber = IsBitSet(number, i) ? ClearBit(number, i) : SetBit(number, i);
@@ -82,8 +75,6 @@ namespace CourseraTasks.CSharp
                 {
                     yield return n;
                 }
-
-                
             }
         }
 
@@ -91,7 +82,6 @@ namespace CourseraTasks.CSharp
         {
             return (number & (1 << position)) != 0;
         }
-
 
         private static int SetBit(int number, int position)
         {

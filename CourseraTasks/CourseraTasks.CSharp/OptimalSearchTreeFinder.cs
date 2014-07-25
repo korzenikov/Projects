@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks.CSharp
 {
@@ -11,19 +8,19 @@ namespace CourseraTasks.CSharp
         public static double GetMinAverageSearchTime(IReadOnlyList<double> weights)
         {
             int n = weights.Count;
-            var A = GetDesicionArray(weights);
-            return A[0, n - 1];
+            var solution = GetSolutions(weights);
+            return solution[0, n - 1];
         }
 
         public static TreeNode<int> GetTree(IReadOnlyList<double> weights)
         {
             int n = weights.Count;
-            var A = GetDesicionArray(weights);
+            var solution = GetSolutions(weights);
 
-            return GetTree(A, 0, n - 1);
+            return GetTree(solution, 0, n - 1);
         }
 
-        private static TreeNode<int> GetTree(double[,] A, int i, int j)
+        private static TreeNode<int> GetTree(double[,] solutions, int i, int j)
         {
             if (i > j)
             {
@@ -41,11 +38,11 @@ namespace CourseraTasks.CSharp
             {
                 double time;
                 if (i > r - 1)
-                    time = A[r + 1, j];
+                    time = solutions[r + 1, j];
                 else if (r + 1 > j)
-                    time = A[i, r - 1];
+                    time = solutions[i, r - 1];
                 else
-                    time = A[i, r - 1] + A[r + 1, j];
+                    time = solutions[i, r - 1] + solutions[r + 1, j];
                 if (time < min)
                 {
                     min = time;
@@ -53,20 +50,19 @@ namespace CourseraTasks.CSharp
                 }
             }
 
-            var leftChild = GetTree(A, i, rootIndex - 1);
-            var rightChild = GetTree(A, rootIndex + 1, j);
+            var leftChild = GetTree(solutions, i, rootIndex - 1);
+            var rightChild = GetTree(solutions, rootIndex + 1, j);
 
             return new TreeNode<int>(rootIndex, leftChild, rightChild);
         }
 
-        private static double[,] GetDesicionArray(IReadOnlyList<double> weights)
+        private static double[,] GetSolutions(IReadOnlyList<double> weights)
         {
             int n = weights.Count;
-            var A = new double[n, n];
+            var optimalSolution = new double[n, n];
             for (int i = 0; i < n; i++)
             {
-                A[i, i] = weights[i];
-
+                optimalSolution[i, i] = weights[i];
             }
 
             for (int s = 1; s < n; s++)
@@ -77,17 +73,15 @@ namespace CourseraTasks.CSharp
                     double min = Enumerable.Range(i, s + 1).Select(x =>
                     {
                         if (i > x - 1)
-                            return A[x + 1, j];
+                            return optimalSolution[x + 1, j];
                         if (x + 1 > j)
-                            return A[i, x - 1];
-                        return A[i, x - 1] + A[x + 1, j];
+                            return optimalSolution[i, x - 1];
+                        return optimalSolution[i, x - 1] + optimalSolution[x + 1, j];
                     }).Min();
-                    A[i, j] = p + min;
+                    optimalSolution[i, j] = p + min;
                 }
 
-            return A;
+            return optimalSolution;
         }
-
-        
     }
 }

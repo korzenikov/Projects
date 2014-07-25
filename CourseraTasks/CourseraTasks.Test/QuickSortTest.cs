@@ -108,7 +108,7 @@ namespace CourseraTasks.Test
             var median1 = Quicksort.GetMedian(array1, 0, array1.Length - 1);
             median1.Should().Be(0);
 
-            var array2 = new[] { 5, 6, 7, 1, 2, 10};
+            var array2 = new[] { 5, 6, 7, 1, 2, 10 };
             var median2 = Quicksort.GetMedian(array2, 0, array2.Length - 1);
             median2.Should().Be(2);
 

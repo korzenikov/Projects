@@ -10,7 +10,7 @@ namespace CourseraTasks.Test
     public class PrimsAlgorithmTest
     {
         [TestMethod]
-        public void GetMinumumSpanningTreeLengthTest()
+        public void GetMinimumSpanningTreeLengthTest()
         {
             var graph = new DirectedWeightedGraph();
             
@@ -28,7 +28,7 @@ namespace CourseraTasks.Test
             graph.AddEdge(3, 1, 2);
             graph.AddEdge(3, 2, 5);
 
-            var mstLength = PrimsAlgorithm.GetMinumumSpanningTreeLength(graph);
+            var mstLength = PrimsAlgorithm.GetMinimumSpanningTreeLength(graph);
             mstLength.Should().Be(7);
         }
     }

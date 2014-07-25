@@ -5,7 +5,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class MergeSortTask
+    public class MergeSortTask : ITask
     {
         public void Run()
         {

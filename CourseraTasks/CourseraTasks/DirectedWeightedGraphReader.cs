@@ -1,18 +1,19 @@
-﻿using CourseraTasks.CSharp;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class DirectedWeightedGraphReader
+    public static class DirectedWeightedGraphReader
     {
         public static DirectedWeightedGraph GetGraph(TextReader reader)
         {
+            if (reader == null)
+                throw new ArgumentNullException("reader");
             var graph = new DirectedWeightedGraph();
             reader.ReadLine();
             while (true)

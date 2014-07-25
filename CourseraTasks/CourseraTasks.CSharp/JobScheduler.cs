@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CourseraTasks.CSharp
 {
-    public class JobScheduler
+    public static class JobScheduler
     {
         public static long GetWeightedSumOfCompletionTimes(IEnumerable<Job> jobs, Func<Job, Job, int> comparer)
         {

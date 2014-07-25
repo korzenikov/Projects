@@ -27,9 +27,9 @@ namespace CourseraTasks.CSharp
             return ExtractHighestPriorityElement();
         }
 
-        protected override bool IsHigherPriority(T element1, T element2)
+        protected override bool IsHigherPriority(T priority1, T priority2)
         {
-            return element1.CompareTo(element2) < 0;
+            return priority1.CompareTo(priority2) < 0;
         }
     }
 }

@@ -7,7 +7,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class MinCutTask
+    public class MinCutTask: ITask
     {
         public void Run()
         {

@@ -1,11 +1,10 @@
-﻿using CourseraTasks.CSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
@@ -13,13 +12,14 @@ namespace CourseraTasks
     {
         public static Knapsack GetKnapsack(TextReader reader)
         {
+            if (reader == null)
+                throw new ArgumentNullException("reader");
             var firstRow = reader.ReadLine();
             var firtsRowParts = firstRow.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
             int capacity = int.Parse(firtsRowParts[0]);
             int numberOfItems = int.Parse(firtsRowParts[1]);
             
-
-            List<KnapsackItem> items = new List<KnapsackItem>(numberOfItems);
+            var items = new List<KnapsackItem>(numberOfItems);
             while (true)
             {
                 string row = reader.ReadLine();

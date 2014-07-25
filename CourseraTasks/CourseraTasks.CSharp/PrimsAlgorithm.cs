@@ -5,7 +5,7 @@ namespace CourseraTasks.CSharp
 {
     public static class PrimsAlgorithm
     {
-        public static int GetMinumumSpanningTreeLength(DirectedWeightedGraph graph)
+        public static int GetMinimumSpanningTreeLength(DirectedWeightedGraph graph)
         {
             int length = 0;
             var dist = new int[graph.NodesCount];

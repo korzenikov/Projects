@@ -30,6 +30,7 @@ namespace CourseraTasks.CSharp
                 {
                     continue;
                 }
+
                 nodes.Remove(node1);
                 nodes.Remove(node2);
                 nodes.Add(node1.Merge(node2));

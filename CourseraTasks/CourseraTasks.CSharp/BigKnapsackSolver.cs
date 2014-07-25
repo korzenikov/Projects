@@ -1,10 +1,7 @@
-﻿using CourseraTasks.CSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks.CSharp
 {
@@ -21,10 +18,9 @@ namespace CourseraTasks.CSharp
             _capacity = knapsack.Capacity;
             _calculatedMaxCosts = new Dictionary<int, int>[_items.Count];
             for (int i = 0; i < _items.Count; i++)
-			{
+            {
                 _calculatedMaxCosts[i] = new Dictionary<int, int>();
-			}
-
+            }
         }
 
         public int GetMaxCost()
@@ -54,7 +50,7 @@ namespace CourseraTasks.CSharp
 
             cost = Math.Max(GetMaxCost(i - 1, w), GetMaxCost(i - 1, w - item.Weight) + item.Cost);
             _calculatedMaxCosts[i][w]  = cost;
-            return  cost;
+            return cost;
         }
     }
 }

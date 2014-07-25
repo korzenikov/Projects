@@ -1,13 +1,10 @@
-﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 
 using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class PrimsAlgorithmTask
+    public class PrimsAlgorithmTask : ITask
     {
         public void Run()
         {
@@ -16,7 +13,7 @@ namespace CourseraTasks
             {
                 var graph = DirectedWeightedGraphReader.GetGraph(reader);
 
-                var length = PrimsAlgorithm.GetMinumumSpanningTreeLength(graph);
+                var length = PrimsAlgorithm.GetMinimumSpanningTreeLength(graph);
                 writer.WriteLine(length);
             }
         }

@@ -8,7 +8,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class TwoSumAlgorithmTask
+    public class TwoSumAlgorithmTask : ITask
     {
         public void Run()
         {

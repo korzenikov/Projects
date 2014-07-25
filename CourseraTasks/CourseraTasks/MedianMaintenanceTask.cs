@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 
 using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class MedianMaintenanceTask
+    public class MedianMaintenanceTask : ITask
     {
         public void Run()
         {

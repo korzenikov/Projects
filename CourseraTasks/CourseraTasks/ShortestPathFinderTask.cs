@@ -7,7 +7,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class ShortestPathFinderTask
+    public class ShortestPathFinderTask : ITask
     {
         public void Run()
         {

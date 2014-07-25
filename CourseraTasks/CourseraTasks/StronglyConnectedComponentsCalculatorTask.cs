@@ -7,7 +7,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class StronglyConnectedComponentsCalculatorTask
+    public class StronglyConnectedComponentsCalculatorTask : ITask
     {
         public void Run()
         {

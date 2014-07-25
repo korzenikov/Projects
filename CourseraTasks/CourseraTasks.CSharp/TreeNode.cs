@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CourseraTasks.CSharp
+﻿namespace CourseraTasks.CSharp
 {
     public class TreeNode<T>
     {
-
         public TreeNode(T value, TreeNode<T> left, TreeNode<T> right)
         {
             Value = value;
@@ -16,9 +9,7 @@ namespace CourseraTasks.CSharp
             Right = right;
         }
 
-
         public T Value { get; private set; }
-
 
         public TreeNode<T> Left { get; private set; }
 
