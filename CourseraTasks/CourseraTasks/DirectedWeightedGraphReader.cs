@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace CourseraTasks
 {
     public static class DirectedWeightedGraphReader
     {
-        public static DirectedWeightedGraph GetGraph(TextReader reader)
+        public static DirectedWeightedGraph GetGraph(TextReader reader, bool makeUndirected)
         {
             if (reader == null)
                 throw new ArgumentNullException("reader");
@@ -30,7 +29,10 @@ namespace CourseraTasks
                 var node2 = numbers[1] - 1;
                 var weight = numbers[2];
                 graph.AddEdge(node1, node2, weight);
-                graph.AddEdge(node2, node1, weight);
+                if (makeUndirected)
+                {
+                    graph.AddEdge(node2, node1, weight);
+                }
             }
 
             return graph;

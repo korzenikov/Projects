@@ -11,7 +11,7 @@ namespace CourseraTasks
             using (var reader = new StreamReader("edges.txt"))
             using (var writer = new StreamWriter("output.txt"))
             {
-                var graph = DirectedWeightedGraphReader.GetGraph(reader);
+                var graph = DirectedWeightedGraphReader.GetGraph(reader, true);
 
                 var length = PrimsAlgorithm.GetMinimumSpanningTreeLength(graph);
                 writer.WriteLine(length);

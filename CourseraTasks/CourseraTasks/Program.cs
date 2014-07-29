@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            ITask task = new BigKnapsackSolverTask();
+            ITask task = new FloydWarshallTask();
             task.Run();
         }
     }

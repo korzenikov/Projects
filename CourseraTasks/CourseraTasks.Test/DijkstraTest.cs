@@ -18,8 +18,8 @@ namespace CourseraTasks.Test
             graph.AddEdge(1, 2, 2);
             graph.AddEdge(1, 3, 6);
             graph.AddEdge(2, 3, 3);
-            var nodes = Dijkstra.Find(graph, 0);
-            nodes.Should().Equal(new[] { 0, 1, 3, 6 });
+            var distances = Dijkstra.Find(graph, 0);
+            distances.Should().Equal(new[] { 0, 1, 3, 6 });
         }
     }
 }
