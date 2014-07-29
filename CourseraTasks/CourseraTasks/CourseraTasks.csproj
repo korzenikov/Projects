@@ -50,6 +50,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="BigKnapsackSolverTask.cs" />
+    <Compile Include="JohnsonTask.cs" />
     <Compile Include="KnapsackReader.cs" />
     <Compile Include="KnapsackSolverTask.cs" />
     <Compile Include="MedianMaintenanceTask.cs" />

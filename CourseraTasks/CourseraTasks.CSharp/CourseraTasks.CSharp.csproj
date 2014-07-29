@@ -44,10 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BellmanFord.cs" />
     <Compile Include="BigKnapsackSolver.cs" />
     <Compile Include="Clustering.cs" />
     <Compile Include="DirectedGraph.cs" />
     <Compile Include="FloydWarshall.cs" />
+    <Compile Include="Johnson.cs" />
     <Compile Include="Knapsack.cs" />
     <Compile Include="KnapsackSolver.cs" />
     <Compile Include="KnapsackItem.cs" />

@@ -83,6 +83,8 @@
     <Compile Include="UnionFindTest.cs" />
     <Compile Include="OptimalSearchTreeFinderTest.cs" />
     <Compile Include="FloydWarshallTest.cs" />
+    <Compile Include="BellmanFordTest.cs" />
+    <Compile Include="JohnsonTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseraTasks.CSharp\CourseraTasks.CSharp.csproj">

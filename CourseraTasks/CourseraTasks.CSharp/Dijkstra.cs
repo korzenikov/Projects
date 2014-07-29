@@ -5,19 +5,12 @@ namespace CourseraTasks.CSharp
 {
     public static class Dijkstra
     {
-        public static IEnumerable<int> Find(DirectedWeightedGraph graph, int source)
+        public static IEnumerable<int?> Find(DirectedWeightedGraph graph, int source)
         {
-            var dist = new int[graph.NodesCount];
+            var dist = new int?[graph.NodesCount];
             dist[source] = 0;
-            for (int i = 0; i < dist.Length; i++)
-            {
-                if (i != source)
-                {
-                    dist[i] = int.MaxValue;
-                }
-            }
-
-            var closestNodes = new PriorityQueue<int, int>(dist.Select((d, i) => new KeyValuePair<int, int>(i, d)));
+            
+            var closestNodes = new PriorityQueue<int, int>(dist.Select((d, i) => new KeyValuePair<int, int>(i, d.GetValueOrDefault(int.MaxValue))));
             var exploredNodes = new HashSet<int>();
 
             while (closestNodes.Count != 0)
@@ -26,11 +19,14 @@ namespace CourseraTasks.CSharp
                 exploredNodes.Add(node);
                 foreach (var edge in graph.GetEdges(node).Where(e => !exploredNodes.Contains(e.EndNode)))
                 {
-                    var alt = dist[node] + edge.Weight;
-                    if (alt < dist[edge.EndNode])
+                    if (dist[node] != null)
                     {
-                        dist[edge.EndNode] = alt;
-                        closestNodes.ChangePriority(edge.EndNode, alt);
+                        var alt = dist[node].Value + edge.Weight;
+                        if (alt < dist[edge.EndNode].GetValueOrDefault(int.MaxValue))
+                        {
+                            dist[edge.EndNode] = alt;
+                            closestNodes.ChangePriority(edge.EndNode, alt);
+                        }
                     }
                 }
             }

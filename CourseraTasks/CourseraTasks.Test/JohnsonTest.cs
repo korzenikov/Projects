@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CourseraTasks.Test
 {
     [TestClass]
-    public class FloydWarshallTest
+    public class JohnsonTest
     {
         [TestMethod]
         public void GetShortestPathsTest()
@@ -23,7 +23,7 @@ namespace CourseraTasks.Test
             graph.AddEdge(5, 3, 1);
             graph.AddEdge(5, 4, -4);
 
-            var distances = FloydWarshall.GetShortestPaths(graph);
+            var distances = Johnson.GetShortestPaths(graph);
             var elements = new int?[,]
                 {
                     { 0, -2, -3, -1, -6, null }, { 3, 0, -1, 1, -4, null }, { 4, 2, 0, 2, -3, null }, { null, null, null, 0, null, null },
@@ -43,7 +43,7 @@ namespace CourseraTasks.Test
             graph.AddEdge(3, 1, -6);
             graph.AddEdge(4, 3, 7);
 
-            var distances = FloydWarshall.GetShortestPaths(graph);
+            var distances = Johnson.GetShortestPaths(graph);
 
             distances.Should().BeNull("Graph contains a negative-weight cycle");
         }

@@ -38,6 +38,11 @@ namespace CourseraTasks.CSharp
             return _nodes[node].Edges;
         }
 
+        public void RemoveNode(int nodeIndex)
+        {
+            _nodes.RemoveAt(nodeIndex);
+        }
+
         private Node GetOrCreateNode(int nodeIndex)
         {
             var missedNodesCount = nodeIndex - _nodes.Count + 1;
