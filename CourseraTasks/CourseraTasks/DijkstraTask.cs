@@ -7,7 +7,7 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class ShortestPathFinderTask : ITask
+    public class DijkstraTask : ITask
     {
         public void Run()
         {
@@ -36,7 +36,7 @@ namespace CourseraTasks
 
                 var vertices = new[] { 6, 36, 58, 81, 98, 114, 132, 164, 187, 196 };
 
-                var shortestPaths = ShortestPathFinder.Find(graph, 0).ToArray();
+                var shortestPaths = Dijkstra.Find(graph, 0).ToArray();
                 var result = string.Join(",", vertices.Select(v => shortestPaths[v]));
                 writer.WriteLine(result);
             }

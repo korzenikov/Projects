@@ -61,7 +61,7 @@
     <Compile Include="SequenceOfNumbersReader.cs" />
     <Compile Include="PrimsAlgorithmTask.cs" />
     <Compile Include="StronglyConnectedComponentsCalculatorTask.cs" />
-    <Compile Include="ShortestPathFinderTask.cs" />
+    <Compile Include="DijkstraTask.cs" />
     <Compile Include="TwoSumAlgorithmTask.cs" />
   </ItemGroup>
   <ItemGroup>

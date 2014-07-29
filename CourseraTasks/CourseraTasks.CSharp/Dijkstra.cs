@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CourseraTasks.CSharp
 {
-    public static class ShortestPathFinder
+    public static class Dijkstra
     {
         public static IEnumerable<int> Find(DirectedWeightedGraph graph, int source)
         {
