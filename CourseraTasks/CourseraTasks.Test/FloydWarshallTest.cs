@@ -47,5 +47,20 @@ namespace CourseraTasks.Test
 
             distances.Should().BeNull("Graph contains a negative-weight cycle");
         }
+
+        [TestMethod]
+        public void TestCycles()
+        {
+            var graph = new DirectedWeightedGraph();
+            graph.AddEdge(0, 1, -1);
+            graph.AddEdge(1, 0, -1);
+            graph.AddEdge(0, 2, -1);
+            graph.AddEdge(2, 0, -1);
+            graph.AddEdge(1, 2, -1);
+            graph.AddEdge(2, 1, -1);
+
+            var distances = FloydWarshall.GetShortestPaths(graph);
+
+        }
     }
 }

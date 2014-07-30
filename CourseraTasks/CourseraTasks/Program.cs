@@ -7,7 +7,7 @@ namespace CourseraTasks
     {
         public static void Main(string[] args)
         {
-            ITask task = new FloydWarshallTask();
+            ITask task = new JohnsonTask();
             Stopwatch sw = Stopwatch.StartNew();
             task.Run();
             sw.Stop();

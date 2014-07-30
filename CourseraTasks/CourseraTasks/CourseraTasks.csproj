@@ -103,6 +103,9 @@
     <Content Include="InputFiles\knapsack_big.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="InputFiles\large.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="InputFiles\Median.txt" />
     <Content Include="InputFiles\QuickSort.txt" />
   </ItemGroup>
