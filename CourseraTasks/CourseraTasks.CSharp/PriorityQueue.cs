@@ -9,6 +9,8 @@ namespace CourseraTasks.CSharp
     {
         private List<KeyValuePair<TElement, TPriority>> _keyValuePairs;
 
+        private IDictionary<TElement, int> _elementPositions;
+
         public PriorityQueue(IEnumerable<KeyValuePair<TElement, TPriority>> keyValuePairs)
         {
             Build(keyValuePairs);
@@ -44,6 +46,8 @@ namespace CourseraTasks.CSharp
             var temp = _keyValuePairs[i];
             _keyValuePairs[i] = _keyValuePairs[j];
             _keyValuePairs[j] = temp;
+            _elementPositions[_keyValuePairs[i].Key] = i;
+            _elementPositions[_keyValuePairs[j].Key] = j;
         }
 
         protected override TPriority GetPriority(int index)
@@ -68,17 +72,23 @@ namespace CourseraTasks.CSharp
 
         private int GetElementIndex(TElement key)
         {
-            for (int i = 0; i < Count; i++)
+            int index;
+            if (_elementPositions.TryGetValue(key, out index))
             {
-                if (Equals(GetElement(i), key)) return i;
+                return index;
             }
-
             return -1;
         }
 
         private void Build(IEnumerable<KeyValuePair<TElement, TPriority>> keyValuePairs)
         {
             _keyValuePairs = keyValuePairs.ToList();
+            _elementPositions = new Dictionary<TElement, int>();
+            for (int i = 0; i < _keyValuePairs.Count; i++)
+            {
+                _elementPositions.Add(_keyValuePairs[i].Key, i);
+            }
+
             HeapifyAll();
         }
     }

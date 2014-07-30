@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseraTasks.CSharp
 {
@@ -21,10 +18,11 @@ namespace CourseraTasks.CSharp
                 }
             }
 
+            var edges = graph.GetEdges().ToArray();
             for (int i = 0; i < n + 1; i++)
             {
                 bool changed = false;
-                foreach (var edge in graph.GetEdges())
+                foreach (var edge in edges)
                 {
                     if (dist[edge.StartNode] != null && dist[edge.StartNode] + edge.Weight < dist[edge.EndNode].GetValueOrDefault(int.MaxValue))
                     {

@@ -35,7 +35,7 @@ namespace CourseraTasks.CSharp
                         }
                         else
                         {
-                            distances[i, j] = Math.Min(prevDistance.Value, newDistance.Value);
+                            distances[i, j] = Math.Min(prevDistance.GetValueOrDefault(), newDistance.GetValueOrDefault());
                         }
                     }
 
