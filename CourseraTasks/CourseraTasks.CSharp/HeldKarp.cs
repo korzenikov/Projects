@@ -42,16 +42,21 @@ namespace CourseraTasks.CSharp
                         if (!BitHelper.IsBitSet(subset, v))
                         {
                             var newSubset = BitHelper.SetBit(subset, v);
-                            if (!currentDistances.ContainsKey(newSubset))
+
+                            float[] newDistances;
+
+                            if (!currentDistances.TryGetValue(newSubset, out newDistances))
                             {
-                                currentDistances.Add(newSubset, Enumerable.Repeat(float.PositiveInfinity, _verticesCount).ToArray());
+                                newDistances = Enumerable.Repeat(float.PositiveInfinity, _verticesCount).ToArray();
+                                currentDistances.Add(newSubset, newDistances);
                                 newSubsets.Add(newSubset);
                             }
 
-                            currentDistances[newSubset][v] =
+                            var currentDistance = currentDistances[subset];
+                            newDistances[v] =
                                 Enumerable.Range(0, _verticesCount)
                                     .Where(k => BitHelper.IsBitSet(subset, k))
-                                    .Select(k => currentDistances[subset][k] + _distances[k, v])
+                                    .Select(k => currentDistance[k] + _distances[k, v])
                                     .Min();
                         }
 

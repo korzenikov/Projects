@@ -43,7 +43,7 @@ namespace CourseraTasks
                         }
                     }
 
-                var heldKarp = new HeldKarp2(n, distances);
+                var heldKarp = new HeldKarp(n, distances);
 
                 var length = heldKarp.GetShortestRouteLength();
 
