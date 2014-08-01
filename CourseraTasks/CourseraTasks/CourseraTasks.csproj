@@ -48,7 +48,6 @@
     <Compile Include="FloydWarshallTask.cs" />
     <Compile Include="DirectedWeightedGraphReader.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="TspTask.cs" />
     <Compile Include="HeldKarpTask.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="BigKnapsackSolverTask.cs" />

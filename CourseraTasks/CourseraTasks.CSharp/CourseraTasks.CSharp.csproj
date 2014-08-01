@@ -64,7 +64,6 @@
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="PrimsAlgorithm.cs" />
     <Compile Include="TreeNode.cs" />
-    <Compile Include="Tsp.cs" />
     <Compile Include="TwoSumAlgorithm.cs" />
     <Compile Include="DirectedWeightedGraph.cs" />
     <Compile Include="GlobalSuppressions.cs" />

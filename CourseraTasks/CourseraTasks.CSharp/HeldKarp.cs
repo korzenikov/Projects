@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace CourseraTasks.CSharp
@@ -37,7 +36,7 @@ namespace CourseraTasks.CSharp
             for (int m = 0; m < _verticesCount - 1; m++)
             {
                 var newSubsets = new List<int>();
-                foreach (var subset in subsets.Distinct())
+                foreach (var subset in subsets)
                 {
                     for (int v = 1; v < _verticesCount; v++)
                         if (!BitHelper.IsBitSet(subset, v))
@@ -46,6 +45,7 @@ namespace CourseraTasks.CSharp
                             if (!currentDistances.ContainsKey(newSubset))
                             {
                                 currentDistances.Add(newSubset, Enumerable.Repeat(float.PositiveInfinity, _verticesCount).ToArray());
+                                newSubsets.Add(newSubset);
                             }
 
                             currentDistances[newSubset][v] =
@@ -53,7 +53,6 @@ namespace CourseraTasks.CSharp
                                     .Where(k => BitHelper.IsBitSet(subset, k))
                                     .Select(k => currentDistances[subset][k] + _distances[k, v])
                                     .Min();
-                            newSubsets.Add(newSubset);
                         }
 
                     currentDistances.Remove(subset);
