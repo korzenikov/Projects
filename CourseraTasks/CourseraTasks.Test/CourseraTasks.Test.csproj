@@ -75,6 +75,7 @@
     <Compile Include="StronglyConnectedComponentsCalculatorTest.cs" />
     <Compile Include="MinHeapTest.cs" />
     <Compile Include="DijkstraTest.cs" />
+    <Compile Include="TspTest.cs" />
     <Compile Include="TwoSumAlgorithmTest.cs" />
     <Compile Include="PriorityQueueTest.cs" />
     <Compile Include="PrimsAlgorithmTest.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="FloydWarshallTest.cs" />
     <Compile Include="BellmanFordTest.cs" />
     <Compile Include="JohnsonTest.cs" />
+    <Compile Include="HeldKarpTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseraTasks.CSharp\CourseraTasks.CSharp.csproj">

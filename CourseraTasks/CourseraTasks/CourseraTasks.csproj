@@ -48,6 +48,8 @@
     <Compile Include="FloydWarshallTask.cs" />
     <Compile Include="DirectedWeightedGraphReader.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="TspTask.cs" />
+    <Compile Include="HeldKarpTask.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="BigKnapsackSolverTask.cs" />
     <Compile Include="JohnsonTask.cs" />
@@ -108,6 +110,9 @@
     </Content>
     <Content Include="InputFiles\Median.txt" />
     <Content Include="InputFiles\QuickSort.txt" />
+    <Content Include="InputFiles\tsp.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

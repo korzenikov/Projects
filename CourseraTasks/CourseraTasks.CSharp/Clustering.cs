@@ -47,7 +47,7 @@ namespace CourseraTasks.CSharp
                 foreach (var number in distinctNumbers)
                 {
                     var modifications = GetModifications(number, bits, spacing, 0).ToArray();
-                    foreach (var modification in modifications.Where(m => numberToCluster.ContainsKey(m)))
+                    foreach (var modification in modifications.Where(numberToCluster.ContainsKey))
                     {
                         var cluster1 = unionFind.Find(numberToCluster[number]);
                         var cluster2 = unionFind.Find(numberToCluster[modification]);
@@ -67,7 +67,7 @@ namespace CourseraTasks.CSharp
         {
             for (int i = startBit; i < totalBits; i++)
             {
-                var modifiedNumber = IsBitSet(number, i) ? ClearBit(number, i) : SetBit(number, i);
+                var modifiedNumber = BitHelper.IsBitSet(number, i) ? BitHelper.ClearBit(number, i) : BitHelper.SetBit(number, i);
                 if (bitsToModify == 1)
                     yield return modifiedNumber;
                 else
@@ -76,21 +76,6 @@ namespace CourseraTasks.CSharp
                     yield return n;
                 }
             }
-        }
-
-        private static bool IsBitSet(int number, int position)
-        {
-            return (number & (1 << position)) != 0;
-        }
-
-        private static int SetBit(int number, int position)
-        {
-            return number | (1 << position);
-        }
-
-        private static int ClearBit(int number, int position)
-        {
-            return number & ~(1 << position);
         }
     }
 }
