@@ -3,86 +3,85 @@ using System.Collections.ObjectModel;
 
 namespace CourseraTasks.CSharp
 {
-    public class DirectedGraph
+    public class DirectedGraph<T>
     {
-        private readonly List<Node> _nodes;
+        private readonly IDictionary<T, Node> _nodes;
 
         public DirectedGraph()
         {
-            _nodes = new List<Node>();
+            _nodes = new Dictionary<T, Node>();
         }
 
-        public int NodesCount
+        public IEnumerable<T> Keys
         {
             get
             {
-                return _nodes.Count;
+                return _nodes.Keys;
             }
         }
 
-        public void AddEdge(int from, int to)
+        public void AddEdge(T from, T to)
         {
-            Node startNode = GetOrCreateNode(from);
-            Node endNode = GetOrCreateNode(to);
+            var startNode = GetOrCreateNode(from);
+            var endNode = GetOrCreateNode(to);
             startNode.AddOutEdge(to);
             endNode.AddInEdge(from);
         }
 
-        public IEnumerable<int> GetInNodes(int node)
+        public IEnumerable<T> GetInNodes(T key)
         {
-            return _nodes[node].InNodes;
+            return _nodes[key].InNodes;
         }
 
-        public IEnumerable<int> GetOutNodes(int node)
+        public IEnumerable<T> GetOutNodes(T key)
         {
-            return _nodes[node].OutNodes;
+            return _nodes[key].OutNodes;
         }
 
-        private Node GetOrCreateNode(int nodeIndex)
+        private Node GetOrCreateNode(T key)
         {
-            var missedNodesCount = nodeIndex - _nodes.Count + 1;
-            for (int i = 0; i < missedNodesCount; i++)
+            if (!_nodes.ContainsKey(key))
             {
-                _nodes.Add(new Node());
+                _nodes[key] = new Node();
             }
 
-            return _nodes[nodeIndex];
+            return _nodes[key];
         }
 
         private class Node
         {
-            private readonly List<int> _outNodes;
+            private readonly List<T> _outNodes;
 
-            private readonly List<int> _inNodes;
+            private readonly List<T> _inNodes;
 
             public Node()
             {
-                _outNodes = new List<int>();
-                _inNodes = new List<int>();
+                _outNodes = new List<T>();
+                _inNodes = new List<T>();
             }
 
-            public IEnumerable<int> OutNodes
+            public IEnumerable<T> OutNodes
             {
                 get
                 {
-                    return new ReadOnlyCollection<int>(_outNodes);
+                    return new ReadOnlyCollection<T>(_outNodes);
                 }
             }
 
-            public IEnumerable<int> InNodes
+            public IEnumerable<T> InNodes
             {
                 get
                 {
-                    return new ReadOnlyCollection<int>(_inNodes);
+                    return new ReadOnlyCollection<T>(_inNodes);
                 }
             }
 
-            public void AddOutEdge(int node)
+            public void AddOutEdge(T node)
             {
                 _outNodes.Add(node);
             }
 
-            public void AddInEdge(int node)
+            public void AddInEdge(T node)
             {
                 _inNodes.Add(node);
             }

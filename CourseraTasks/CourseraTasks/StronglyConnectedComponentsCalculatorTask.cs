@@ -14,7 +14,7 @@ namespace CourseraTasks
             using (var reader = new StreamReader("SCC.txt"))
             using (var writer = new StreamWriter("output.txt"))
             {
-                var graph = new DirectedGraph();
+                var graph = new DirectedGraph<int>();
 
                 while (true)
                 {
@@ -34,7 +34,7 @@ namespace CourseraTasks
                     }
                 }
 
-                var calculator = new StronglyConnectedComponentsCalculator(graph);
+                var calculator = new StronglyConnectedComponentsCalculator<int>(graph);
 
                 var components = calculator.GetStronglyConnectedComponents().ToArray();
                 var top5Components = components.OrderByDescending(x => x.Length).Take(5).ToArray();

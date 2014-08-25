@@ -44,9 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BacktrackingTwoSatSolver.cs" />
     <Compile Include="BellmanFord.cs" />
     <Compile Include="BigKnapsackSolver.cs" />
     <Compile Include="BitHelper.cs" />
+    <Compile Include="Clause.cs" />
+    <Compile Include="ClauseState.cs" />
     <Compile Include="Clustering.cs" />
     <Compile Include="DirectedGraph.cs" />
     <Compile Include="FloydWarshall.cs" />
@@ -58,12 +61,16 @@
     <Compile Include="KnapsackItem.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="JobScheduler.cs" />
+    <Compile Include="Literal.cs" />
     <Compile Include="OptimalSearchTreeFinder.cs" />
+    <Compile Include="Papadimitriou.cs" />
     <Compile Include="PriorityQueueBase.cs" />
     <Compile Include="MergedNode.cs" />
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="PrimsAlgorithm.cs" />
+    <Compile Include="Problem.cs" />
     <Compile Include="TreeNode.cs" />
+    <Compile Include="TwoSatSolver.cs" />
     <Compile Include="TwoSumAlgorithm.cs" />
     <Compile Include="DirectedWeightedGraph.cs" />
     <Compile Include="GlobalSuppressions.cs" />

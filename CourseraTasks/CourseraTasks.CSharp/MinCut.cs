@@ -6,15 +6,14 @@ namespace CourseraTasks.CSharp
 {
     public static class MinCut
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
-        public static int GetMinCut(DirectedGraph graph)
+        public static int GetMinCut(DirectedGraph<int> graph)
         {
             var nodes = new List<MergedNode>();
             var edges = new List<Edge>();
-            for (int i = 0; i < graph.NodesCount; i++)
+            foreach (var node in graph.Keys)
             {
-                nodes.Add(new MergedNode(i));
-                edges.AddRange(graph.GetOutNodes(i).Select(x => new Edge(i, x)));
+                nodes.Add(new MergedNode(node));
+                edges.AddRange(graph.GetOutNodes(node).Select(x => new Edge(node, x)));
             }
 
             var random = new Random();
@@ -39,8 +38,7 @@ namespace CourseraTasks.CSharp
             return GetCrossingEdgesCount(nodes[0], nodes[1], graph);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
-        public static int GetCrossingEdgesCount(MergedNode node1, MergedNode node2, DirectedGraph graph)
+        public static int GetCrossingEdgesCount(MergedNode node1, MergedNode node2, DirectedGraph<int> graph)
         {
             return node1.Nodes.Sum(n1 => node2.Nodes.Count(n2 => graph.GetOutNodes(n1).Contains(n2)));
         }

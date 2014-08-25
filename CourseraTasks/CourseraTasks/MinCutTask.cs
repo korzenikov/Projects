@@ -7,14 +7,14 @@ using CourseraTasks.CSharp;
 
 namespace CourseraTasks
 {
-    public class MinCutTask: ITask
+    public class MinCutTask : ITask
     {
         public void Run()
         {
             using (var reader = new StreamReader("kargerMinCut.txt"))
             using (var writer = new StreamWriter("output.txt"))
             {
-                var graph = new DirectedGraph();
+                var graph = new DirectedGraph<int>();
                 while (true)
                 {
                     string row = reader.ReadLine();

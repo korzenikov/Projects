@@ -34,9 +34,9 @@ namespace CourseraTasks.Test
             actual2.Should().Be(2);
         }
 
-        private static DirectedGraph GetTestGraph()
+        private static DirectedGraph<int> GetTestGraph()
         {
-            var graph = new DirectedGraph();
+            var graph = new DirectedGraph<int>();
             graph.AddEdge(0, 1);
             graph.AddEdge(0, 3);
             graph.AddEdge(1, 0);
