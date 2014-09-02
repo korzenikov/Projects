@@ -9,8 +9,6 @@ namespace GraphViewer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly GViewer _gViewer = new GViewer();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -18,10 +16,12 @@ namespace GraphViewer
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            WindowsFormsHost.Child = _gViewer;
             var graph = new Graph();
             graph.AddEdge("1", "2");
-            _gViewer.Graph = graph;
+            graphViewer.Graph = graph;
+
+            var form = new DependenciesViewerForm();
+            form.Show();
         }
     }
 }
