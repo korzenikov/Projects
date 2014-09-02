@@ -65,6 +65,7 @@
     <Compile Include="PrimsAlgorithmTask.cs" />
     <Compile Include="StronglyConnectedComponentsCalculatorTask.cs" />
     <Compile Include="DijkstraTask.cs" />
+    <Compile Include="TwoSatSolverTask.cs" />
     <Compile Include="TwoSumAlgorithmTask.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +78,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InputFiles\2sat1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InputFiles\2sat2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InputFiles\2sat3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InputFiles\2sat4.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InputFiles\2sat5.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InputFiles\2sat6.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="InputFiles\algo1-programming_prob-2sum.txt" />
     <Content Include="InputFiles\clustering1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -3,25 +3,25 @@ using System.Linq;
 
 namespace CourseraTasks.CSharp
 {
-    public class StronglyConnectedComponentsCalculator
+    public class StronglyConnectedComponentsCalculator<T>
     {
-        private readonly DirectedGraph _graph;
+        private readonly DirectedGraph<T> _graph;
 
-        private readonly ISet<int> _exploredNodes;
+        private readonly ISet<T> _exploredNodes;
 
-        public StronglyConnectedComponentsCalculator(DirectedGraph graph)
+        public StronglyConnectedComponentsCalculator(DirectedGraph<T> graph)
         {
             _graph = graph;
-            _exploredNodes = new HashSet<int>();
+            _exploredNodes = new HashSet<T>();
         }
 
-        public IEnumerable<int[]> GetStronglyConnectedComponents()
+        public IEnumerable<T[]> GetStronglyConnectedComponents()
         {
-            var nodes = DepthFirstSearchLoop(Enumerable.Range(0, _graph.NodesCount), true).SelectMany(x => x).Reverse().ToArray();
+            var nodes = DepthFirstSearchLoop(_graph.Keys, true).SelectMany(x => x).Reverse().ToArray();
             return DepthFirstSearchLoop(nodes, false);
         }
 
-        public IEnumerable<int[]> DepthFirstSearchLoop(IEnumerable<int> nodes, bool reverse)
+        public IEnumerable<T[]> DepthFirstSearchLoop(IEnumerable<T> nodes, bool reverse)
         {
             _exploredNodes.Clear();
             foreach (var node in nodes)
@@ -36,9 +36,9 @@ namespace CourseraTasks.CSharp
             }
         }
 
-        public IEnumerable<int> DepthFirstSearch(int startNode, bool reversed)
+        public IEnumerable<T> DepthFirstSearch(T startNode, bool reversed)
         {
-            var nodesToVisit = new Stack<int>();
+            var nodesToVisit = new Stack<T>();
             nodesToVisit.Push(startNode);
             _exploredNodes.Add(startNode);
             while (nodesToVisit.Count != 0)
