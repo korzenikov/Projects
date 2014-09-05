@@ -6,9 +6,9 @@ namespace RedPill.Client
     {
         static void Main(string[] args)
         {
-            var client = new RedPillClient("BasicHttpBinding_IRedPill");
+            var client = new RedPillClient();
 
-            var result = client.FibonacciNumber(-93);
+            var result = client.FibonacciNumber(1);
             client.Close();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RedPill.Contract;
 using RedPill.Implementation;
 
 namespace RedPill.Test
@@ -29,12 +30,10 @@ namespace RedPill.Test
             Action a = () => service.FibonacciNumber(93);
             a.ShouldThrow<ArgumentOutOfRangeException>();
 
-            var result1 = service.FibonacciNumber(-92);
-            var result2 = service.FibonacciNumber(-93);
-            var result3 = service.FibonacciNumber(-94);
+            var result1 = service.FibonacciNumber(-100);
+            var result2 = service.FibonacciNumber(-101);
+            var result3 = service.FibonacciNumber(-102);
             result1.Should().Be(result2 + result3);
-
-            service.FibonacciNumber(-100000000000);
         }
 
         [TestMethod]

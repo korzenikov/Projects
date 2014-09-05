@@ -19,15 +19,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://knockknock.readify.net/RedPill.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:59376/RedPill.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="RedPill.xsd" MetadataType="Schema" ID="2b82f35d-52bf-4dbd-95c6-ab4864aaf2f5" SourceId="1" SourceUrl="https://knockknock.readify.net/RedPill.svc?xsd=xsd0" />
-    <MetadataFile FileName="RedPill.disco" MetadataType="Disco" ID="d6ed761f-7e4c-440e-81e5-8832e9bd3c12" SourceId="1" SourceUrl="https://knockknock.readify.net/RedPill.svc?disco" />
-    <MetadataFile FileName="RedPill1.xsd" MetadataType="Schema" ID="41705d93-2616-46ea-a054-494cd85fe56f" SourceId="1" SourceUrl="https://knockknock.readify.net/RedPill.svc?xsd=xsd2" />
-    <MetadataFile FileName="RedPill2.xsd" MetadataType="Schema" ID="8677bb71-6008-4b64-9330-fe249108e8d5" SourceId="1" SourceUrl="https://knockknock.readify.net/RedPill.svc?xsd=xsd1" />
-    <MetadataFile FileName="RedPill.wsdl" MetadataType="Wsdl" ID="43a2ed11-2ef4-473b-9a83-1d4bfd62c387" SourceId="1" SourceUrl="https://knockknock.readify.net/RedPill.svc?wsdl" />
-    <MetadataFile FileName="RedPill1.wsdl" MetadataType="Wsdl" ID="9b42db7a-e5fa-4cba-9d44-54a835a43be9" SourceId="1" SourceUrl="https://knockknock.readify.net/RedPill.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="RedPill2.wsdl" MetadataType="Wsdl" ID="5c9e41c5-7527-410e-8e79-ff677309d61f" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="RedPillService.wsdl" MetadataType="Wsdl" ID="cf71d970-b9d8-454d-8faa-d0fb08ed9158" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?wsdl" />
+    <MetadataFile FileName="RedPill3.xsd" MetadataType="Schema" ID="d2cff75d-56f7-4df8-8955-24cde4115b7f" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?xsd=xsd0" />
+    <MetadataFile FileName="RedPill1.disco" MetadataType="Disco" ID="00c7d5cd-58b9-489f-b6c1-7fc1a99221e6" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?disco" />
+    <MetadataFile FileName="RedPill31.xsd" MetadataType="Schema" ID="f0102be1-ab92-47c0-9855-ca58eb35dcbe" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?xsd=xsd2" />
+    <MetadataFile FileName="RedPill32.xsd" MetadataType="Schema" ID="86634bc4-9c4b-416c-abf7-5785389cf697" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

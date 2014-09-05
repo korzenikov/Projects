@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using RedPill.Contract;
 
 namespace RedPill.Implementation
 {
