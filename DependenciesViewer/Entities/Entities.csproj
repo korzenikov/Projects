@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestStruct.cs" />
     <Compile Include="ClassA.cs" />
     <Compile Include="ClassB.cs" />
     <Compile Include="ClassC.cs" />
