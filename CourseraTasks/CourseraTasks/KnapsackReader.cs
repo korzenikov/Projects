@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,8 +13,7 @@ namespace CourseraTasks
     {
         public static Knapsack GetKnapsack(TextReader reader)
         {
-            if (reader == null)
-                throw new ArgumentNullException("reader");
+            Contract.Requires<ArgumentNullException>(reader != null, "reader");
             var firstRow = reader.ReadLine();
             var firtsRowParts = firstRow.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
             int capacity = int.Parse(firtsRowParts[0]);

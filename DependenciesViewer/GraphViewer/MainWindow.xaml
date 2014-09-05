@@ -3,12 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:GraphViewerGdi="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGdi"
+        xmlns:graphViewerGdi="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGdi"
+        xmlns:graphViewer="clr-namespace:GraphViewer"
         mc:Ignorable="d"
         Title="Dependencies Viewer" 
-        Loaded="MainWindow_OnLoaded"
-        xmlns:ViewModel="clr-namespace:GraphViewer"
-        d:DataContext="{d:DesignInstance ViewModel:MainWindowViewModel}">
+        d:DataContext="{d:DesignInstance graphViewer:MainWindowModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,15 +15,17 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Label Margin="5" Target="{Binding ElementName=AssemblyNameTextBox}">Assembly:</Label>
-            <TextBox x:Name="AssemblyNameTextBox" Margin="7" Width="200"/>
-            <Button Margin="5" Width="100" Command="{Binding SelectAssemblyCommand}">Select</Button>
+            <Label Margin="5,2,5,2" Target="{Binding ElementName=AssemblyNameTextBox}">Assembly:</Label>
+            <TextBox x:Name="AssemblyNameTextBox" Margin="5,2,5,2" Width="200" Text="{Binding AssemblyName, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button x:Name="SelecteAssemblyButton" Margin="5,2,5,2" Width="100" Click="SelecteAssemblyButton_Click" >Select</Button>
+            <Label Margin="5,2,5,2" Target="{Binding ElementName=RootTypeComboBox}">Root type:</Label>
+            <ComboBox x:Name="RootTypeComboBox" Margin="5,2,5,2" Width="250" ItemsSource="{Binding AvailableTypes}" SelectedItem="{Binding SelectedType}" />
         </StackPanel>
-        
-        <Button Grid.Row="1" Width="200" Margin="5" HorizontalAlignment="Left">Load Assembly</Button>
+
+        <Button Margin="5,2,5,2" Grid.Row="1" Width="200" HorizontalAlignment="Left" Command="{Binding LoadAssemblyCommand}">Load Assembly</Button>
 
         <WindowsFormsHost Grid.Row="2" x:Name="WindowsFormsHost">
-            <GraphViewerGdi:GViewer x:Name="graphViewer"/>
+            <graphViewerGdi:GViewer x:Name="GraphViewer"/>
         </WindowsFormsHost>
 
     </Grid>
