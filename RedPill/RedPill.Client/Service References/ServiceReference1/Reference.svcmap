@@ -19,15 +19,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:59376/RedPill.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://korzenikov.azurewebsites.net/RedPill.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="RedPill2.wsdl" MetadataType="Wsdl" ID="5c9e41c5-7527-410e-8e79-ff677309d61f" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?wsdl=wsdl0" />
-    <MetadataFile FileName="RedPillService.wsdl" MetadataType="Wsdl" ID="cf71d970-b9d8-454d-8faa-d0fb08ed9158" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?wsdl" />
-    <MetadataFile FileName="RedPill3.xsd" MetadataType="Schema" ID="d2cff75d-56f7-4df8-8955-24cde4115b7f" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?xsd=xsd0" />
-    <MetadataFile FileName="RedPill1.disco" MetadataType="Disco" ID="00c7d5cd-58b9-489f-b6c1-7fc1a99221e6" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?disco" />
-    <MetadataFile FileName="RedPill31.xsd" MetadataType="Schema" ID="f0102be1-ab92-47c0-9855-ca58eb35dcbe" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?xsd=xsd2" />
-    <MetadataFile FileName="RedPill32.xsd" MetadataType="Schema" ID="86634bc4-9c4b-416c-abf7-5785389cf697" SourceId="1" SourceUrl="http://localhost:59376/RedPill.svc?xsd=xsd1" />
+    <MetadataFile FileName="RedPillService1.wsdl" MetadataType="Wsdl" ID="84b4d0ee-0182-4dd5-b10c-b2ca844849fc" SourceId="1" SourceUrl="http://korzenikov.azurewebsites.net/RedPill.svc?wsdl" />
+    <MetadataFile FileName="RedPill.xsd" MetadataType="Schema" ID="3d6ac8ab-6566-44d5-9c10-3a4558c103ad" SourceId="1" SourceUrl="http://korzenikov.azurewebsites.net/RedPill.svc?xsd=xsd0" />
+    <MetadataFile FileName="RedPill1.xsd" MetadataType="Schema" ID="980ef680-f72d-49c8-98d7-6cdbbb71faaa" SourceId="1" SourceUrl="http://korzenikov.azurewebsites.net/RedPill.svc?xsd=xsd2" />
+    <MetadataFile FileName="RedPill.disco" MetadataType="Disco" ID="d930fca3-3060-4b60-ad80-7a11d7c3ca6a" SourceId="1" SourceUrl="http://korzenikov.azurewebsites.net/RedPill.svc?disco" />
+    <MetadataFile FileName="RedPill.wsdl" MetadataType="Wsdl" ID="0b341413-4d58-4df7-b7c6-13749e04c28d" SourceId="1" SourceUrl="http://korzenikov.azurewebsites.net/RedPill.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="RedPill2.xsd" MetadataType="Schema" ID="b9f12835-0c70-4d0d-944d-61acbb688303" SourceId="1" SourceUrl="http://korzenikov.azurewebsites.net/RedPill.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
