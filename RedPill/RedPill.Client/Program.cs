@@ -6,11 +6,9 @@ namespace RedPill.Client
     {
         static void Main(string[] args)
         {
-            RedPillClient client = new RedPillClient("BasicHttpBinding_IRedPill");
-            var equilateral = client.WhatShapeIsThis(5, 5, 5);
-            var scalene = client.WhatShapeIsThis(3, 4, 5);
-            var isosceles = client.WhatShapeIsThis(2, 2, 3);
-            var error = client.WhatShapeIsThis(2, 2, 4);
+            var client = new RedPillClient("BasicHttpBinding_IRedPill");
+
+            var result = client.FibonacciNumber(-93);
             client.Close();
         }
     }

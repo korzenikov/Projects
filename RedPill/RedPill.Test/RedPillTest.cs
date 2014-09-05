@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RedPill.Implementation;
 
@@ -24,6 +25,16 @@ namespace RedPill.Test
             service.FibonacciNumber(2).Should().Be(1);
             service.FibonacciNumber(3).Should().Be(2);
             service.FibonacciNumber(7).Should().Be(13);
+
+            Action a = () => service.FibonacciNumber(93);
+            a.ShouldThrow<ArgumentOutOfRangeException>();
+
+            var result1 = service.FibonacciNumber(-92);
+            var result2 = service.FibonacciNumber(-93);
+            var result3 = service.FibonacciNumber(-94);
+            result1.Should().Be(result2 + result3);
+
+            service.FibonacciNumber(-100000000000);
         }
 
         [TestMethod]
@@ -31,8 +42,11 @@ namespace RedPill.Test
         {
             var service = new RedPillService();
 
-            service.ReverseWords("I hate this fucking world!").Should().Be("I etah siht gnikcuf !dlrow");
+            service.ReverseWords("And I think to myself, what a wonderful world.").Should().Be("dnA I kniht ot ,flesym tahw a lufrednow .dlrow");
             service.ReverseWords("If I ask to come with me, will you go?").Should().Be("fI I ksa ot emoc htiw ,em lliw uoy ?og");
+
+            Action a = () => service.ReverseWords(null);
+            a.ShouldThrow<ArgumentNullException>();
         }
 
         [TestMethod]
@@ -44,6 +58,7 @@ namespace RedPill.Test
             service.WhatShapeIsThis(3, 4, 5).Should().Be(TriangleType.Scalene);
             service.WhatShapeIsThis(2, 2, 3).Should().Be(TriangleType.Isosceles);
             service.WhatShapeIsThis(2, 2, 4).Should().Be(TriangleType.Error);
+            service.WhatShapeIsThis(-1, -1, -1).Should().Be(TriangleType.Error);
 
         }
     }
