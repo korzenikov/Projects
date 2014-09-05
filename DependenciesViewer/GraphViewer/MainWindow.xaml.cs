@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using Microsoft.Msagl.Drawing;
-using Microsoft.Msagl.GraphViewerGdi;
+
+using Microsoft.Win32;
 
 namespace GraphViewer
 {
@@ -12,16 +12,28 @@ namespace GraphViewer
         public MainWindow()
         {
             InitializeComponent();
+            var model = new MainWindowModel();
+            DataContext = model;
+            model.SetGraphAction = (graph) =>
+                {
+                    GraphViewer.Graph = graph;
+                };
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private void SelecteAssemblyButton_Click(object sender, RoutedEventArgs e)
         {
-            var graph = new Graph();
-            graph.AddEdge("1", "2");
-            graphViewer.Graph = graph;
+            var dlg = new OpenFileDialog { CheckFileExists = true, CheckPathExists = true, DefaultExt = ".dll", Filter = "Assembly files|*.dll" };
 
-            var form = new DependenciesViewerForm();
-            form.Show();
+            // Set filter for file extension and default file extension
+
+            // Display OpenFileDialog by calling ShowDialog method
+            var result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox
+            if (result == true)
+            {
+                AssemblyNameTextBox.Text = dlg.FileName;
+            }
         }
     }
 }
