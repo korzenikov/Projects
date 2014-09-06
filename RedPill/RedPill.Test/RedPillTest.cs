@@ -56,6 +56,7 @@ namespace RedPill.Test
             service.WhatShapeIsThis(2, 2, 3).Should().Be(TriangleType.Isosceles);
             service.WhatShapeIsThis(2, 2, 4).Should().Be(TriangleType.Error);
             service.WhatShapeIsThis(-1, -1, -1).Should().Be(TriangleType.Error);
+            service.WhatShapeIsThis(int.MaxValue, int.MaxValue, int.MaxValue).Should().Be(TriangleType.Equilateral);
 
         }
     }

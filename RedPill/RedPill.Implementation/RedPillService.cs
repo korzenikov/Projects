@@ -60,7 +60,7 @@ namespace RedPill.Implementation
 
         public TriangleType WhatShapeIsThis(int a, int b, int c)
         {
-            if (a >= b + c || b >= a + c || c >= a + b)
+            if (a >= (long)b + c || b >= (long)a + c || c >= (long)a + b)
             {
                 return TriangleType.Error;
             }
