@@ -22,6 +22,8 @@ namespace RedPill.Implementation
         {
             if (n > 92)
                 throw new ArgumentOutOfRangeException("n", "Fib(>92) will cause a 64-bit integer overflow.");
+            if (n < -92)
+                throw new ArgumentOutOfRangeException("n", "Fib(<-92) will cause a 64-bit integer overflow.");
             long prevPrev = 0;
             long prev = 1;
             if (n == 0)

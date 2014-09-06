@@ -8,10 +8,7 @@ namespace RedPill.Client
         {
             var client = new RedPillClient("BasicHttpBinding_IRedPill");
 
-            var result = client.FibonacciNumber(93);
-            var isosceles = client.WhatShapeIsThis(2, 2, 3);
-            var rev = client.ReverseWords("And I think to myself, what a wonderful world.");
-            var rev2 = client.ReverseWords(null);
+            var result = client.FibonacciNumber(-93);
             client.Close();
         }
     }

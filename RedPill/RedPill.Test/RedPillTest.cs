@@ -27,13 +27,11 @@ namespace RedPill.Test
             service.FibonacciNumber(3).Should().Be(2);
             service.FibonacciNumber(7).Should().Be(13);
 
-            Action a = () => service.FibonacciNumber(93);
-            a.ShouldThrow<ArgumentOutOfRangeException>();
+            Action a1 = () => service.FibonacciNumber(93);
+            a1.ShouldThrow<ArgumentOutOfRangeException>();
 
-            var result1 = service.FibonacciNumber(-100);
-            var result2 = service.FibonacciNumber(-101);
-            var result3 = service.FibonacciNumber(-102);
-            result1.Should().Be(result2 + result3);
+            Action a2 = () => service.FibonacciNumber(-93);
+            a2.ShouldThrow<ArgumentOutOfRangeException>();
         }
 
         [TestMethod]
