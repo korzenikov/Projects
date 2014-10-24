@@ -107,6 +107,8 @@
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="PrimsAlgorithm.cs" />
     <Compile Include="Problem.cs" />
+    <Compile Include="CyclicQueue.cs" />
+    <Compile Include="Tournament.cs" />
     <Compile Include="TreeNode.cs" />
     <Compile Include="TwoSatSolver.cs" />
     <Compile Include="TwoSumAlgorithm.cs" />
