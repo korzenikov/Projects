@@ -37,40 +37,43 @@ namespace CourseraTasks.CSharp
             return Tuple.Create(predecessorMax, max);
         }
 
-        public static Tuple<int, int> GetMaxWithPredecessor(IEnumerable<int> array)
+        public static Tuple<int, int> GetMaxWithPredecessor(IEnumerable<int> sequence)
         {
             int comparisons = 0;
-            var candidates = new Queue<int>(array);
+            var candidates = sequence.ToArray();
             var loosers = new Dictionary<int, List<int>>();
-            while (candidates.Count > 1)
+            int length = candidates.Length;
+            while (length > 1)
             {
-                var winners = new Queue<int>();
-                while (candidates.Count > 1)
+                for (int i = 0; i < length / 2; i++)
                 {
-                    var candidate1 = candidates.Dequeue();
-                    var candidate2 = candidates.Dequeue();
+                    var candidate1 = candidates[2 * i];
+                    var candidate2 = candidates[2 * i + 1];
                     comparisons++;
                     if (candidate1 > candidate2)
                     {
-                        winners.Enqueue(candidate1);
+                        candidates[i] = candidate1;
                         AddToLookup(loosers, candidate1, candidate2);
                     }
                     else
                     {
-                        winners.Enqueue(candidate2);
+                        candidates[i] = candidate2;
                         AddToLookup(loosers, candidate2, candidate1);
                     }
                 }
 
-                if (candidates.Count == 1)
+                if (length % 2 == 1)
                 {
-                    winners.Enqueue(candidates.Dequeue());
+                    candidates[length / 2] = candidates[length - 1];
+                    length = length / 2 + 1;
                 }
-
-                candidates = winners;
+                else
+                {
+                    length = length / 2;
+                }
             }
 
-            int max = candidates.Count == 1 ? candidates.Dequeue() : int.MinValue;
+            int max = candidates.Length > 1 ? candidates[0] : int.MinValue;
             List<int> loosersList;
             int predecessorMax;
             if (loosers.TryGetValue(max, out loosersList))

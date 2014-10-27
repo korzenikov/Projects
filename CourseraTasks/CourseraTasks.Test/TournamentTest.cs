@@ -26,5 +26,14 @@ namespace CourseraTasks.Test
             result.Item1.Should().Be(9);
             result.Item2.Should().Be(10);
         }
+
+        [TestMethod]
+        public void GetMaxWithPredecessorTest2()
+        {
+            var array = new[] { 5, 1, 2, 3, 4 };
+            var result = Tournament.GetMaxWithPredecessor(array);
+            result.Item1.Should().Be(4);
+            result.Item2.Should().Be(5);
+        }
     }
 }
