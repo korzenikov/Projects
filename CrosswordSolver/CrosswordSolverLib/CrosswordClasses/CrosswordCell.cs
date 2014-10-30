@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CrosswordSolverLib.CrosswordClasses
+﻿namespace CrosswordSolverLib.CrosswordClasses
 {
     public class CrosswordCell
     {
@@ -38,17 +32,17 @@ namespace CrosswordSolverLib.CrosswordClasses
             return Equals((CrosswordCell)obj);
         }
 
-        protected bool Equals(CrosswordCell other)
-        {
-            return RowIndex == other.RowIndex && ColumnIndex == other.ColumnIndex;
-        }
-
         public override int GetHashCode()
         {
             unchecked
             {
                 return (RowIndex * 397) ^ ColumnIndex;
             }
+        }
+
+        protected bool Equals(CrosswordCell other)
+        {
+            return RowIndex == other.RowIndex && ColumnIndex == other.ColumnIndex;
         }
     }
 }

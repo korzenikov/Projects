@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Checker.cs" />
+    <Compile Include="SolverClasses\Checker.cs" />
     <Compile Include="CrosswordClasses\Crossword.cs" />
     <Compile Include="CrosswordClasses\CrosswordCell.cs" />
     <Compile Include="CrosswordClasses\HexagonCrossword.cs" />
@@ -75,7 +75,6 @@
     <Compile Include="RegexClasses\RegexVisitor.cs" />
     <Compile Include="RegexClasses\RegularExpression.cs" />
     <Compile Include="CrosswordClasses\CrosswordQuestion.cs" />
-    <Compile Include="CrosswordClasses\QuestionState.cs" />
     <Compile Include="SolverClasses\Solver.cs" />
   </ItemGroup>
   <ItemGroup>
