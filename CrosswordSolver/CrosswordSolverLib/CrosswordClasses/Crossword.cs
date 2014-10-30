@@ -16,6 +16,6 @@ namespace CrosswordSolverLib.CrosswordClasses
 
         public abstract void ApplyCharacter(CrosswordCell cell, char c);
 
-        public abstract bool IsEmptyCell(CrosswordCell cell);
+        public abstract char GetCellCharacter(CrosswordCell cell);
     }
 }

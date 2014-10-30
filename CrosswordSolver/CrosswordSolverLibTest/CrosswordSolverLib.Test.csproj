@@ -62,7 +62,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BaseTestClass.cs" />
     <Compile Include="UnitTests\CheckerRegexVisitor.cs" />
     <Compile Include="IntegrationTests\CheckerTest.cs" />
     <Compile Include="IntegrationTests\ParseAndCheckTestClass.cs" />

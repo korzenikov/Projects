@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checker.cs" />
-    <Compile Include="CrosswordClasses\AnswerAttempt.cs" />
     <Compile Include="CrosswordClasses\Crossword.cs" />
     <Compile Include="CrosswordClasses\CrosswordCell.cs" />
     <Compile Include="CrosswordClasses\HexagonCrossword.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="RegexClasses\RegularExpression.cs" />
     <Compile Include="CrosswordClasses\CrosswordQuestion.cs" />
     <Compile Include="CrosswordClasses\QuestionState.cs" />
-    <Compile Include="SolverClasses\CellInfo.cs" />
     <Compile Include="SolverClasses\Solver.cs" />
   </ItemGroup>
   <ItemGroup>

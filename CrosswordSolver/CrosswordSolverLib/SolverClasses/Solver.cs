@@ -13,22 +13,21 @@ namespace CrosswordSolverLib.SolverClasses
         public bool Solve(Crossword crossword)
         {
             var allLetters = GetAllLetters().ToArray();
-            var unresolvedCellInfos = crossword.GetCells().Select(cell => new CellInfo(cell) { AvailableCharacters = allLetters.ToList() }).ToList();
+            var unresolvedCells = crossword.GetCells().ToDictionary(cell => cell, cell => allLetters.ToList());
             while (true)
             {
-                foreach (var cellInfo in unresolvedCellInfos)
+                foreach (var unresolvedCell in unresolvedCells)
                 {
-                    var crosswordCell = cellInfo.Cell;
-                   
+                    var cell = unresolvedCell.Key;
 
-                    var questions = crossword.GetQuestionsForCell(crosswordCell).ToArray();
+                    var questions = crossword.GetQuestionsForCell(cell).ToArray();
 
-                    var availableCharacters = cellInfo.AvailableCharacters;
+                    var availableCharacters = unresolvedCell.Value;
 
                     foreach (var character in availableCharacters.ToArray())
                     {
-                        crossword.ApplyCharacter(crosswordCell, character);
-                        if (!CheckQuestionsForCell(crossword, questions, crosswordCell))
+                        crossword.ApplyCharacter(cell, character);
+                        if (!CheckQuestions(crossword, questions))
                         {
                             availableCharacters.Remove(character);
                            
@@ -39,10 +38,10 @@ namespace CrosswordSolverLib.SolverClasses
                         }
                     }
 
-                    crossword.ApplyCharacter(crosswordCell, '\0');
+                    crossword.ApplyCharacter(cell, '\0');
                 }
 
-                var resolvedCellInfos = unresolvedCellInfos.Where(info => info.AvailableCharacters.Count == 1).ToArray();
+                var resolvedCellInfos = unresolvedCells.Where(info => info.Value.Count == 1).ToArray();
                 if (resolvedCellInfos.Length == 0)
                 {
                     break;
@@ -50,44 +49,51 @@ namespace CrosswordSolverLib.SolverClasses
 
                 foreach (var cellInfo in resolvedCellInfos)
                 {
-                    crossword.ApplyCharacter(cellInfo.Cell, cellInfo.AvailableCharacters[0]);
-                    unresolvedCellInfos.Remove(cellInfo);
+                    crossword.ApplyCharacter(cellInfo.Key, cellInfo.Value[0]);
+                    unresolvedCells.Remove(cellInfo.Key);
                 }
             }
 
-            if (unresolvedCellInfos.Count == 0)
+            if (unresolvedCells.Count == 0)
             {
                 return true;
             }
 
-            var rootCellInfo = unresolvedCellInfos.OrderBy(cell => cell.AvailableCharacters.Count).First();
-            return Attempt(crossword, rootCellInfo.Cell, unresolvedCellInfos.ToDictionary(x => x.Cell, x => x));
+            while (unresolvedCells.Count > 0)
+            {
+                var unrosolvedCell = unresolvedCells.First();
+                if (!Attempt(crossword, unrosolvedCell.Key, unresolvedCells)) 
+                    return false;
+                unresolvedCells.Remove(unrosolvedCell.Key);
+            }
+
+            return true;
         }
 
         #endregion
 
         #region Methods
 
-        private bool Attempt(Crossword crossword, CrosswordCell cell, IDictionary<CrosswordCell, CellInfo> cellInfos)
+        private bool Attempt(Crossword crossword, CrosswordCell cell, IDictionary<CrosswordCell, List<char>> unresolvedCells)
         {
-            var cellInfo = cellInfos[cell];
+            var characters = unresolvedCells[cell];
             var questions = crossword.GetQuestionsForCell(cell).ToArray();
-            foreach (var character in cellInfo.AvailableCharacters)
+            foreach (var character in characters)
             {
                 crossword.ApplyCharacter(cell, character);
-                if (!CheckQuestionsForCell(crossword,questions,  cell))
+                if (!CheckQuestions(crossword, questions))
                 {
                     continue;
                 }
 
-                if (!crossword.GetCells().Any(crossword.IsEmptyCell))
+                if (crossword.GetCells().All(c => crossword.GetCellCharacter(c) != 0))
                 {
                     return true;
                 }
 
-                foreach (var affectedCell in crossword.GetQuestionsForCell(cell).SelectMany(crossword.GetCellsForQuestion).Where(crossword.IsEmptyCell))
+                foreach (var affectedCell in crossword.GetQuestionsForCell(cell).SelectMany(crossword.GetCellsForQuestion).Where(c => crossword.GetCellCharacter(c) == 0))
                 {
-                    if (Attempt(crossword, affectedCell, cellInfos))
+                    if (Attempt(crossword, affectedCell, unresolvedCells))
                     {
                         return true;
                     }
@@ -98,7 +104,7 @@ namespace CrosswordSolverLib.SolverClasses
             return false;
         }
 
-        private bool CheckQuestionsForCell(Crossword crossword, IReadOnlyCollection<CrosswordQuestion> questions, CrosswordCell cell)
+        private bool CheckQuestions(Crossword crossword, IEnumerable<CrosswordQuestion> questions)
         {
             foreach (var question in questions)
             {

@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-using CrosswordSolverLib;
+﻿using CrosswordSolverLib;
 using CrosswordSolverLib.RegexClasses;
 
 using FluentAssertions;
@@ -10,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CrosswordSolverLibTest.IntegrationTests
 {
     [TestClass]
-    public class ParseAndCheckTestClass : BaseTestClass
+    public class ParseAndCheckTestClass 
     {
         #region Public Methods and Operators
 

@@ -1,15 +1,14 @@
 ﻿using System.Linq;
-using System.Text;
 
 using CrosswordSolverLib;
 using CrosswordSolverLib.RegexBlocks;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CrosswordSolverLibTest
+namespace CrosswordSolverLibTest.UnitTests
 {
     [TestClass]
-    public class CheckerTestClass : BaseTestClass
+    public class CheckerTestClass 
     {
         #region Public Methods and Operators
 

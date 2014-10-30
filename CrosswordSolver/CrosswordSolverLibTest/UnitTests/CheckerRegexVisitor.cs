@@ -7,10 +7,10 @@ using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CrosswordSolverLibTest
+namespace CrosswordSolverLibTest.UnitTests
 {
     [TestClass]
-    public class CheckerRegexVisitorTestClass : BaseTestClass
+    public class CheckerRegexVisitorTestClass 
     {
         #region Public Methods and Operators
 

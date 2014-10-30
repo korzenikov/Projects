@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CrosswordSolverLibTest.IntegrationTests
 {
     [TestClass]
-    public class SolverTestClass : BaseTestClass
+    public class SolverTestClass 
     {
         #region Public Methods and Operators
 

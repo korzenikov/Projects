@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CrosswordSolverLibTest.IntegrationTests
 {
      [TestClass]
-     public class CheckerTest : BaseTestClass
+     public class CheckerTest 
     {
          [TestMethod]
          public void CheckTest1()

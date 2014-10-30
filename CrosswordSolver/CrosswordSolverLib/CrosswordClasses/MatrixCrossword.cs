@@ -13,13 +13,9 @@ namespace CrosswordSolverLib.CrosswordClasses
 
         private readonly char[,] _field;
 
-        private readonly string[] _horizontalExpressions;
-
-        private readonly CrosswordQuestion[] _horizontalQuestions;
-
         private readonly int _size;
 
-        private readonly string[] _verticalExpressions;
+        private readonly CrosswordQuestion[] _horizontalQuestions;
 
         private readonly CrosswordQuestion[] _verticalQuestions;
 
@@ -27,16 +23,13 @@ namespace CrosswordSolverLib.CrosswordClasses
 
         #region Constructors and Destructors
 
-        public MatrixCrossword(int size, string[] horizontalExpressions, string[] verticalExpressions)
+        public MatrixCrossword(int size, IEnumerable<string> horizontalExpressions, IEnumerable<string> verticalExpressions)
         {
             _size = size;
             _field = new char[size, size];
             var parser = new RegexParser();
-            _horizontalExpressions = horizontalExpressions;
-            _verticalExpressions = verticalExpressions;
-            int id = 0;
-            _horizontalQuestions = horizontalExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item), item)).ToArray();
-            _verticalQuestions = verticalExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item), item)).ToArray();
+            _horizontalQuestions = horizontalExpressions.Select(item => new CrosswordQuestion(parser.Parse(item), item)).ToArray();
+            _verticalQuestions = verticalExpressions.Select(item => new CrosswordQuestion(parser.Parse(item), item)).ToArray();
         }
 
         #endregion
@@ -98,16 +91,16 @@ namespace CrosswordSolverLib.CrosswordClasses
             _field[cell.RowIndex, cell.ColumnIndex] = c;
         }
 
-        public override bool IsEmptyCell(CrosswordCell cell)
+        public override char GetCellCharacter(CrosswordCell cell)
         {
-            return _field[cell.RowIndex, cell.ColumnIndex] == 0;
+            return _field[cell.RowIndex, cell.ColumnIndex];
         }
 
         public override bool IsSolved()
         {
             for (int i = 0; i < _size; i++)
             {
-                string pattern = _horizontalExpressions[i];
+                string pattern = _horizontalQuestions[i].Pattern;
                 string line = MatrixHelper.GetHorizontalLine(_field, i);
                 if (!Regex.IsMatch(line, "^" + pattern + "$"))
                 {
@@ -117,7 +110,7 @@ namespace CrosswordSolverLib.CrosswordClasses
 
             for (int j = 0; j < _size; j++)
             {
-                string pattern = _verticalExpressions[j];
+                string pattern = _verticalQuestions[j].Pattern;
                 string line = MatrixHelper.GetVerticalLine(_field, j);
                 if (!Regex.IsMatch(line, "^" + pattern + "$"))
                 {

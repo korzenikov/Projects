@@ -6,15 +6,12 @@ namespace CrosswordSolverLib.CrosswordClasses
     {
         private readonly string _pattern;
 
-        public CrosswordQuestion(int questionId, RegularExpression expression, string pattern)
+        public CrosswordQuestion(RegularExpression expression, string pattern)
         {
-            QuestionId = questionId;
             Expression = expression;
             _pattern = pattern;
         }
 
-        public int QuestionId { get; private set; }
-        
         public RegularExpression Expression { get; private set; }
 
         public string Pattern

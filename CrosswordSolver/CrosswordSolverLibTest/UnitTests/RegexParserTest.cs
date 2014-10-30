@@ -3,7 +3,7 @@ using CrosswordSolverLib.RegexClasses;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CrosswordSolverLibTest
+namespace CrosswordSolverLibTest.UnitTests
 {
     [TestClass]
     public class RegexParserTest
@@ -33,7 +33,6 @@ namespace CrosswordSolverLibTest
         {
             var parser = new RegexParser();
             string pattern = "a*b*";
-
 
             // Expected regular expression
             var aBlock = new TextBlock("a");

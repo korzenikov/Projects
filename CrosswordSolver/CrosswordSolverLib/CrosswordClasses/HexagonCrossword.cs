@@ -26,15 +26,18 @@ namespace CrosswordSolverLib.CrosswordClasses
 
         #region Constructors and Destructors
 
-        public HexagonCrossword(int size, IEnumerable<string> leftRightExpressions, IEnumerable<string> bottomTopExpressions, IEnumerable<string> topBottomExpressions)
+        public HexagonCrossword(
+            int size,
+            IEnumerable<string> leftRightExpressions,
+            IEnumerable<string> bottomTopExpressions,
+            IEnumerable<string> topBottomExpressions)
         {
             _size = size;
             InitializeField();
             var parser = new RegexParser();
-            int id = 0;
-            _leftRightQuestions = leftRightExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item), item)).ToArray();
-            _bottomTopQuestions = bottomTopExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item), item)).ToArray();
-            _topBottomQuestions = topBottomExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item), item)).ToArray();
+            _leftRightQuestions = leftRightExpressions.Select(item => new CrosswordQuestion(parser.Parse(item), item)).ToArray();
+            _bottomTopQuestions = bottomTopExpressions.Select(item => new CrosswordQuestion(parser.Parse(item), item)).ToArray();
+            _topBottomQuestions = topBottomExpressions.Select(item => new CrosswordQuestion(parser.Parse(item), item)).ToArray();
         }
 
         #endregion
@@ -72,9 +75,9 @@ namespace CrosswordSolverLib.CrosswordClasses
             _field[cell.RowIndex][cell.ColumnIndex] = c;
         }
 
-        public override bool IsEmptyCell(CrosswordCell cell)
+        public override char GetCellCharacter(CrosswordCell cell)
         {
-            return _field[cell.RowIndex][cell.ColumnIndex] == 0;
+            return _field[cell.RowIndex][cell.ColumnIndex];
         }
 
         public override IReadOnlyCollection<CrosswordCell> GetCellsForQuestion(CrosswordQuestion question)
@@ -185,95 +188,6 @@ namespace CrosswordSolverLib.CrosswordClasses
             }
         }
 
-        public IReadOnlyCollection<CrosswordCell> GetLeftRightLineCells(int number)
-        {
-            int lineLength;
-            int i = number;
-            int j = 0;
-            if (number <= _size)
-            {
-                lineLength = _size + number + 1;
-            }
-            else
-            {
-                lineLength = 3 * _size - number + 1;
-            }
-
-            var cells = new CrosswordCell[lineLength];
-
-            for (int t = 0; t < lineLength; t++)
-            {
-                cells[t] = new CrosswordCell(i, j);
-                j++;
-            }
-
-            return cells;
-        }
-
-        public IReadOnlyCollection<CrosswordCell> GetTopBottomLineCells(int number)
-        {
-            int lineLength;
-            int i;
-            if (number <= _size)
-            {
-                lineLength = _size + number + 1;
-                i = 0;
-            }
-            else
-            {
-                lineLength = 3 * _size - number + 1;
-                i = number - _size;
-            }
-
-            var cells = new CrosswordCell[lineLength];
-
-            int j = number;
-            for (int t = 0; t < lineLength; t++)
-            {
-                if (i > 6)
-                {
-                    j--;
-                }
-
-                cells[t] = new CrosswordCell(i, j);
-                i++;
-            }
-
-            return cells;
-        }
-
-        public IReadOnlyCollection<CrosswordCell> GetBottomTopLineCells(int number)
-        {
-            int lineLength;
-            int i;
-            if (number <= _size)
-            {
-                i = 2 * _size;
-                lineLength = _size + number + 1;
-            }
-            else
-            {
-                lineLength = 3 * _size - number + 1;
-                i = 3 * _size - number;
-            }
-
-            var cells = new CrosswordCell[lineLength];
-
-            int j = number;
-            for (int t = 0; t < lineLength; t++)
-            {
-                if (i < 6)
-                {
-                    j--;
-                }
-
-                cells[t] = new CrosswordCell(i, j);
-                i--;
-            }
-
-            return cells;
-        }
-
         #endregion
 
         #region Methods
@@ -355,6 +269,96 @@ namespace CrosswordSolverLib.CrosswordClasses
 
             return _topBottomQuestions[j + i - _size];
         }
+
+        private IReadOnlyCollection<CrosswordCell> GetLeftRightLineCells(int number)
+        {
+            int lineLength;
+            int i = number;
+            int j = 0;
+            if (number <= _size)
+            {
+                lineLength = _size + number + 1;
+            }
+            else
+            {
+                lineLength = 3 * _size - number + 1;
+            }
+
+            var cells = new CrosswordCell[lineLength];
+
+            for (int t = 0; t < lineLength; t++)
+            {
+                cells[t] = new CrosswordCell(i, j);
+                j++;
+            }
+
+            return cells;
+        }
+
+        private IReadOnlyCollection<CrosswordCell> GetTopBottomLineCells(int number)
+        {
+            int lineLength;
+            int i;
+            if (number <= _size)
+            {
+                lineLength = _size + number + 1;
+                i = 0;
+            }
+            else
+            {
+                lineLength = 3 * _size - number + 1;
+                i = number - _size;
+            }
+
+            var cells = new CrosswordCell[lineLength];
+
+            int j = number;
+            for (int t = 0; t < lineLength; t++)
+            {
+                if (i > 6)
+                {
+                    j--;
+                }
+
+                cells[t] = new CrosswordCell(i, j);
+                i++;
+            }
+
+            return cells;
+        }
+
+        private IReadOnlyCollection<CrosswordCell> GetBottomTopLineCells(int number)
+        {
+            int lineLength;
+            int i;
+            if (number <= _size)
+            {
+                i = 2 * _size;
+                lineLength = _size + number + 1;
+            }
+            else
+            {
+                lineLength = 3 * _size - number + 1;
+                i = 3 * _size - number;
+            }
+
+            var cells = new CrosswordCell[lineLength];
+
+            int j = number;
+            for (int t = 0; t < lineLength; t++)
+            {
+                if (i < 6)
+                {
+                    j--;
+                }
+
+                cells[t] = new CrosswordCell(i, j);
+                i--;
+            }
+
+            return cells;
+        }
+
 
         #endregion
     }
