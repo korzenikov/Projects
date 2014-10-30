@@ -43,13 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Checker.cs" />
     <Compile Include="CrosswordClasses\AnswerAttempt.cs" />
     <Compile Include="CrosswordClasses\Crossword.cs" />
     <Compile Include="CrosswordClasses\CrosswordCell.cs" />
     <Compile Include="CrosswordClasses\HexagonCrossword.cs" />
     <Compile Include="CrosswordClasses\MatrixCrossword.cs" />
-    <Compile Include="LineBuilderClasses\BuilderRegexVisitor.cs" />
-    <Compile Include="LineBuilderClasses\LineBuilder.cs" />
+    <Compile Include="SolverClasses\CheckerRegexVisitor.cs" />
     <Compile Include="MatrixHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexBlocks\AndGroupBlock.cs" />
@@ -63,21 +63,22 @@
     <Compile Include="RegexBlocks\OrGroupBlock.cs" />
     <Compile Include="RegexBlocks\RegexBlock.cs" />
     <Compile Include="RegexBlocks\SetBlock.cs" />
-    <Compile Include="RegexBlocks\ZeroOrMoreBlock.cs" />
     <Compile Include="RegexBlocks\TextBlock.cs" />
+    <Compile Include="RegexBlocks\ZeroOrMoreBlock.cs" />
     <Compile Include="RegexBlocks\ZeroOrOneBlock.cs" />
     <Compile Include="RegexClasses\BlockContainer.cs" />
-    <Compile Include="RegexClasses\CharacterContainer.cs" />
     <Compile Include="RegexClasses\BlockContainerType.cs" />
-    <Compile Include="RegexClasses\CharacterContainerType.cs" />
+    <Compile Include="RegexClasses\CharacterContainer.cs" />
+    <Compile Include="RegexClasses\CharacterSetContainer.cs" />
+    <Compile Include="RegexClasses\Container.cs" />
+    <Compile Include="RegexClasses\SetContainerType.cs" />
     <Compile Include="RegexClasses\RegexParser.cs" />
     <Compile Include="RegexClasses\RegexVisitor.cs" />
     <Compile Include="RegexClasses\RegularExpression.cs" />
     <Compile Include="CrosswordClasses\CrosswordQuestion.cs" />
     <Compile Include="CrosswordClasses\QuestionState.cs" />
-    <Compile Include="SolverClasses\MinWidthRegexVisitor.cs" />
+    <Compile Include="SolverClasses\CellInfo.cs" />
     <Compile Include="SolverClasses\Solver.cs" />
-    <Compile Include="SolverClasses\UncertaintyLevelRegexVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RegexBlocks\RegexBlocksDiagram.cd" />

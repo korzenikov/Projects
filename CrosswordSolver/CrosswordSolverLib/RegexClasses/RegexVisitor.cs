@@ -1,123 +1,140 @@
 ﻿using CrosswordSolverLib.RegexBlocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrosswordSolverLib.RegexClasses
 {
     public abstract class RegexVisitor
     {
-        #region Public methods
+        #region Methods
 
-        public void Visit(RegularExpression expression)
+        protected object Visit(RegularExpression expression)
         {
-            Visit(expression.InnerBlock);
+            return Visit(expression.InnerBlock);
         }
 
-        public void Visit(RegexBlock block)
+        protected object Visit(RegexBlock block)
         {
-            TextBlock textBlock = block as TextBlock;
+            var textBlock = block as TextBlock;
             if (textBlock != null)
-                VisitTextBlock(textBlock);
+            {
+                return VisitTextBlock(textBlock);
+            }
 
-            AnyCharacterBlock anyCharacterBlock = block as AnyCharacterBlock;
+            var anyCharacterBlock = block as AnyCharacterBlock;
             if (anyCharacterBlock != null)
-                VisitAnyCharacterBlock(anyCharacterBlock);
+            {
+                return VisitAnyCharacterBlock(anyCharacterBlock);
+            }
 
-            InclusiveSetBlock inclusiveSetBlock = block as InclusiveSetBlock;
+            var inclusiveSetBlock = block as InclusiveSetBlock;
             if (inclusiveSetBlock != null)
-                VisitInclusiveSetBlock(inclusiveSetBlock);
+            {
+                return VisitInclusiveSetBlock(inclusiveSetBlock);
+            }
 
-            ExclusiveSetBlock exclusiveSetBlock = block as ExclusiveSetBlock;
+            var exclusiveSetBlock = block as ExclusiveSetBlock;
             if (exclusiveSetBlock != null)
-                VisitExclusiveSetBlock(exclusiveSetBlock);
+            {
+                return VisitExclusiveSetBlock(exclusiveSetBlock);
+            }
 
-            ZeroOrOneBlock zeroOrOneBlock = block as ZeroOrOneBlock;
+            var zeroOrOneBlock = block as ZeroOrOneBlock;
             if (zeroOrOneBlock != null)
-                VisitZeroOrOneBlock(zeroOrOneBlock);
+            {
+                return VisitZeroOrOneBlock(zeroOrOneBlock);
+            }
 
-            ZeroOrMoreBlock zeroOrMoreBlock = block as ZeroOrMoreBlock;
+            var zeroOrMoreBlock = block as ZeroOrMoreBlock;
             if (zeroOrMoreBlock != null)
-                VisitZeroOrMoreBlock(zeroOrMoreBlock);
+            {
+                return VisitZeroOrMoreBlock(zeroOrMoreBlock);
+            }
 
-            OneOrMoreBlock oneOrMoreBlock = block as OneOrMoreBlock;
+            var oneOrMoreBlock = block as OneOrMoreBlock;
             if (oneOrMoreBlock != null)
-                VisitOneOrMoreBlock(oneOrMoreBlock);
+            {
+                return VisitOneOrMoreBlock(oneOrMoreBlock);
+            }
 
-            OrGroupBlock orGroupBlock = block as OrGroupBlock;
+            var orGroupBlock = block as OrGroupBlock;
             if (orGroupBlock != null)
-                VisitOrGroupBlock(orGroupBlock);
+            {
+                return VisitOrGroupBlock(orGroupBlock);
+            }
 
-            AndGroupBlock anGroupBlock = block as AndGroupBlock;
-            if (anGroupBlock != null)
-                VisitAndGroupBlock(anGroupBlock);
+            var andGroupBlock = block as AndGroupBlock;
+            if (andGroupBlock != null)
+            {
+                return VisitAndGroupBlock(andGroupBlock);
+            }
 
-            BackreferenceBlock backreferenceBlock = block as BackreferenceBlock;
+            var backreferenceBlock = block as BackreferenceBlock;
             if (backreferenceBlock != null)
-                VisitBackreferenceBlock(backreferenceBlock);
+            {
+                return VisitBackreferenceBlock(backreferenceBlock);
+            }
+
+            return block;
         }
 
-        #endregion
-
-        #region Protected Methods
-
-        protected virtual void VisitBackreferenceBlock(BackreferenceBlock block)
+        protected virtual object VisitTextBlock(TextBlock block)
         {
+            return block;
         }
 
-        protected virtual void VisitAndGroupBlock(AndGroupBlock block)
+        protected virtual object VisitAnyCharacterBlock(AnyCharacterBlock block)
         {
-            foreach (var innerBlock in block.InnerBlocks)
+            return block;
+        }
+
+        protected virtual object VisitAndGroupBlock(AndGroupBlock block)
+        {
+            foreach (RegexBlock innerBlock in block.InnerBlocks)
             {
                 Visit(innerBlock);
             }
+
+            return block;
         }
 
-        protected virtual void VisitOrGroupBlock(OrGroupBlock block)
+        protected virtual object VisitBackreferenceBlock(BackreferenceBlock block)
         {
-            foreach (var innerBlock in block.InnerBlocks)
+            return block;
+        }
+
+        protected virtual object VisitExclusiveSetBlock(ExclusiveSetBlock block)
+        {
+            return block;
+        }
+
+        protected virtual object VisitInclusiveSetBlock(InclusiveSetBlock block)
+        {
+            return block;
+        }
+
+        protected virtual object VisitOneOrMoreBlock(OneOrMoreBlock block)
+        {
+            return Visit(block.InnerBlock);
+        }
+
+        protected virtual object VisitOrGroupBlock(OrGroupBlock block)
+        {
+            foreach (RegexBlock innerBlock in block.InnerBlocks)
             {
                 Visit(innerBlock);
             }
+
+            return block;
         }
 
-        protected virtual void VisitZeroOrOneBlock(ZeroOrOneBlock block)
+        protected virtual object VisitZeroOrMoreBlock(ZeroOrMoreBlock block)
         {
-            Visit(block.InnerBlock);
+            return Visit(block.InnerBlock);
         }
 
-        protected virtual void VisitZeroOrMoreBlock(ZeroOrMoreBlock block)
+        protected virtual object VisitZeroOrOneBlock(ZeroOrOneBlock block)
         {
-            Visit(block.InnerBlock);
+            return Visit(block.InnerBlock);
         }
-        
-        protected virtual void VisitOneOrMoreBlock(OneOrMoreBlock block)
-        {
-            Visit(block.InnerBlock);
-        }
-
-        protected virtual void VisitAnyCharacterBlock(AnyCharacterBlock block)
-        {
-        }
-
-        protected virtual void VisitExclusiveSetBlock(ExclusiveSetBlock block)
-        {
-        }
-
-        protected virtual void VisitInclusiveSetBlock(InclusiveSetBlock block)
-        {
-        }
-
-        protected virtual void VisitTextBlock(TextBlock block)
-        {
-        }
-
-
-        #endregion
-
-        #region Private Methods
 
         #endregion
     }

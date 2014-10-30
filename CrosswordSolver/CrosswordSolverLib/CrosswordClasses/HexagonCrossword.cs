@@ -1,114 +1,156 @@
-﻿using CrosswordSolverLib.RegexClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+
+using CrosswordSolverLib.RegexClasses;
 
 namespace CrosswordSolverLib.CrosswordClasses
 {
     public class HexagonCrossword : Crossword
     {
-        private char[][] _field;
-        private int _size;
-        private string[] _leftRightExpressions;
-        private string[] _bottomTopExpressions;
-        private string[] _topBottomExpressions;
-        private CrosswordQuestion[] _leftRightQuestions;
-        private CrosswordQuestion[] _bottomTopQuestions;
-        private CrosswordQuestion[] _topBottomQuestions;
+        #region Fields
 
-        public HexagonCrossword(int size, string[] leftRightExpressions, string[] bottomTopExpressions, string[] topBottomExpressions)
+        private readonly int _size;
+
+        private readonly CrosswordQuestion[] _bottomTopQuestions;
+
+        private readonly CrosswordQuestion[] _leftRightQuestions;
+
+        private readonly CrosswordQuestion[] _topBottomQuestions;
+
+        private char[][] _field;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public HexagonCrossword(int size, IEnumerable<string> leftRightExpressions, IEnumerable<string> bottomTopExpressions, IEnumerable<string> topBottomExpressions)
         {
             _size = size;
             InitializeField();
-            RegexParser parser = new RegexParser();
-            _leftRightExpressions = leftRightExpressions;
-            _bottomTopExpressions = bottomTopExpressions;
-            _topBottomExpressions = topBottomExpressions;
+            var parser = new RegexParser();
             int id = 0;
-            _leftRightQuestions = leftRightExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item))).ToArray();
-            _bottomTopQuestions = bottomTopExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item))).ToArray();
-            _topBottomQuestions = topBottomExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item))).ToArray();
+            _leftRightQuestions = leftRightExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item), item)).ToArray();
+            _bottomTopQuestions = bottomTopExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item), item)).ToArray();
+            _topBottomQuestions = topBottomExpressions.Select(item => new CrosswordQuestion(id++, parser.Parse(item), item)).ToArray();
         }
-        
-        public override IEnumerable<CrosswordQuestion> GetQuestions()
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public override IEnumerable<CrosswordCell> GetCells()
         {
-            foreach (var question in _leftRightQuestions)
-                yield return question;
+            int linesCount = 2 * _size + 1;
+            int symbolsInLine = _size + 1;
+            for (int i = 0; i < _size + 1; i++)
+            {
+                for (int j = 0; j < symbolsInLine; j++)
+                {
+                    yield return new CrosswordCell(i, j);
+                }
 
-            foreach (var question in _bottomTopQuestions)
-                yield return question;
+                symbolsInLine++;
+            }
 
-            foreach (var question in _topBottomQuestions)
-                yield return question;
+            symbolsInLine -= 2;
+
+            for (int i = _size + 1; i < linesCount; i++)
+            {
+                for (int j = 0; j < symbolsInLine; j++)
+                {
+                    yield return new CrosswordCell(i, j);
+                }
+                symbolsInLine--;
+            }
+        }
+
+        public override void ApplyCharacter(CrosswordCell cell, char c)
+        {
+            _field[cell.RowIndex][cell.ColumnIndex] = c;
+        }
+
+        public override bool IsEmptyCell(CrosswordCell cell)
+        {
+            return _field[cell.RowIndex][cell.ColumnIndex] == 0;
+        }
+
+        public override IReadOnlyCollection<CrosswordCell> GetCellsForQuestion(CrosswordQuestion question)
+        {
+            int index = Array.IndexOf(_leftRightQuestions, question);
+            if (index != -1)
+            {
+                return GetLeftRightLineCells(index);
+            }
+
+            index = Array.IndexOf(_bottomTopQuestions, question);
+            if (index != -1)
+            {
+                return GetBottomTopLineCells(index);
+            }
+
+            index = Array.IndexOf(_topBottomQuestions, question);
+            if (index != -1)
+            {
+                return GetTopBottomLineCells(index);
+            }
+
+            return null;
+        }
+
+        public override bool IsSolved()
+        {
+            foreach (var question in _leftRightQuestions.Concat(_topBottomQuestions).Concat(_bottomTopQuestions))
+            {
+                string pattern = question.Pattern;
+                string line = GetLineForQuestion(question);
+                if (!Regex.IsMatch(line, "^" + pattern + "$"))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public override string GetLineForQuestion(CrosswordQuestion question)
         {
             int index = Array.IndexOf(_leftRightQuestions, question);
             if (index != -1)
+            {
                 return GetLeftRightLine(index);
+            }
+
             index = Array.IndexOf(_bottomTopQuestions, question);
             if (index != -1)
+            {
                 return GetBottomTopLine(index);
+            }
+
             index = Array.IndexOf(_topBottomQuestions, question);
             if (index != -1)
+            {
                 return GetTopBottomLine(index);
+            }
+
             return null;
         }
 
-        public override CrosswordCell[] GetCellsForQuestion(CrosswordQuestion question)
+        public override IEnumerable<CrosswordQuestion> GetQuestionsForCell(CrosswordCell cell)
         {
-            int index = Array.IndexOf(_leftRightQuestions, question);
-            if (index != -1)
-                return GetLeftRightLineCells(index);
-            index = Array.IndexOf(_bottomTopQuestions, question);
-            if (index != -1)
-                return GetBottomTopLineCells(index);
-            index = Array.IndexOf(_topBottomQuestions, question);
-            if (index != -1)
-                return GetTopBottomLineCells(index);
-            return null;
-        }
-
-        public override IEnumerable<CrosswordQuestion> GetQuestionsForCell(int rowIndex, int columnIndex)
-        {
+            var rowIndex = cell.RowIndex;
+            var columnIndex = cell.ColumnIndex;
             yield return GetLeftRightQuestionForCell(rowIndex, columnIndex);
             yield return GetBottomTopQuestionForCell(rowIndex, columnIndex);
             yield return GetTopBottomQuestionForCell(rowIndex, columnIndex);
         }
 
-        public override AnswerAttempt ApplyAnswer(CrosswordQuestion question, string answer)
-        {
-            int index = Array.IndexOf(_leftRightQuestions, question);
-            if (index != -1)
-                return ApplyAnswerToLeftRightQuestion(index, answer);
-            index = Array.IndexOf(_bottomTopQuestions, question);
-            if (index != -1)
-                return ApplyAnswerToBottomTopQuestion(index, answer);
-            index = Array.IndexOf(_topBottomQuestions, question);
-            if (index != -1)
-                return ApplyAnswerToTopBottomQuestion(index, answer);
-            return null;
-        }
-
-        public override void RollbackAnswerAttempt(AnswerAttempt attempt)
-        {
-            foreach (var cell in attempt.AffectedCells)
-            {
-                _field[cell.RowIndex][cell.ColumnIndex] = (char)0;
-            }
-        }
-
-        public override bool IsSolved()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Print()
         {
             int indentSize = 1;
-            string indent = new string(' ', indentSize);
+            var indent = new string(' ', indentSize);
 
             for (int i = 0; i < _size; i++)
             {
@@ -117,15 +159,16 @@ namespace CrosswordSolverLib.CrosswordClasses
                     Console.Write(indent);
                 }
 
-                foreach (var c in _field[i])
+                foreach (char c in _field[i])
                 {
-                    Console.Write(c + indent);
+                    Console.Write((c == 0 ? '.' : c) + indent);
                 }
+
                 Console.WriteLine();
             }
 
             int lineNumber = _size;
-            
+
             for (int i = 0; i < _size + 1; i++)
             {
                 for (int j = 0; j < i; j++)
@@ -133,48 +176,16 @@ namespace CrosswordSolverLib.CrosswordClasses
                     Console.Write(indent);
                 }
 
-                foreach (var c in _field[lineNumber + i])
+                foreach (char c in _field[lineNumber + i])
                 {
-                    Console.Write(c + indent);
+                    Console.Write((c == 0 ? '.' : c) + indent);
                 }
+
                 Console.WriteLine();
             }
         }
 
-        public string GetLeftRightLine(int number)
-        {
-            var sb = new StringBuilder();
-            foreach (var cell in GetLeftRightLineCells(number))
-            {
-                sb.Append(_field[cell.RowIndex][cell.ColumnIndex]);
-            }
-
-            return sb.ToString();
-        }
-
-        public string GetBottomTopLine(int number)
-        {
-            var sb = new StringBuilder();
-            foreach (var cell in GetBottomTopLineCells(number))
-            {
-                sb.Append(_field[cell.RowIndex][cell.ColumnIndex]);
-            }
-
-            return sb.ToString();
-        }
-
-        public string GetTopBottomLine(int number)
-        {
-            var sb = new StringBuilder();
-            foreach (var cell in GetTopBottomLineCells(number))
-            {
-                sb.Append(_field[cell.RowIndex][cell.ColumnIndex]);
-            }
-
-            return sb.ToString();
-        }
-
-        public CrosswordCell[] GetLeftRightLineCells(int number)
+        public IReadOnlyCollection<CrosswordCell> GetLeftRightLineCells(int number)
         {
             int lineLength;
             int i = number;
@@ -199,35 +210,7 @@ namespace CrosswordSolverLib.CrosswordClasses
             return cells;
         }
 
-        public CrosswordCell[] GetBottomTopLineCells(int number)
-        {
-            int lineLength;
-            int i;
-            if (number <= _size)
-            {
-                i = 2 * _size;
-                lineLength = _size + number + 1;
-            }
-            else
-            {
-                lineLength = 3 * _size - number + 1;
-                i = 3 * _size - number;
-            }
-            var cells = new CrosswordCell[lineLength];
-
-            int j = number;
-            for (int t = 0; t < lineLength; t++)
-            {
-                if (i < 6)
-                    j--;
-                cells[t] = new CrosswordCell(i, j);
-                i--;
-            }
-
-            return cells;
-        }
-
-        public CrosswordCell[] GetTopBottomLineCells(int number)
+        public IReadOnlyCollection<CrosswordCell> GetTopBottomLineCells(int number)
         {
             int lineLength;
             int i;
@@ -241,13 +224,17 @@ namespace CrosswordSolverLib.CrosswordClasses
                 lineLength = 3 * _size - number + 1;
                 i = number - _size;
             }
+
             var cells = new CrosswordCell[lineLength];
 
             int j = number;
             for (int t = 0; t < lineLength; t++)
             {
                 if (i > 6)
+                {
                     j--;
+                }
+
                 cells[t] = new CrosswordCell(i, j);
                 i++;
             }
@@ -255,24 +242,41 @@ namespace CrosswordSolverLib.CrosswordClasses
             return cells;
         }
 
-        public CrosswordQuestion GetLeftRightQuestionForCell(int i, int j)
+        public IReadOnlyCollection<CrosswordCell> GetBottomTopLineCells(int number)
         {
-            return _leftRightQuestions[i];
+            int lineLength;
+            int i;
+            if (number <= _size)
+            {
+                i = 2 * _size;
+                lineLength = _size + number + 1;
+            }
+            else
+            {
+                lineLength = 3 * _size - number + 1;
+                i = 3 * _size - number;
+            }
+
+            var cells = new CrosswordCell[lineLength];
+
+            int j = number;
+            for (int t = 0; t < lineLength; t++)
+            {
+                if (i < 6)
+                {
+                    j--;
+                }
+
+                cells[t] = new CrosswordCell(i, j);
+                i--;
+            }
+
+            return cells;
         }
 
-        public CrosswordQuestion GetTopBottomQuestionForCell(int i, int j)
-        {
-            return _topBottomQuestions[j];
-        }
+        #endregion
 
-        public CrosswordQuestion GetBottomTopQuestionForCell(int i, int j)
-        {
-            if (i < _size)
-                return _bottomTopQuestions[j + _size - i];
-            return _bottomTopQuestions[j];
-        }
-
-        #region Private Methods
+        #region Methods
 
         private void InitializeField()
         {
@@ -294,79 +298,62 @@ namespace CrosswordSolverLib.CrosswordClasses
             }
         }
 
-        private AnswerAttempt ApplyAnswerToLeftRightQuestion(int index, string answer)
+        private string GetLeftRightLine(int number)
         {
-            var questions = new List<CrosswordQuestion>();
-            var cells = new List<CrosswordCell>();
-            int t = 0;
-            foreach (var cell in GetLeftRightLineCells(index))
+            var sb = new StringBuilder();
+            foreach (CrosswordCell cell in GetLeftRightLineCells(number))
             {
-                var i = cell.RowIndex;
-                var j = cell.ColumnIndex;
-                if (_field[i][j] == 0)
-                {
-                    _field[i][j] = answer[t];
-                    cells.Add(cell);
-                    var bottomTopQuestion = GetBottomTopQuestionForCell(i, j);
-                    questions.Add(bottomTopQuestion);
-                    var topBottomQuestion = GetTopBottomQuestionForCell(i, j);
-                    questions.Add(topBottomQuestion);
-                }
-                t++;
+                sb.Append(_field[cell.RowIndex][cell.ColumnIndex]);
             }
 
-            var attempt = new AnswerAttempt(cells, questions);
-            return attempt;
+            return sb.ToString();
         }
 
-        private AnswerAttempt ApplyAnswerToBottomTopQuestion(int index, string answer)
+        private string GetBottomTopLine(int number)
         {
-            var questions = new List<CrosswordQuestion>();
-            var cells = new List<CrosswordCell>();
-            int t = 0;
-            foreach (var cell in GetBottomTopLineCells(index))
+            var sb = new StringBuilder();
+            foreach (CrosswordCell cell in GetBottomTopLineCells(number))
             {
-                var i = cell.RowIndex;
-                var j = cell.ColumnIndex;
-                if (_field[i][j] == 0)
-                {
-                    _field[i][j] = answer[t];
-                    cells.Add(cell);
-                    var leftRightQuestion = GetLeftRightQuestionForCell(i, j);
-                    questions.Add(leftRightQuestion);
-                    var topBottomQuestion = GetTopBottomQuestionForCell(i, j);
-                    questions.Add(topBottomQuestion);
-                }
-                t++;
+                sb.Append(_field[cell.RowIndex][cell.ColumnIndex]);
             }
 
-            var attempt = new AnswerAttempt(cells, questions);
-            return attempt;
+            return sb.ToString();
         }
 
-        private AnswerAttempt ApplyAnswerToTopBottomQuestion(int index, string answer)
+        private string GetTopBottomLine(int number)
         {
-            var questions = new List<CrosswordQuestion>();
-            var cells = new List<CrosswordCell>();
-            int t = 0;
-            foreach (var cell in GetTopBottomLineCells(index))
+            var sb = new StringBuilder();
+            foreach (CrosswordCell cell in GetTopBottomLineCells(number))
             {
-                var i = cell.RowIndex;
-                var j = cell.ColumnIndex;
-                if (_field[i][j] == 0)
-                {
-                    _field[i][j] = answer[t];
-                    cells.Add(cell);
-                    var leftRightQuestion = GetLeftRightQuestionForCell(i, j);
-                    questions.Add(leftRightQuestion);
-                    var bottomTopQuestion = GetBottomTopQuestionForCell(i, j);
-                    questions.Add(bottomTopQuestion);
-                }
-                t++;
+                sb.Append(_field[cell.RowIndex][cell.ColumnIndex]);
             }
 
-            var attempt = new AnswerAttempt(cells, questions);
-            return attempt;
+            return sb.ToString();
+        }
+
+        private CrosswordQuestion GetLeftRightQuestionForCell(int i, int j)
+        {
+            return _leftRightQuestions[i];
+        }
+
+        private CrosswordQuestion GetBottomTopQuestionForCell(int i, int j)
+        {
+            if (i < _size)
+            {
+                return _bottomTopQuestions[j + _size - i];
+            }
+
+            return _bottomTopQuestions[j];
+        }
+
+        private CrosswordQuestion GetTopBottomQuestionForCell(int i, int j)
+        {
+            if (i < _size)
+            {
+                return _topBottomQuestions[j];
+            }
+
+            return _topBottomQuestions[j + i - _size];
         }
 
         #endregion

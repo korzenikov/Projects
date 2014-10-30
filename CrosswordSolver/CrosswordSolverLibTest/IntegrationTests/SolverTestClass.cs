@@ -1,22 +1,23 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CrosswordSolverLib.RegexClasses;
+﻿using CrosswordSolverLib.CrosswordClasses;
 using CrosswordSolverLib.SolverClasses;
-using CrosswordSolverLib.CrosswordClasses;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CrosswordSolverLibTest.IntegrationTests
 {
     [TestClass]
     public class SolverTestClass : BaseTestClass
     {
+        #region Public Methods and Operators
+
         [TestMethod]
         public void SolveTest()
         {
             var solver = new Solver();
-            int size = 2;
 
-            MatrixCrossword crossword = new MatrixCrossword(size, new[] { "(a|b)+", "b+" }, new[] { "a+b+", "(a|b)*" });
+            var crossword = new MatrixCrossword(2, new[] { "(a|b)+", "b+" }, new[] { "a+b+", "(a|b)*" });
 
-            var solved = solver.Solve(crossword);
+            bool solved = solver.Solve(crossword);
             Assert.IsTrue(solved);
             Assert.IsTrue(crossword.IsSolved(), "Crossword has not been solved");
         }
@@ -25,39 +26,48 @@ namespace CrosswordSolverLibTest.IntegrationTests
         public void SolveTest2()
         {
             var solver = new Solver();
-            int size = 4;
+            var crossword = new MatrixCrossword(2, new[] { ".*", ".*", "(a|b)+", "b+" }, new[] { "[^a]+", "(aa|bb)*", "a+b+", "(a|b)*" });
 
-            MatrixCrossword crossword = new MatrixCrossword(size, new[] { ".*", ".*", "(a|b)+", "b+" }, new[] { "[^a]+", "(aa|bb)*", "a+b+", "(a|b)*" });
-
-            var solved = solver.Solve(crossword);
+            bool solved = solver.Solve(crossword);
             Assert.IsTrue(solved);
             Assert.IsTrue(crossword.IsSolved(), "Crossword has not been solved");
         }
 
         [TestMethod]
-        public void GetUncertaintyLevelTest()
+        public void SolveTest3()
+        {
+            var solver = new Solver();
+            var crossword = new MatrixCrossword(2, new[] { "he|ll|o+", "[please]+" }, new[] { "[^speak]+", "ep|ip|ef" });
+
+            bool solved = solver.Solve(crossword);
+            Assert.IsTrue(solved);
+            Assert.IsTrue(crossword.IsSolved(), "Crossword has not been solved");
+        }
+
+        [TestMethod]
+        public void SolveTest4()
         {
             var solver = new Solver();
 
-            RegexParser parser = new RegexParser();
+            var crossword = new MatrixCrossword(2, new[] { ".*m?o.*", "(an|fe|be)" }, new[] { @"(a|b|c)\1", "(ab|oe|sk)" });
 
-
-            string pattern1 = "[cr]*";
-
-            RegularExpression regex1 = parser.Parse(pattern1);
-
-            int actual = solver.GetUncertaintyLevel(regex1);
-            Assert.AreEqual(0, actual);
-
-            string pattern2 = "([^mc]|mm|cc)*";
-            RegularExpression regex2 = parser.Parse(pattern2);
-            actual = solver.GetUncertaintyLevel(regex2);
-            Assert.AreEqual(1, actual);
-            
-            string pattern3 = ".*g.*v.*h.*";
-            RegularExpression regex3 = parser.Parse(pattern3);
-            actual = solver.GetUncertaintyLevel(regex3);
-            Assert.AreEqual(2, actual);
+            bool solved = solver.Solve(crossword);
+            Assert.IsTrue(solved);
+            Assert.IsTrue(crossword.IsSolved(), "Crossword has not been solved");
         }
+
+        [TestMethod]
+        public void SolveTest6()
+        {
+            var solver = new Solver();
+
+            var crossword = new MatrixCrossword(3, new[] { "(t|e|n)*", @"(.)*w+\1", "[lent]*" }, new[] { "(ent|nte|net)*", "[wear]*", "[r-z]e*[m-r]" });
+
+            bool solved = solver.Solve(crossword);
+            Assert.IsTrue(solved);
+            Assert.IsTrue(crossword.IsSolved(), "Crossword has not been solved");
+        }
+
+        #endregion
     }
 }

@@ -1,23 +1,28 @@
 ﻿using CrosswordSolverLib.RegexClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrosswordSolverLib.CrosswordClasses
 {
     public class CrosswordQuestion
     {
-        
-        public CrosswordQuestion(int questionId, RegularExpression expression)
+        private readonly string _pattern;
+
+        public CrosswordQuestion(int questionId, RegularExpression expression, string pattern)
         {
             QuestionId = questionId;
             Expression = expression;
+            _pattern = pattern;
         }
 
         public int QuestionId { get; private set; }
         
         public RegularExpression Expression { get; private set; }
+
+        public string Pattern
+        {
+            get
+            {
+                return _pattern;
+            }
+        }
     }
 }

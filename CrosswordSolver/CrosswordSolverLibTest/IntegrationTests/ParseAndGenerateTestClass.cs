@@ -9,7 +9,6 @@ namespace CrosswordSolverLibTest.IntegrationTests
     [TestClass]
     public class ParseAndGenerateTestClass : BaseTestClass
     {
-
         [TestMethod]
         public void ParseAndGenerateExpressionTest1()
         {
@@ -26,6 +25,7 @@ namespace CrosswordSolverLibTest.IntegrationTests
 
             lines = builder.GetLines(regex).ToList();
             Assert.AreNotEqual(0, lines.Count);
+           
             // Check against regular expression
             
             CheckGeneratedLines(lines, regexPattern);

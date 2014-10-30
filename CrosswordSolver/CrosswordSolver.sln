@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrosswordSolverClient", "CrosswordSolverClient\CrosswordSolverClient.csproj", "{FB125F61-5036-486A-9130-3E2DAF275028}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrosswordSolverLib", "CrosswordSolverLib\CrosswordSolverLib.csproj", "{F199B9F0-6356-4319-AD06-C45A9B8AC0B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrosswordSolverLibTest", "CrosswordSolverLibTest\CrosswordSolverLibTest.csproj", "{F11812CA-F104-4512-9A91-687B775DF8A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrosswordSolverLib.Test", "CrosswordSolverLibTest\CrosswordSolverLib.Test.csproj", "{F11812CA-F104-4512-9A91-687B775DF8A7}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -19,7 +21,7 @@ Global
 		SccProjectUniqueName2 = CrosswordSolverLib\\CrosswordSolverLib.csproj
 		SccProjectName2 = CrosswordSolverLib
 		SccLocalPath2 = CrosswordSolverLib
-		SccProjectUniqueName3 = CrosswordSolverLibTest\\CrosswordSolverLibTest.csproj
+		SccProjectUniqueName3 = CrosswordSolverLibTest\\CrosswordSolverLib.Test.csproj
 		SccProjectName3 = CrosswordSolverLibTest
 		SccLocalPath3 = CrosswordSolverLibTest
 	EndGlobalSection

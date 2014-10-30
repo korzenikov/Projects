@@ -1,15 +1,13 @@
-﻿using CrosswordSolverLib.RegexBlocks;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using CrosswordSolverLib.RegexBlocks;
 
 namespace CrosswordSolverLib.RegexClasses
 {
-    public class BlockContainer
+    public class BlockContainer : Container
     {
-        private Stack<RegexBlock> _blocks;
+        private readonly Stack<RegexBlock> _blocks;
 
         public BlockContainer()
         {

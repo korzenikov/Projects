@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace CrosswordSolverLib.RegexClasses
 {
     public class CharacterContainer
     {
-        private StringBuilder _stringBuilder;
+        private readonly StringBuilder _stringBuilder;
 
         public CharacterContainer()
         {
             _stringBuilder = new StringBuilder();
         }
-
-        public CharacterContainerType Type { get; set; }
 
         public string Characters
         {
@@ -28,6 +22,13 @@ namespace CrosswordSolverLib.RegexClasses
         public void AddCharacter(char c)
         {
             _stringBuilder.Append(c);
+        }
+
+        public char PopCharacter()
+        {
+            var character = _stringBuilder[_stringBuilder.Length - 1];
+            _stringBuilder.Remove(_stringBuilder.Length - 1, 1);
+            return character;
         }
     }
 }

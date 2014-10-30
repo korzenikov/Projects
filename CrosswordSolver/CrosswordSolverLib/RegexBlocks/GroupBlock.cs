@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CrosswordSolverLib.RegexBlocks
 {
     public abstract class GroupBlock : RegexBlock
     {
-        public GroupBlock(RegexBlock[] innerBlocks)
+        protected GroupBlock(IReadOnlyList<RegexBlock> innerBlocks)
         {
             InnerBlocks = innerBlocks;
         }
-        public RegexBlock[] InnerBlocks { get; private set; }
+
+        public IReadOnlyList<RegexBlock> InnerBlocks { get; private set; }
     }
 }

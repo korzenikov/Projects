@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+
 using CrosswordSolverLib.CrosswordClasses;
 using CrosswordSolverLib.SolverClasses;
-using System;
 
 namespace CrosswordSolverClient
 {
@@ -28,12 +28,11 @@ namespace CrosswordSolverClient
                                                "r*d*m*",
                                                ".(c|hh)*"
                                            };
-            //var bottomTopExpressions = Enumerable.Repeat(".*", 13).ToArray();
             var bottomTopExpressions = new[]
                                            {
-                                               ".g.*v.*h.*",
+                                               ".*g.*v.*h.*",
                                                "[cr]*",
-                                               ".*xexem*",
+                                               ".*xexm*",
                                                ".*dd.*ccm.*",
                                                ".*xhcr.*x.*",
                                                @".*(.)(.)(.)(.)\4\3\2\1.*",
@@ -46,29 +45,26 @@ namespace CrosswordSolverClient
                                                "(s|mm|hhh)*",
                                            };
 
-            //var topBottomExpressions = new[]
-            //                               {
-            //                                   "(nd|et|in)[^x]*",
-            //                                   "[chmnor]*i[chmnor]*",
-            //                                   @"p+(..)\1.*",
-            //                                   "(e|cr|mn)*",
-            //                                   "([^mc]|mm|cc)*",
-            //                                   "[am]*cm(rc)*r?",
-            //                                   ".*",
-            //                                   ".*prr.*ddc.*",
-            //                                   "(hhx|[^hx])*",
-            //                                   "([^emc]|em)*",
-            //                                   ".*oxr.*",
-            //                                   ".*lr.*rl.*",
-            //                                   ".*se.*ue.*",
-            //                               };
-
-            var topBottomExpressions = Enumerable.Repeat(".*", 13).ToArray();
+            var topBottomExpressions = new[]
+                                           {
+                                               "(nd|et|in)[^x]*",
+                                               "[chmnor]*i[chmnor]*",
+                                               @"p+(..)\1.*",
+                                               "(e|cr|mn)*",
+                                               "([^mc]|mm|cc)*",
+                                               "[am]*cm(rc)*r?",
+                                               ".*",
+                                               ".*prr.*ddc.*",
+                                               "(hhx|[^hx])*",
+                                               "([^emc]|em)*",
+                                               ".*oxr.*",
+                                               ".*lr.*rl.*",
+                                               ".*se.*ue.*",
+                                           };
 
             var crossword = new HexagonCrossword(size, leftRightExpressions, bottomTopExpressions, topBottomExpressions);
-
-
-            Console.WriteLine("Is solved: {0}", solver.Solve(crossword));
+            solver.Solve(crossword);
+            Console.WriteLine("Is solved: {0}", crossword.IsSolved());
             crossword.Print();
             Console.WriteLine("Press ENTER to exit");
             Console.ReadLine();
