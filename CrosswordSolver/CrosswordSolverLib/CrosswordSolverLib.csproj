@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F199B9F0-6356-4319-AD06-C45A9B8AC0B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CrosswordSolverLib</RootNamespace>
+    <AssemblyName>CrosswordSolverLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CrosswordClasses\AnswerAttempt.cs" />
+    <Compile Include="CrosswordClasses\Crossword.cs" />
+    <Compile Include="CrosswordClasses\CrosswordCell.cs" />
+    <Compile Include="CrosswordClasses\HexagonCrossword.cs" />
+    <Compile Include="CrosswordClasses\MatrixCrossword.cs" />
+    <Compile Include="LineBuilderClasses\BuilderRegexVisitor.cs" />
+    <Compile Include="LineBuilderClasses\LineBuilder.cs" />
+    <Compile Include="MatrixHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegexBlocks\AndGroupBlock.cs" />
+    <Compile Include="RegexBlocks\AnyCharacterBlock.cs" />
+    <Compile Include="RegexBlocks\BackreferenceBlock.cs" />
+    <Compile Include="RegexBlocks\ExclusiveSetBlock.cs" />
+    <Compile Include="RegexBlocks\InclusiveSetBlock.cs" />
+    <Compile Include="RegexBlocks\QuantifierBlock.cs" />
+    <Compile Include="RegexBlocks\GroupBlock.cs" />
+    <Compile Include="RegexBlocks\OneOrMoreBlock.cs" />
+    <Compile Include="RegexBlocks\OrGroupBlock.cs" />
+    <Compile Include="RegexBlocks\RegexBlock.cs" />
+    <Compile Include="RegexBlocks\SetBlock.cs" />
+    <Compile Include="RegexBlocks\ZeroOrMoreBlock.cs" />
+    <Compile Include="RegexBlocks\TextBlock.cs" />
+    <Compile Include="RegexBlocks\ZeroOrOneBlock.cs" />
+    <Compile Include="RegexClasses\BlockContainer.cs" />
+    <Compile Include="RegexClasses\CharacterContainer.cs" />
+    <Compile Include="RegexClasses\BlockContainerType.cs" />
+    <Compile Include="RegexClasses\CharacterContainerType.cs" />
+    <Compile Include="RegexClasses\RegexParser.cs" />
+    <Compile Include="RegexClasses\RegexVisitor.cs" />
+    <Compile Include="RegexClasses\RegularExpression.cs" />
+    <Compile Include="CrosswordClasses\CrosswordQuestion.cs" />
+    <Compile Include="CrosswordClasses\QuestionState.cs" />
+    <Compile Include="SolverClasses\MinWidthRegexVisitor.cs" />
+    <Compile Include="SolverClasses\Solver.cs" />
+    <Compile Include="SolverClasses\UncertaintyLevelRegexVisitor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RegexBlocks\RegexBlocksDiagram.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

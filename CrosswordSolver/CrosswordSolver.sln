@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrosswordSolverClient", "CrosswordSolverClient\CrosswordSolverClient.csproj", "{FB125F61-5036-486A-9130-3E2DAF275028}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrosswordSolverLib", "CrosswordSolverLib\CrosswordSolverLib.csproj", "{F199B9F0-6356-4319-AD06-C45A9B8AC0B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrosswordSolverLibTest", "CrosswordSolverLibTest\CrosswordSolverLibTest.csproj", "{F11812CA-F104-4512-9A91-687B775DF8A7}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://korzenikov.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CrosswordSolverClient\\CrosswordSolverClient.csproj
+		SccProjectName1 = CrosswordSolverClient
+		SccLocalPath1 = CrosswordSolverClient
+		SccProjectUniqueName2 = CrosswordSolverLib\\CrosswordSolverLib.csproj
+		SccProjectName2 = CrosswordSolverLib
+		SccLocalPath2 = CrosswordSolverLib
+		SccProjectUniqueName3 = CrosswordSolverLibTest\\CrosswordSolverLibTest.csproj
+		SccProjectName3 = CrosswordSolverLibTest
+		SccLocalPath3 = CrosswordSolverLibTest
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB125F61-5036-486A-9130-3E2DAF275028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB125F61-5036-486A-9130-3E2DAF275028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB125F61-5036-486A-9130-3E2DAF275028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB125F61-5036-486A-9130-3E2DAF275028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F199B9F0-6356-4319-AD06-C45A9B8AC0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F199B9F0-6356-4319-AD06-C45A9B8AC0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F199B9F0-6356-4319-AD06-C45A9B8AC0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F199B9F0-6356-4319-AD06-C45A9B8AC0B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F11812CA-F104-4512-9A91-687B775DF8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F11812CA-F104-4512-9A91-687B775DF8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F11812CA-F104-4512-9A91-687B775DF8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F11812CA-F104-4512-9A91-687B775DF8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

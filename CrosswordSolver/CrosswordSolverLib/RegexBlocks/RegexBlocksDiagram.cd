@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CrosswordSolverLib.RegexBlocks.AndGroupBlock" Collapsed="true">
+    <Position X="22.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\AndGroupBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.QuantifierBlock" Collapsed="true">
+    <Position X="18.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\QuantifierBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.GroupBlock" Collapsed="true">
+    <Position X="23.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\GroupBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.OneOrMoreBlock" Collapsed="true">
+    <Position X="18.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\OneOrMoreBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.OrGroupBlock" Collapsed="true">
+    <Position X="25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\OrGroupBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.RegexBlock" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\RegexBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.TextBlock" Collapsed="true">
+    <Position X="7" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>RegexBlocks\TextBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.ZeroOrMoreBlock" Collapsed="true">
+    <Position X="20.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\ZeroOrMoreBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.InclusiveSetBlock" Collapsed="true">
+    <Position X="11.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\InclusiveSetBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.ZeroOrOneBlock" Collapsed="true">
+    <Position X="16" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\ZeroOrOneBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.SetBlock" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\SetBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.ExclusiveSetBlock" Collapsed="true">
+    <Position X="13.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\ExclusiveSetBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.AnyCharacterBlock" Collapsed="true">
+    <Position X="4.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\AnyCharacterBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrosswordSolverLib.RegexBlocks.BackreferenceBlock" Collapsed="true">
+    <Position X="9.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegexBlocks\BackreferenceBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
