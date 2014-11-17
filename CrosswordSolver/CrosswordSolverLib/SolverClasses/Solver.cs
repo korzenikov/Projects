@@ -62,7 +62,7 @@ namespace CrosswordSolverLib.SolverClasses
             while (unresolvedCells.Count > 0)
             {
                 var unrosolvedCell = unresolvedCells.First();
-                if (!Attempt(crossword, unrosolvedCell.Key, unresolvedCells)) 
+                if (!Attempt(crossword, unrosolvedCell.Key, unresolvedCells))
                     return false;
                 unresolvedCells.Remove(unrosolvedCell.Key);
             }

@@ -57,6 +57,7 @@ namespace CrosswordSolverLibTest.IntegrationTests
         }
 
         [TestMethod]
+        [Ignore]
         public void SolveTest6()
         {
             var solver = new Solver();

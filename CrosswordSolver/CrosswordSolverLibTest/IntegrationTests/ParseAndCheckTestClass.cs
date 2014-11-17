@@ -169,21 +169,20 @@ namespace CrosswordSolverLibTest.IntegrationTests
         }
 
 
-         [TestMethod]
+        [TestMethod]
         public void ParseAndCheckExpressionTest10()
         {
             //                         er x e im cm xmp
             var builder = new Checker("er\0\0\0m\0m\0mp");
 
             string regexPattern = @".*(.)c\1x\1.*";
-             
 
-             var parser = new RegexParser();
-             RegularExpression regex = parser.Parse(regexPattern);
+            var parser = new RegexParser();
+            RegularExpression regex = parser.Parse(regexPattern);
 
-             builder.Check(regex).Should().BeTrue();
+            builder.Check(regex).Should().BeTrue();
         }
-        
+
 
         #endregion
     }

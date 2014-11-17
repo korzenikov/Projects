@@ -1,6 +1,8 @@
 ﻿using CrosswordSolverLib.RegexBlocks;
 using CrosswordSolverLib.RegexClasses;
 
+using FluentAssertions;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CrosswordSolverLibTest.UnitTests
@@ -25,7 +27,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected,  options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -46,7 +48,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -65,7 +67,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(andGroupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -85,7 +87,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(andGroupBlock2);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -104,7 +106,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(andGroupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -122,7 +124,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(orGroupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -139,7 +141,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -155,7 +157,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -171,7 +173,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -189,7 +191,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -212,7 +214,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
 
         [TestMethod]
@@ -232,7 +234,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            Assert.IsTrue(expected.Equals(actual), "Pattern was parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
         }
     }
 }

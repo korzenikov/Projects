@@ -11,24 +11,23 @@ namespace CrosswordSolverLib.RegexClasses
     {
         public RegularExpression Parse(string pattern)
         {
-            var containers = new Stack<Container>();
+            var containers = new Stack<BlockContainer>();
             containers.Push(new BlockContainer { Type = BlockContainerType.AndContainer });
             CharacterContainer characterContainer = null;
             bool expectGoupId = false;
             int position = 0;
             while (position < pattern.Length)
             {
-                var currentContainer = containers.Peek();
                 char c = pattern[position];
+                var currentContainer = containers.Peek();
+                if (currentContainer == null)
+                    throw new ArgumentException("Invalid position for character" + c, "pattern");
                 if (char.IsLetterOrDigit(c))
                 {
                     if (expectGoupId)
                     {
-                        var backreferenceBlock = new BackreferenceBlock(int.Parse(c.ToString()));
-                        var blockContainer = currentContainer as BlockContainer;
-                        if (blockContainer == null)
-                            throw new ArgumentException("Invalid position for character +", "pattern");
-                        blockContainer.PushBlock(backreferenceBlock);
+                        var backreferenceBlock = new BackreferenceBlock(int.Parse(c.ToString(CultureInfo.InvariantCulture)));
+                        currentContainer.PushBlock(backreferenceBlock);
                         expectGoupId = false;
                     }
                     else
@@ -40,121 +39,98 @@ namespace CrosswordSolverLib.RegexClasses
                 }
                 else
                 {
-                    var blockContainer = currentContainer as BlockContainer;
-                    if (c != '^')
+                    switch (c)
                     {
-                    
-                        if (blockContainer != null && characterContainer != null)
-                        {
-                            if (IsQuantifier(c))
-                            {
-                                var character = characterContainer.PopCharacter();
-                                if (characterContainer.Characters.Length != 0)
-                                {
-                                    blockContainer.PushBlock(ConvertToBlock(characterContainer));
-                                }
+                        case '.':
+                            characterContainer = FlushCharacterContainer(characterContainer, currentContainer, false);
 
-                                blockContainer.PushBlock(new TextBlock(character.ToString(CultureInfo.InvariantCulture)));
-                            }
-                            else
+                            currentContainer.PushBlock(new AnyCharacterBlock());
+                            break;
+                        case '+':
                             {
-                                blockContainer.PushBlock(ConvertToBlock(characterContainer));
+                                characterContainer = FlushCharacterContainer(characterContainer, currentContainer, true);
+
+                                RegexBlock previousBlock = currentContainer.PopBlock();
+                                currentContainer.PushBlock(WrapToOneOrMoreBlock(previousBlock));
                             }
 
-                            characterContainer = null;
-                        }
-                    }
+                            break;
+                        case '*':
+                            {
+                                characterContainer = FlushCharacterContainer(characterContainer, currentContainer, true);
 
-                    if (c == '.')
-                    {
-                        if (blockContainer == null)
-                            throw new ArgumentException("Invalid position for character .", "pattern");
-                        blockContainer.PushBlock(new AnyCharacterBlock());
-                    }
-                    else if (c == '+')
-                    {
-                        if (blockContainer == null)
-                            throw new ArgumentException("Invalid position for character +", "pattern");
-                        RegexBlock previousBlock = blockContainer.PopBlock();
-                        blockContainer.PushBlock(WrapToOneOrMoreBlock(previousBlock));
-                    }
-                    else if (c == '*')
-                    {
-                        if (blockContainer == null)
-                            throw new ArgumentException("Invalid position for character *", "pattern");
-                        RegexBlock previousBlock = blockContainer.PopBlock();
-                        blockContainer.PushBlock(WrapToZeroOrMoreBlock(previousBlock));
-                    }
-                    else if (c == '?')
-                    {
-                        if (blockContainer == null)
-                            throw new ArgumentException("Invalid position for character ?", "pattern");
-                        RegexBlock previousBlock = blockContainer.PopBlock();
-                        blockContainer.PushBlock(WrapToZeroOrOneBlock(previousBlock));
-                    }
-                    else if (c == '[')
-                    {
-                        containers.Push(new CharacterSetContainer { Type = SetContainerType.InclusiveSet });
-                    }
-                    else if (c == ']')
-                    {
-                        var characterSetContainer = currentContainer as CharacterSetContainer;
-                        if (characterSetContainer == null)
-                            throw new ArgumentException("Invalid position for character ]", "pattern");
-                         if (characterContainer == null)
-                             throw new ArgumentException("Invalid position for character ]", "pattern");
+                                RegexBlock previousBlock = currentContainer.PopBlock();
+                                currentContainer.PushBlock(WrapToZeroOrMoreBlock(previousBlock));
+                            }
 
-                        var setBlock = ConvertToBlock(characterSetContainer, characterContainer.Characters);
-                        characterContainer = null;
-                        containers.Pop();
-                        var outerBlockContainer = containers.Peek() as BlockContainer;
-                        if (outerBlockContainer == null)
-                            throw new ArgumentException("Invalid position for character ]", "pattern");
-                        outerBlockContainer.PushBlock(setBlock);
-                    }
-                    else if (c == '^')
-                    {
-                        var characterSetContainer = currentContainer as CharacterSetContainer;
-                        if (characterSetContainer == null || characterSetContainer.Type != SetContainerType.InclusiveSet)
-                            throw new ArgumentException("Invalid position for character ^", "pattern");
-                        characterSetContainer.Type = SetContainerType.ExclusiveSet;
-                    }
-                    else if (c == '(')
-                    {
-                        containers.Push(new BlockContainer());
-                    }
-                    else if (c == ')')
-                    {
-                        if (blockContainer == null)
-                            throw new ArgumentException("Invalid position for character )", "pattern");
+                            break;
+                        case '?':
+                            {
+                                characterContainer = FlushCharacterContainer(characterContainer, currentContainer, true);
+                                RegexBlock previousBlock = currentContainer.PopBlock();
+                                currentContainer.PushBlock(WrapToZeroOrOneBlock(previousBlock));
+                            }
 
-                        if (blockContainer.Type == BlockContainerType.Undefined)
-                            blockContainer.Type = BlockContainerType.AndContainer;
-                        GroupBlock containerBlock = ConvertToBlock(blockContainer);
-                        containers.Pop();
-                        var outerBlockContainer = containers.Peek() as BlockContainer;
-                        if (outerBlockContainer == null)
-                            throw new ArgumentException("Invalid position for character ]", "pattern");
-                        outerBlockContainer.PushBlock(containerBlock);
+                            break;
+                        case '[':
+                            characterContainer = FlushCharacterContainer(characterContainer, currentContainer, false);
 
+                            characterContainer = new CharacterContainer { Type = CharacterContainerType.InclusiveSet };
+                            break;
+                        case ']':
+                            {
+                                if (characterContainer == null)
+                                    throw new ArgumentException("Invalid position for character ]", "pattern");
+
+                                var setBlock = ConvertToBlock(characterContainer);
+                                characterContainer = null;
+                                currentContainer.PushBlock(setBlock);
+                            }
+                            break;
+                        case '^':
+                            if (characterContainer == null || characterContainer.Type != CharacterContainerType.InclusiveSet)
+                                throw new ArgumentException("Invalid position for character ^", "pattern");
+                            characterContainer.Type = CharacterContainerType.ExclusiveSet;
+                            break;
+                        case '(':
+                            characterContainer = FlushCharacterContainer(characterContainer, currentContainer, false);
+
+                            containers.Push(new BlockContainer());
+                            break;
+                        case ')':
+                            {
+                                characterContainer = FlushCharacterContainer(characterContainer, currentContainer, false);
+
+                                if (currentContainer.Type == BlockContainerType.Undefined)
+                                    currentContainer.Type = BlockContainerType.AndContainer;
+                                GroupBlock containerBlock = ConvertToBlock(currentContainer);
+                                containers.Pop();
+                                var outerBlockContainer = containers.Peek();
+                                if (outerBlockContainer == null)
+                                    throw new ArgumentException("Invalid position for character ]", "pattern");
+                                outerBlockContainer.PushBlock(containerBlock);
+                            }
+
+                            break;
+                        case '|':
+                            characterContainer = FlushCharacterContainer(characterContainer, currentContainer, false);
+
+                            currentContainer.Type = BlockContainerType.OrContainer;
+                            break;
+                        case '\\':
+                            characterContainer = FlushCharacterContainer(characterContainer, currentContainer, false);
+
+                            expectGoupId = true;
+                            break;
+                        default:
+                            throw new ArgumentException("Unrecognized symbol in pattern", "pattern");
                     }
-                    else if (c == '|')
-                    {
-                        if (blockContainer == null)
-                            throw new ArgumentException("Invalid position for character )", "pattern");
-                        blockContainer.Type = BlockContainerType.OrContainer;
-                    }
-                    else if (c == '\\')
-                    {
-                        expectGoupId = true;
-                    }
-                    else throw new ArgumentException("Unrecognized symbol in pattern", "pattern");
                 }
 
                 position++;
             }
 
-            var container = containers.Pop() as BlockContainer;
+            var container = containers.Pop();
 
             if (characterContainer != null)
             {
@@ -172,25 +148,42 @@ namespace CrosswordSolverLib.RegexClasses
                     block = orGroupBlock;
             }
 
-
             return new RegularExpression(block);
         }
 
-        private bool IsQuantifier(char c)
+        private CharacterContainer FlushCharacterContainer(CharacterContainer characterContainer, BlockContainer currentContainer, bool excludeLastCharacter)
         {
-            return "?+*".IndexOf(c) != -1;
+            if (characterContainer != null)
+            {
+                if (excludeLastCharacter)
+                {
+                    var character = characterContainer.PopCharacter();
+                    if (characterContainer.Characters.Length != 0)
+                    {
+                        currentContainer.PushBlock(ConvertToBlock(characterContainer));
+                    }
+
+                    characterContainer = new CharacterContainer();
+                    characterContainer.AddCharacter(character);
+                }
+
+                currentContainer.PushBlock(ConvertToBlock(characterContainer));
+            }
+
+
+            return null;
         }
 
-        private SetBlock ConvertToBlock(CharacterSetContainer container, string characters)
+        private RegexBlock ConvertToBlock(CharacterContainer container)
         {
             switch (container.Type)
             {
-                case SetContainerType.InclusiveSet:
-                    return new InclusiveSetBlock(characters);
-                case SetContainerType.ExclusiveSet:
-                    return new ExclusiveSetBlock(characters);
+                case CharacterContainerType.InclusiveSet:
+                    return new InclusiveSetBlock(container.Characters);
+                case CharacterContainerType.ExclusiveSet:
+                    return new ExclusiveSetBlock(container.Characters);
                 default:
-                    return null;
+                    return new TextBlock(container.Characters);
             }
         }
 
@@ -207,12 +200,6 @@ namespace CrosswordSolverLib.RegexClasses
             }
         }
 
-
-        private TextBlock ConvertToBlock(CharacterContainer container)
-        {
-            return new TextBlock(container.Characters);
-        }
-
         private RegexBlock WrapToZeroOrOneBlock(RegexBlock block)
         {
             return new ZeroOrOneBlock(block);
@@ -220,24 +207,12 @@ namespace CrosswordSolverLib.RegexClasses
 
         private ZeroOrMoreBlock WrapToZeroOrMoreBlock(RegexBlock block)
         {
-
             return new ZeroOrMoreBlock(block);
         }
 
         private OneOrMoreBlock WrapToOneOrMoreBlock(RegexBlock block)
         {
-
             return new OneOrMoreBlock(block);
-        }
-
-        private AndGroupBlock WrapToAndGroupBlock(IEnumerable<RegexBlock> blocks)
-        {
-            return new AndGroupBlock(blocks.ToArray());
-        }
-
-        private OrGroupBlock WrapToOrGroupBlock(IEnumerable<RegexBlock> blocks)
-        {
-            return new OrGroupBlock(blocks.ToArray());
         }
     }
 }

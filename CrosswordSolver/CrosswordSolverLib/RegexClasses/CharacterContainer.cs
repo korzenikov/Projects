@@ -11,6 +11,8 @@ namespace CrosswordSolverLib.RegexClasses
             _stringBuilder = new StringBuilder();
         }
 
+        public CharacterContainerType Type { get; set; }
+
         public string Characters
         {
             get
