@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RegexClasses\CharacterContainerType.cs" />
     <Compile Include="SolverClasses\Checker.cs" />
     <Compile Include="CrosswordClasses\Crossword.cs" />
     <Compile Include="CrosswordClasses\CrosswordCell.cs" />
@@ -68,7 +67,6 @@
     <Compile Include="RegexBlocks\ZeroOrOneBlock.cs" />
     <Compile Include="RegexClasses\BlockContainer.cs" />
     <Compile Include="RegexClasses\BlockContainerType.cs" />
-    <Compile Include="RegexClasses\CharacterContainer.cs" />
     <Compile Include="RegexClasses\Container.cs" />
     <Compile Include="RegexClasses\RegexParser.cs" />
     <Compile Include="RegexClasses\RegexVisitor.cs" />

@@ -13,7 +13,7 @@ namespace CrosswordSolverLib.RegexClasses
         {
             var containers = new Stack<BlockContainer>();
             containers.Push(new BlockContainer { Type = BlockContainerType.AndContainer });
-            CharacterContainer characterContainer = null;
+            RegexBlock characterContainer = null;
             bool expectGoupId = false;
             int position = 0;
             while (position < pattern.Length)
@@ -33,8 +33,11 @@ namespace CrosswordSolverLib.RegexClasses
                     else
                     {
                         if (characterContainer == null)
-                            characterContainer = new CharacterContainer();
-                        characterContainer.AddCharacter(c);
+                        {
+                            characterContainer = new TextBlock(string.Empty);
+                        }
+
+                        characterContainer = AddCharacter(characterContainer, c);
                     }
                 }
                 else
@@ -75,22 +78,23 @@ namespace CrosswordSolverLib.RegexClasses
                         case '[':
                             characterContainer = FlushCharacterContainer(characterContainer, currentContainer, false);
 
-                            characterContainer = new CharacterContainer { Type = CharacterContainerType.InclusiveSet };
+                            characterContainer = new InclusiveSetBlock(string.Empty); 
                             break;
                         case ']':
                             {
                                 if (characterContainer == null)
                                     throw new ArgumentException("Invalid position for character ]", "pattern");
 
-                                var setBlock = ConvertToBlock(characterContainer);
+                                currentContainer.PushBlock(characterContainer);
                                 characterContainer = null;
-                                currentContainer.PushBlock(setBlock);
                             }
+
                             break;
                         case '^':
-                            if (characterContainer == null || characterContainer.Type != CharacterContainerType.InclusiveSet)
+                            var inclusiveSetBlock = characterContainer as InclusiveSetBlock;
+                            if (inclusiveSetBlock == null)
                                 throw new ArgumentException("Invalid position for character ^", "pattern");
-                            characterContainer.Type = CharacterContainerType.ExclusiveSet;
+                            characterContainer = new ExclusiveSetBlock(inclusiveSetBlock.Characters);
                             break;
                         case '(':
                             characterContainer = FlushCharacterContainer(characterContainer, currentContainer, false);
@@ -134,8 +138,7 @@ namespace CrosswordSolverLib.RegexClasses
 
             if (characterContainer != null)
             {
-                var characterBlock = ConvertToBlock(characterContainer);
-                container.PushBlock(characterBlock);
+                container.PushBlock(characterContainer);
             }
 
             GroupBlock block = ConvertToBlock(container);
@@ -151,43 +154,94 @@ namespace CrosswordSolverLib.RegexClasses
             return new RegularExpression(block);
         }
 
-        private CharacterContainer FlushCharacterContainer(CharacterContainer characterContainer, BlockContainer currentContainer, bool excludeLastCharacter)
+        private static RegexBlock AddCharacter(RegexBlock container, char c)
+        {
+            var textBlock = container as TextBlock;
+            if (textBlock != null)
+            {
+                return new TextBlock(textBlock.Text + c);
+            }
+
+            var inclusiveSetBlock = container as InclusiveSetBlock;
+            if (inclusiveSetBlock != null)
+            {
+                return new InclusiveSetBlock(inclusiveSetBlock.Characters + c);
+            }
+
+            var exclusiveSetBlock = container as ExclusiveSetBlock;
+            if (exclusiveSetBlock != null)
+            {
+                return new ExclusiveSetBlock(exclusiveSetBlock.Characters + c);
+            }
+
+            return null;
+        }
+
+        private static char ExtractCharacter(ref RegexBlock container)
+        {
+            var text = GetText(container);
+            var c = text.Last();
+            var newText = text.Remove(text.Length - 1, 1);
+
+            var textBlock = container as TextBlock;
+            if (textBlock != null)
+            {
+                container = new TextBlock(newText);
+                return c;
+            }
+
+            var inclusiveSetBlock = container as InclusiveSetBlock;
+            if (inclusiveSetBlock != null)
+            {
+                container = new InclusiveSetBlock(newText);
+                return c;
+            }
+
+            var exclusiveSetBlock = container as ExclusiveSetBlock;
+            if (exclusiveSetBlock != null)
+            {
+                container = new ExclusiveSetBlock(newText);
+                return c;
+            }
+
+            return default(char);
+        }
+
+        private static RegexBlock FlushCharacterContainer(RegexBlock characterContainer, BlockContainer currentContainer, bool excludeLastCharacter)
         {
             if (characterContainer != null)
             {
                 if (excludeLastCharacter)
                 {
-                    var character = characterContainer.PopCharacter();
-                    if (characterContainer.Characters.Length != 0)
+                    var character = ExtractCharacter(ref characterContainer);
+                    if (GetText(characterContainer).Length != 0)
                     {
-                        currentContainer.PushBlock(ConvertToBlock(characterContainer));
+                        currentContainer.PushBlock(characterContainer);
                     }
 
-                    characterContainer = new CharacterContainer();
-                    characterContainer.AddCharacter(character);
+                    characterContainer = AddCharacter(new TextBlock(string.Empty), character);
                 }
 
-                currentContainer.PushBlock(ConvertToBlock(characterContainer));
+                currentContainer.PushBlock(characterContainer);
             }
 
 
             return null;
         }
 
-        private RegexBlock ConvertToBlock(CharacterContainer container)
+        private static string GetText(RegexBlock container)
         {
-            switch (container.Type)
+            var textBlock = container as TextBlock;
+            if (textBlock != null)
             {
-                case CharacterContainerType.InclusiveSet:
-                    return new InclusiveSetBlock(container.Characters);
-                case CharacterContainerType.ExclusiveSet:
-                    return new ExclusiveSetBlock(container.Characters);
-                default:
-                    return new TextBlock(container.Characters);
+                return textBlock.Text;
             }
+
+            var setBlock = container as SetBlock;
+            return setBlock != null ? setBlock.Characters : null;
         }
 
-        private GroupBlock ConvertToBlock(BlockContainer container)
+        private static GroupBlock ConvertToBlock(BlockContainer container)
         {
             switch (container.Type)
             {
@@ -200,17 +254,17 @@ namespace CrosswordSolverLib.RegexClasses
             }
         }
 
-        private RegexBlock WrapToZeroOrOneBlock(RegexBlock block)
+        private static RegexBlock WrapToZeroOrOneBlock(RegexBlock block)
         {
             return new ZeroOrOneBlock(block);
         }
 
-        private ZeroOrMoreBlock WrapToZeroOrMoreBlock(RegexBlock block)
+        private static ZeroOrMoreBlock WrapToZeroOrMoreBlock(RegexBlock block)
         {
             return new ZeroOrMoreBlock(block);
         }
 
-        private OneOrMoreBlock WrapToOneOrMoreBlock(RegexBlock block)
+        private static OneOrMoreBlock WrapToOneOrMoreBlock(RegexBlock block)
         {
             return new OneOrMoreBlock(block);
         }
