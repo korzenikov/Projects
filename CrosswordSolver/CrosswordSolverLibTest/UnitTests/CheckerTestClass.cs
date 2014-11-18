@@ -2,6 +2,7 @@
 
 using CrosswordSolverLib;
 using CrosswordSolverLib.RegexBlocks;
+using CrosswordSolverLib.SolverClasses;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

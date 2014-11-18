@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 using CrosswordSolverLib.RegexBlocks;
 using CrosswordSolverLib.RegexClasses;
 
-namespace CrosswordSolverLib.LineBuilderClasses
+namespace CrosswordSolverLib.SolverClasses
 {
     public class CheckerRegexVisitor : RegexVisitor
     {

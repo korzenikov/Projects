@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using CrosswordSolverLib.LineBuilderClasses;
 using CrosswordSolverLib.RegexBlocks;
+using CrosswordSolverLib.SolverClasses;
 
 using FluentAssertions;
 
@@ -17,44 +17,36 @@ namespace CrosswordSolverLibTest.UnitTests
         [TestMethod]
         public void GetPositionsFromAnyCharacterBlockTest()
         {
-            Assert.Inconclusive();
-            //string input = "\0";
-            //var visitor1 = new BuilderRegexVisitor(0, input, null, null);
+            string input = "\0";
+            var visitor1 = new CheckerRegexVisitor(0, input, null);
 
-            //var block = new AnyCharacterBlock();
+            var block = new AnyCharacterBlock();
+            var positions1 = visitor1.GetPositions(block);
+            positions1.Should().BeEquivalentTo(new[] { 1 });
 
-            //var expectedLines = new List<string>();
-            //for (char c = 'a'; c < 'z'; c++)
-            //{
-            //    expectedLines.Add(c.ToString());
-            //}
-
-            //CheckVisitorResult(visitor1, block, expectedLines);
-
-            //input = "a";
-            //var visitor2 = new BuilderRegexVisitor(0, input, null, null);
-
-            //CheckVisitorResult(visitor2, block, new[] { "a" });
+            input = "a";
+            var visitor2 = new CheckerRegexVisitor(0, input, null);
+            var positions2 = visitor2.GetPositions(block);
+            positions2.Should().BeEquivalentTo(new[] { 1 });
         }
 
         [TestMethod]
         public void GetPositionsFromBackreferenceBlockTest()
         {
             var groupValues = new Dictionary<int, string>();
-            string input = "\0\0'";
+            string input = "\0\0";
             int groupId = 1;
             var visitor1 = new CheckerRegexVisitor(0, input, groupValues);
 
             groupValues[groupId] = "ab";
             var backreferenceBlock = new BackreferenceBlock(groupId);
 
-            string[] expectedLines = { "ab" };
             var positions1 = visitor1.GetPositions(backreferenceBlock);
             positions1.Should().BeEquivalentTo(new[] { 2 });
 
             groupValues[groupId] = "abc";
             var visitor2 = new CheckerRegexVisitor(0, input, groupValues);
-            var positions2 = visitor1.GetPositions(backreferenceBlock);
+            var positions2 = visitor2.GetPositions(backreferenceBlock);
             positions2.Should().BeEmpty();
         }
 
@@ -107,41 +99,37 @@ namespace CrosswordSolverLibTest.UnitTests
         [TestMethod]
         public void GetPositionsFromTextBlockTest()
         {
-            Assert.Inconclusive();
-            //var visitor1 = new BuilderRegexVisitor(0, "\0", null, null);
-            //var textBlock = new TextBlock("a");
+            var textBlock1 = new TextBlock("a");
+            var visitor1 = new CheckerRegexVisitor(0, "\0", null);
 
-            //CheckVisitorResult(visitor1, textBlock, new[] { "a" });
+            var positions1 = visitor1.GetPositions(textBlock1);
+            positions1.Should().BeEquivalentTo(new[] { 1 });
 
-            //var visitor2 = new BuilderRegexVisitor(1, "\0", null, null);
-            //CheckVisitorResult(visitor2, textBlock, Enumerable.Empty<string>());
+            var visitor2 = new CheckerRegexVisitor(1, "\0", null);
+            var positions2 = visitor2.GetPositions(textBlock1);
+            positions2.Should().BeEmpty();
 
-            //// Text block longer than symbols that remain unfilled.
-            //textBlock = new TextBlock("aa");
+            // Text block longer than symbols that remain unfilled.
+            var textBlock2 = new TextBlock("aa");
 
-            //var visitor3 = new BuilderRegexVisitor(0, "\0", null, null);
-            //CheckVisitorResult(visitor3, textBlock, Enumerable.Empty<string>());
+            var visitor3 = new CheckerRegexVisitor(0, "\0", null);
+            var positions3 = visitor3.GetPositions(textBlock2);
+            positions3.Should().BeEmpty();
 
-            //string input = "aa";
-            //var visitor4 = new BuilderRegexVisitor(0, input, null, null);
-            //CheckVisitorResult(visitor4, textBlock, new[] { "aa" });
+            var visitor4 = new CheckerRegexVisitor(0, "aa", null);
+            var positions4 = visitor4.GetPositions(textBlock2);
+            positions4.Should().BeEquivalentTo(new[] { 2 });
 
-            //var visitor5 = new BuilderRegexVisitor(0, input, null, null);
-            //textBlock = new TextBlock("ab");
-
-            //CheckVisitorResult(visitor5, textBlock, Enumerable.Empty<string>());
+            var textBlock3 = new TextBlock("ab");
+            var visitor5 = new CheckerRegexVisitor(0, "aa", null);
+            var positions5 = visitor5.GetPositions(textBlock3);
+            positions5.Should().BeEmpty();
         }
 
         #endregion
 
-        #region Methods
+        #region Private Methods
 
-        //private void CheckVisitorResult(BuilderRegexVisitor visitor, RegexBlock block, IEnumerable<string> expectedLines)
-        //{
-        //    visitor.Visit(block);
-        //    IEnumerable<string> lines = visitor.Result;
-        //    CollectionAssert.AreEquivalent(expectedLines.ToList(), lines.ToList());
-        //}
 
         #endregion
     }

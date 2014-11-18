@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using CrosswordSolverLib.LineBuilderClasses;
 using CrosswordSolverLib.RegexBlocks;
 using CrosswordSolverLib.RegexClasses;
 
-namespace CrosswordSolverLib
+namespace CrosswordSolverLib.SolverClasses
 {
     public class Checker
     {

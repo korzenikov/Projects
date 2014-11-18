@@ -1,5 +1,6 @@
 ﻿using CrosswordSolverLib;
 using CrosswordSolverLib.RegexClasses;
+using CrosswordSolverLib.SolverClasses;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
