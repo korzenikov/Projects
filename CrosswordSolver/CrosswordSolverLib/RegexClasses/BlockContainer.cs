@@ -33,5 +33,10 @@ namespace CrosswordSolverLib.RegexClasses
         {
             return _blocks.Pop();
         }
+
+        public RegexBlock PeekBlock()
+        {
+            return _blocks.Peek();
+        }
     }
 }

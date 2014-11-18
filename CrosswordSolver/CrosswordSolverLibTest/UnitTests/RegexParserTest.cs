@@ -19,10 +19,8 @@ namespace CrosswordSolverLibTest.UnitTests
             // Expected regular expression
             var aBlock = new TextBlock("a");
             var bBlock = new TextBlock("b");
-            var plusBlock1 = new OneOrMoreBlock(aBlock);
-            var plusBlock2 = new OneOrMoreBlock(bBlock);
 
-            var groupBlock = new AndGroupBlock(new RegexBlock[] { plusBlock1, plusBlock2 });
+            var groupBlock = new AndGroupBlock(new RegexBlock[] { new OneOrMoreBlock(aBlock), new OneOrMoreBlock(bBlock) });
 
             var expected = new RegularExpression(groupBlock);
 
@@ -48,7 +46,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -67,7 +65,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(andGroupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -87,7 +85,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(andGroupBlock2);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -106,7 +104,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(andGroupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -124,7 +122,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(orGroupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -141,7 +139,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -157,7 +155,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -173,7 +171,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -191,7 +189,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -214,7 +212,7 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
 
         [TestMethod]
@@ -234,7 +232,49 @@ namespace CrosswordSolverLibTest.UnitTests
             var expected = new RegularExpression(groupBlock);
 
             var actual = parser.Parse(pattern);
-            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties(), "Pattern has been parsed incorrectly");
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
+        }
+
+        [TestMethod]
+        public void ParseTest13()
+        {
+            var parser = new RegexParser();
+            string pattern = @".*h.*h.*";
+
+            // Expected regular expression
+            var anyCharacterBlock = new AnyCharacterBlock();
+            var zeroOrMoreBlock = new ZeroOrMoreBlock(anyCharacterBlock);
+            var textBlock = new TextBlock("h");
+
+            var groupBlock = new AndGroupBlock(new RegexBlock[] { zeroOrMoreBlock, textBlock, zeroOrMoreBlock, textBlock, zeroOrMoreBlock });
+
+            var expected = new RegularExpression(groupBlock);
+
+            var actual = parser.Parse(pattern);
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
+        }
+
+        [TestMethod]
+        public void ParseTest14()
+        {
+            var parser = new RegexParser();
+            string pattern = @"[^c]*[^r]*iii.*";
+
+            // Expected regular expression
+            var textBlock = new TextBlock("iii");
+
+            var groupBlock =
+                new AndGroupBlock(
+                    new RegexBlock[]
+                        {
+                            new ZeroOrMoreBlock(new ExclusiveSetBlock("c")), new ZeroOrMoreBlock(new ExclusiveSetBlock("r")), textBlock,
+                            new ZeroOrMoreBlock(new AnyCharacterBlock())
+                        });
+
+            var expected = new RegularExpression(groupBlock);
+
+            var actual = parser.Parse(pattern);
+            actual.ShouldBeEquivalentTo(expected, options => options.IncludingAllRuntimeProperties());
         }
     }
 }
