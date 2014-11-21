@@ -65,6 +65,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BubbleSortTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="BigKnapsackSolverTest.cs" />
     <Compile Include="KnapsackSolverTest.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="TwoSatSolverTest.cs" />
     <Compile Include="PapadimitriouTest.cs" />
     <Compile Include="TournamentTest.cs" />
+    <Compile Include="CustomDictionaryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseraTasks.CSharp\CourseraTasks.CSharp.csproj">

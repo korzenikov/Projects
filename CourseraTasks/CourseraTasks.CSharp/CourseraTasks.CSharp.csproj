@@ -86,10 +86,13 @@
     <Compile Include="BellmanFord.cs" />
     <Compile Include="BigKnapsackSolver.cs" />
     <Compile Include="BitHelper.cs" />
+    <Compile Include="BubbleSort.cs" />
     <Compile Include="Clause.cs" />
     <Compile Include="ClauseState.cs" />
     <Compile Include="Clustering.cs" />
+    <Compile Include="CustomDictionary.cs" />
     <Compile Include="DirectedGraph.cs" />
+    <Compile Include="Entry.cs" />
     <Compile Include="FloydWarshall.cs" />
     <Compile Include="HeldKarp.cs" />
     <Compile Include="HeldKarp2.cs" />
