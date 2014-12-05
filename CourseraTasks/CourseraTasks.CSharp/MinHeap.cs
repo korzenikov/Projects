@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace CourseraTasks.CSharp
 {
-    public class MinPriorityQuery<T> : PriorityQuery<T>
+    public class MinHeap<T> : Heap<T>
         where T : IComparable<T>
     {
-        public MinPriorityQuery(IEnumerable<T> values) : base(values)
+        public MinHeap(IEnumerable<T> values) : base(values)
         {
         }
 
-        public MinPriorityQuery()
+        public MinHeap()
         {
         }
 

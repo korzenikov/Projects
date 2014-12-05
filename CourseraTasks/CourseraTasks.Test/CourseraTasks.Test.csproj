@@ -95,6 +95,7 @@
     <Compile Include="PapadimitriouTest.cs" />
     <Compile Include="TournamentTest.cs" />
     <Compile Include="CustomDictionaryTest.cs" />
+    <Compile Include="MovieTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseraTasks.CSharp\CourseraTasks.CSharp.csproj">

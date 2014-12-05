@@ -8,8 +8,8 @@ namespace CourseraTasks.CSharp
         {
             var enumerator = sequence.GetEnumerator();
 
-            var smallestNumbers = new MaxPriorityQuery<int>();
-            var largestNumbers = new MinPriorityQuery<int>();
+            var smallestNumbers = new MaxHeap<int>();
+            var largestNumbers = new MinHeap<int>();
 
             if (enumerator.MoveNext())
             {

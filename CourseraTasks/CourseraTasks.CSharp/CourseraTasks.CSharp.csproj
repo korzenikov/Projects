@@ -94,6 +94,7 @@
     <Compile Include="DirectedGraph.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="FloydWarshall.cs" />
+    <Compile Include="Heap.cs" />
     <Compile Include="HeldKarp.cs" />
     <Compile Include="HeldKarp2.cs" />
     <Compile Include="Johnson.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Job.cs" />
     <Compile Include="JobScheduler.cs" />
     <Compile Include="Literal.cs" />
+    <Compile Include="Movie.cs" />
     <Compile Include="OptimalSearchTreeFinder.cs" />
     <Compile Include="Papadimitriou.cs" />
     <Compile Include="PriorityQueueBase.cs" />
@@ -117,7 +119,6 @@
     <Compile Include="TwoSumAlgorithm.cs" />
     <Compile Include="DirectedWeightedGraph.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Heap.cs" />
     <Compile Include="MaxHeap.cs" />
     <Compile Include="MedianMaintenance.cs" />
     <Compile Include="MergeSort.cs" />

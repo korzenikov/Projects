@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace CourseraTasks.CSharp
 {
-    public class MaxPriorityQuery<T> : PriorityQuery<T>
+    public class MaxHeap<T> : Heap<T>
         where T : IComparable<T>
     {
-        public MaxPriorityQuery(IEnumerable<T> values) : base(values)
+        public MaxHeap(IEnumerable<T> values) : base(values)
         {
         }
 
-        public MaxPriorityQuery()
+        public MaxHeap()
         {
         }
 

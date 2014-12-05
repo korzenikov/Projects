@@ -15,7 +15,7 @@ namespace CourseraTasks.Test
         public void ExtractMaxTest()
         {
             const int N = 100;
-            var maxHeap = new MaxPriorityQuery<int>(Enumerable.Range(0, N));
+            var maxHeap = new MaxHeap<int>(Enumerable.Range(0, N));
 
             for (int i = 0; i < N; i++)
             {

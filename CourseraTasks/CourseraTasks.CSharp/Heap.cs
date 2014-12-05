@@ -3,16 +3,16 @@ using System.Linq;
 
 namespace CourseraTasks.CSharp
 {
-    public abstract class PriorityQuery<T> : PriorityQueueBase<T, T>
+    public abstract class Heap<T> : PriorityQueueBase<T, T>
     {
         private List<T> _values;
 
-        protected PriorityQuery(IEnumerable<T> values)
+        protected Heap(IEnumerable<T> values)
         {
             Build(values);
         }
 
-        protected PriorityQuery()
+        protected Heap()
         {
             _values = new List<T>();
         }
