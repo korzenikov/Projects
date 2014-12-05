@@ -44,13 +44,12 @@ namespace CourseraTasks.CSharp
                 // Check movie rating
                 if (topRatedMovies.Count < numTopRatedSimilarMovies)
                 {
-                    topRatedMovies.Add(currentMovie);
-                    BubbleUp(topRatedMovies, topRatedMovies.Count - 1);
+                    AddToHeap(topRatedMovies, currentMovie);
                 }
                 else if (topRatedMovies[0].Rating < currentMovie.Rating)
                 {
                     topRatedMovies[0] = currentMovie;
-                    MoveDown(topRatedMovies, 0);
+                    Heapify(topRatedMovies, 0);
                 }
 
                 foreach (var similarMovie in currentMovie.SimilarMovies.Where(similarMovie => !exploredMovies.Contains(similarMovie.Id)))
@@ -62,8 +61,10 @@ namespace CourseraTasks.CSharp
             return topRatedMovies;
         }
 
-        private static void BubbleUp(IList<Movie> heap, int index)
+        private static void AddToHeap(IList<Movie> heap, Movie movie)
         {
+            heap.Add(movie);
+            var index = heap.Count - 1;
             var parent = (index - 1) / 2;
             while (parent >= 0 && heap[parent].Rating > heap[index].Rating)
             {
@@ -73,7 +74,7 @@ namespace CourseraTasks.CSharp
             }
         }
 
-        private static void MoveDown(IList<Movie> heap, int index)
+        private static void Heapify(IList<Movie> heap, int index)
         {
             while (true)
             {
