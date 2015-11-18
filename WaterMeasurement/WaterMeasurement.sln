@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterMeasurement", "WaterMeasurement\WaterMeasurement.csproj", "{57F6288D-B48B-467B-A0DD-84675D1AAE05}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FuncWaterMeasurement", "FuncWaterMeasurement\FuncWaterMeasurement.fsproj", "{99A392FD-930F-446A-ACE7-28F8A84C5AB3}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WMFLib", "WMFLib\WMFLib.fsproj", "{BEB33C8F-CB7E-4F7A-AA61-E372460160B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{57F6288D-B48B-467B-A0DD-84675D1AAE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57F6288D-B48B-467B-A0DD-84675D1AAE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57F6288D-B48B-467B-A0DD-84675D1AAE05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99A392FD-930F-446A-ACE7-28F8A84C5AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99A392FD-930F-446A-ACE7-28F8A84C5AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99A392FD-930F-446A-ACE7-28F8A84C5AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99A392FD-930F-446A-ACE7-28F8A84C5AB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEB33C8F-CB7E-4F7A-AA61-E372460160B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEB33C8F-CB7E-4F7A-AA61-E372460160B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEB33C8F-CB7E-4F7A-AA61-E372460160B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEB33C8F-CB7E-4F7A-AA61-E372460160B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
