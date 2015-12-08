@@ -158,3 +158,5 @@ $RECYCLE.BIN/
 /CourseraTasks/packages/FluentAssertions.3.0.107
 /CourseraTasks/packages/Microsoft.Bcl.Immutable.1.0.34
 /DependenciesViewer/packages/FluentAssertions.2.2.0.0
+/TryFSharp/packages
+TryFSharp/packages/FSharp.Charting.0.90.13/FSharp.Charting.0.90.13.nupkg
