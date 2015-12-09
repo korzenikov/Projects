@@ -55,13 +55,13 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
     <None Include="Modeling.fsx" />
     <Compile Include="Chart.fs" />
     <None Include="Simulating.fsx" />
     <Compile Include="Models.fs" />
+    <Compile Include="Layout.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Charting">
