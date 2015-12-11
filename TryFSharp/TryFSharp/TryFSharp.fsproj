@@ -63,6 +63,7 @@
     <None Include="Simulating.fsx" />
     <Compile Include="Models.fs" />
     <Compile Include="Layout.fs" />
+    <Compile Include="IRS.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Charting">

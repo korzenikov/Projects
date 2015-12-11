@@ -1,4 +1,6 @@
-﻿open System
+﻿module Layouts
+
+open System
 
 let maxSquareEdge (a: float) (b: float) N  =
     let w, h =  if a > b then a, b else b, a
@@ -22,10 +24,11 @@ let maxSquareEdgeExt (a: float) (b: float) N  =
     let r = Math.Sqrt(h / w * float N) |> int
     Math.Max(maxSquareEdgeRec r, maxSquareEdgeRec (r + 1))
 
+
 let parameters =
   seq { for a in 1..100 do
             for b in 1..100 do
-                for N in 1..1000 do
+                for N in 1..100 do
                     yield (a, b, N) }
 
 parameters 
