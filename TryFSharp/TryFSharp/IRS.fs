@@ -11,24 +11,21 @@ type Trade = {
 }
 
 // Splitting logic
-let rec insertItem fitsGroup currentIndex item groups  =
+let rec insertItem fitsGroup item groups  =
     match groups with
-    | (g, items)::tail ->  
+    | items::tail ->  
         match items |> fitsGroup item with
-        | true -> (g, items @ [item])::tail
-        | false -> (g,items)::(insertItem fitsGroup (currentIndex + 1) item tail)
-    | [] -> [(currentIndex, [item])]
+        | true -> (items @ [item])::tail
+        | false -> items::(insertItem fitsGroup item tail)
+    | [] -> [[item]]
 
 let splitByGroups fitsGroup items = 
-    items |> Seq.fold (fun groups item -> groups |> insertItem fitsGroup 0 item) [] 
-
-let numbers = seq { 1..50 }
+    items |> Seq.fold (fun groups item -> groups |> insertItem fitsGroup item) [] 
 
 let nonDividedBy number numbers =
     not (numbers|> Seq.exists(fun i-> number % i = 0))
 
-numbers |> splitByGroups nonDividedBy |> Seq.iter (fun i -> printfn "%A" i )
-
+seq { 1..50 } |> splitByGroups nonDividedBy |> Seq.iter (fun i -> printfn "%A" i )
 
 // Given
 let testTrades = 
@@ -65,7 +62,8 @@ let splitSheets groupSelector fitsOtherSheets trades =
     trades
     |> Seq.groupBy groupSelector
     |> splitByGroups fitsOtherSheets
-    |> Seq.collect (fun (g,  groups) -> groups |> Seq.collect snd |> Seq.map (fun x -> g, x))  
+    |> Seq.mapi (fun i item -> i, item)
+    |> Seq.collect (fun (g, groups) -> groups |> Seq.collect snd |> Seq.map (fun x -> g, x))  
 
 // Execution
 testTrades 
@@ -73,3 +71,4 @@ testTrades
     |> Seq.collect(fun (fxCode, items) -> items |> splitSheets (fun x -> x.Account) (isSharableGroup fxCode))
     |> Seq.map (fun (g, x) -> (x.FxCode + g.ToString(), x))  |> Seq.sortBy fst
     |>  Seq.iter (fun i -> printfn "%A" i )
+
