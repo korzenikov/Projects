@@ -11,21 +11,24 @@ type Trade = {
 }
 
 // Splitting logic
-let rec getGroupIndex fitsOtherGroups (currentIndex, group) groups  =
-    let getSameLevelGroups currentIndex = groups |> Seq.filter (fun (g, _) -> g = currentIndex) |> Seq.map snd
-    match getSameLevelGroups currentIndex |> fitsOtherGroups group  with
-    | false ->  getGroupIndex fitsOtherGroups ((currentIndex + 1), group) groups
-    | true -> currentIndex
+let rec insertItem fitsGroup currentIndex item groups  =
+    match groups with
+    | (g, items)::tail ->  
+        match items |> fitsGroup item with
+        | true -> (g, items @ [item])::tail
+        | false -> (g,items)::(insertItem fitsGroup (currentIndex + 1) item tail)
+    | [] -> [(currentIndex, [item])]
 
-let assignGroups groupSelector fitsOtherGroups trades = 
-    trades
-    |> Seq.groupBy groupSelector
-    |> Seq.fold 
-        (fun previousGroups group -> 
-                    let groupIndex = getGroupIndex fitsOtherGroups (0, group) previousGroups
-                    previousGroups @ [(groupIndex, group)]) 
-        [] 
-    |> Seq.collect (fun (g, (_, items)) -> items |> Seq.map (fun x -> g, x))  
+let splitByGroups fitsGroup items = 
+    items |> Seq.fold (fun groups item -> groups |> insertItem fitsGroup 0 item) [] 
+
+let numbers = seq { 1..50 }
+
+let nonDividedBy number numbers =
+    not (numbers|> Seq.exists(fun i-> number % i = 0))
+
+numbers |> splitByGroups nonDividedBy |> Seq.iter (fun i -> printfn "%A" i )
+
 
 // Given
 let testTrades = 
@@ -52,13 +55,21 @@ let restrictedAccounts =  ["NN2"; "NN4"; "NN5" ] |> Set.ofList
 
 // Business requirements
 let containsOppositeTrade trade trades =
-    trades |> Seq.exists (fun x -> trade.FxCode = x.FxCode && trade.Maturity = x.Maturity && x.Direction <> trade.Direction) 
+    trades |> Seq.exists (fun x -> trade.Maturity = x.Maturity && x.Direction <> trade.Direction) 
 
-let isSharableGroup ((fxCode, account), trades) sameLevelGroups =
+let isSharableGroup fxCode (account, trades) sameLevelGroups =
     let sameLevelTrades = sameLevelGroups |> Seq.collect snd
     not((fxCode = "US" || restrictedAccounts.Contains account ) && trades |> Seq.exists(fun t -> sameLevelTrades |> containsOppositeTrade t))
+
+let splitSheets groupSelector fitsOtherSheets trades = 
+    trades
+    |> Seq.groupBy groupSelector
+    |> splitByGroups fitsOtherSheets
+    |> Seq.collect (fun (g,  groups) -> groups |> Seq.collect snd |> Seq.map (fun x -> g, x))  
+
 // Execution
 testTrades 
-    |> assignGroups (fun x -> x.FxCode, x.Account) isSharableGroup 
+    |> Seq.groupBy (fun x -> x.FxCode)
+    |> Seq.collect(fun (fxCode, items) -> items |> splitSheets (fun x -> x.Account) (isSharableGroup fxCode))
     |> Seq.map (fun (g, x) -> (x.FxCode + g.ToString(), x))  |> Seq.sortBy fst
     |>  Seq.iter (fun i -> printfn "%A" i )
