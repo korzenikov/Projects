@@ -57,33 +57,33 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <None Include="App.config" />
-    <Content Include="packages.config" />
     <None Include="Modeling.fsx" />
     <Compile Include="Chart.fs" />
     <None Include="Simulating.fsx" />
     <Compile Include="Models.fs" />
     <Compile Include="Layout.fs" />
     <Compile Include="IRS.fs" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Charting">
-      <HintPath>..\packages\FSharp.Charting.0.90.13\lib\net40\FSharp.Charting.dll</HintPath>
+      <HintPath>..\packages\FSharp.Charting.0.90.14\lib\net40\FSharp.Charting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.3.1.2.5\lib\net40\FSharp.Core.dll</HintPath>
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Data">
-      <HintPath>..\packages\FSharp.Data.2.2.5\lib\net40\FSharp.Data.dll</HintPath>
+      <HintPath>..\packages\FSharp.Data.2.3.2\lib\net40\FSharp.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MathNet.Numerics">
-      <HintPath>..\packages\MathNet.Numerics.3.9.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <HintPath>..\packages\MathNet.Numerics.3.13.1\lib\net40\MathNet.Numerics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MathNet.Numerics.FSharp">
-      <HintPath>..\packages\MathNet.Numerics.FSharp.3.9.0\lib\net40\MathNet.Numerics.FSharp.dll</HintPath>
+      <HintPath>..\packages\MathNet.Numerics.FSharp.3.13.1\lib\net40\MathNet.Numerics.FSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />

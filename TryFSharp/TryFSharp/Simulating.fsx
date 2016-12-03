@@ -1,5 +1,5 @@
-﻿#load "..\packages\FSharp.Charting.0.90.13\FSharp.Charting.fsx"
-#load "..\packages\MathNet.Numerics.FSharp.3.9.0\MathNet.Numerics.fsx"
+﻿#load "..\packages\FSharp.Charting.0.90.14\FSharp.Charting.fsx"
+#load "..\packages\MathNet.Numerics.FSharp.3.13.1\MathNet.Numerics.fsx"
 #load "Chart.fs"
 #load "Models.fs"
 
@@ -28,10 +28,9 @@ let urlFor ticker (startDate:System.DateTime) (endDate:System.DateTime) =
 let stockData ticker startDate endDate = 
     StockData.Load(urlFor ticker startDate endDate)
        
-let msft2011 = stockData "MSFT" (DateTime(2015,1,1)) DateTime.Now
+let msft2011 = stockData "MSFT" (DateTime(2016,1,1)) DateTime.Now
 let first = msft2011.Rows |> Seq.minBy (fun itm -> itm.Date)
 let firstClose = first.Close |> float
-
 
 
 /// Generates prices that can be compared with 'msft2011' data
