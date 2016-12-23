@@ -160,3 +160,4 @@ $RECYCLE.BIN/
 /DependenciesViewer/packages/FluentAssertions.2.2.0.0
 /TryFSharp/packages
 TryFSharp/packages/FSharp.Charting.0.90.13/FSharp.Charting.0.90.13.nupkg
+/Simulator/packages/FSharp.Charting.0.90.14
