@@ -1,9 +1,9 @@
-﻿#load "..\packages\FSharp.Charting.0.90.13\FSharp.Charting.fsx"
-#load "..\packages\MathNet.Numerics.FSharp.3.9.0\MathNet.Numerics.fsx"
+﻿#load "..\packages\FSharp.Charting.0.90.14\FSharp.Charting.fsx"
+#load "..\packages\MathNet.Numerics.FSharp.3.13.1\MathNet.Numerics.fsx"
 #load "Chart.fs"
 #load "Models.fs"
 
-#r "../packages/FSharp.Data.2.2.5/lib/net40/FSharp.Data.dll"
+#r "..\packages\FSharp.Data.2.3.2\lib\portable-net45+netcore45\FSharp.Data.dll"
 
 open System
 open FSharp.Charting
@@ -31,7 +31,6 @@ let stockData ticker startDate endDate =
 let msft2016 = stockData "MSFT" (DateTime(2016,1,1)) DateTime.Now
 let first = msft2016.Rows |> Seq.minBy (fun itm -> itm.Date)
 let firstClose = first.Close |> float
-
 
 
 /// Generates prices that can be compared with 'msft2011' data
