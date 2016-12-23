@@ -28,8 +28,8 @@ let urlFor ticker (startDate:System.DateTime) (endDate:System.DateTime) =
 let stockData ticker startDate endDate = 
     StockData.Load(urlFor ticker startDate endDate)
        
-let msft2011 = stockData "MSFT" (DateTime(2015,1,1)) DateTime.Now
-let first = msft2011.Rows |> Seq.minBy (fun itm -> itm.Date)
+let msft2016 = stockData "MSFT" (DateTime(2016,1,1)) DateTime.Now
+let first = msft2016.Rows |> Seq.minBy (fun itm -> itm.Date)
 let firstClose = first.Close |> float
 
 
@@ -37,14 +37,14 @@ let firstClose = first.Close |> float
 /// Generates prices that can be compared with 'msft2011' data
 let simulateHistoricalPrices drift volatility = 
     let dist = Normal(0.0, 1.0)
-    let dates = [ for v in msft2011.Rows -> v.Date.DayOfYear ] |> List.rev
+    let dates = [ for v in msft2016.Rows -> v.Date.DayOfYear ] |> List.rev
     let randoms = randomPrice drift volatility 0.005 firstClose dist
     Seq.zip dates randoms
 
 Chart.Combine
   [
     Chart.Line(simulateHistoricalPrices 0.05 0.1, Name = "Generated") |> Chart.WithLegend()
-    Chart.Line([ for item in msft2011.Rows -> item.Date.DayOfYear, item.Close ], Name = "Real") |> Chart.WithLegend()
+    Chart.Line([ for item in msft2016.Rows -> item.Date.DayOfYear, item.Close ], Name = "Real") |> Chart.WithLegend()
     ]
 
     
