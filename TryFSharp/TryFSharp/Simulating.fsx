@@ -3,7 +3,7 @@
 #load "Chart.fs"
 #load "Models.fs"
 
-#r "../packages/FSharp.Data.2.2.5/lib/net40/FSharp.Data.dll"
+#r "..\packages\FSharp.Data.2.3.2\lib\portable-net45+netcore45\FSharp.Data.dll"
 
 open System
 open FSharp.Charting
@@ -45,5 +45,3 @@ Chart.Combine
     Chart.Line(simulateHistoricalPrices 0.05 0.1, Name = "Generated") |> Chart.WithLegend()
     Chart.Line([ for item in msft2011.Rows -> item.Date.DayOfYear, item.Close ], Name = "Real") |> Chart.WithLegend()
     ]
-
-    
