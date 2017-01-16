@@ -4,108 +4,92 @@
 open FuzzyLogic.FuzzySets
 open FSharp.Charting
 
-open Microsoft.FSharp.Quotations
-open Microsoft.FSharp.Quotations.Patterns
-open Microsoft.FSharp.Quotations.DerivedPatterns
-
-let getPoints fs =
-    match fs with
-        | LeftBound (a, b) -> 
-            [(a, 0.0); (b, 1.0)]
-        | RightBound (c, d) -> 
-            [(c, 1.0); (d, 0.0)]
-        | Triangle (a, b, d) -> 
-            [(a, 0.0); (b, 1.0); (d, 0.0)]
-        | Trapezoid (a, b, c, d) -> 
-            [(a, 0.0); (b, 1.0); (c, 1.0); (d, 0.0)]
-
-
 let getChart x =
     x |> getPoints |> Chart.Line
 
+// Distance
+let near = RightNumber (0.0, 50.0)
+let medium = TriangleNumber(0.0, 50.0, 100.0)
+let far = LeftNumber(50.0, 100.0)
+
 // Speed
-let low = RightBound(20.0, 40.0)
-let medium = Triangle(20.0, 40.0, 60.0)
-let high = LeftBound (40.0, 60.0)
+let low = RightNumber(20.0, 40.0)
+let average = TriangleNumber(20.0, 40.0, 60.0)
+let high = LeftNumber (40.0, 60.0)
 
-let speed = [low; medium; high]
+let speed = [low; average; high]
 
-speed |> Seq.map getChart |> Chart.Combine  |> Chart.WithLegend()
+let distance = [near; medium; far]
 
+// Throttling
+let largeNegative = RightNumber(-20.0, -10.0)
+let smallNegative = TriangleNumber(-20.0, -10.0, 0.0)
+let zero = TriangleNumber(-10.0, 0.0, 10.0)
+let smallPositive = TriangleNumber(0.0, 10.0, 20.0)
+let largePositive = LeftNumber(10.0, 20.0)
 
-//let println expr =
-//    let rec print expr =
-//        match expr with
-//        | Application(expr1, expr2) ->
-//            // Function application.
-//            print expr1
-//            printf " "
-//            print expr2
-//        | SpecificCall <@@ (+) @@> (_, _, exprList) ->
-//            // Matches a call to (+). Must appear before Call pattern.
-//            print exprList.Head
-//            printf " + "
-//            print exprList.Tail.Head
-//        | Call(exprOpt, methodInfo, exprList) ->
-//            // Method or module function call.
-//            match exprOpt with
-//            | Some expr -> print expr
-//            | None -> printf "%s" methodInfo.DeclaringType.Name
-//            printf ".%s(" methodInfo.Name
-//            if (exprList.IsEmpty) then printf ")" else
-//            print exprList.Head
-//            for expr in exprList.Tail do
-//                printf ","
-//                print expr
-//            printf ")"
-//        | Int32(n) ->
-//            printf "%d" n
-//        | Lambda(param, body) ->
-//            // Lambda expression.
-//            printf "fun (%s:%s) -> " param.Name (param.Type.ToString())
-//            print body
-//        | Let(var, expr1, expr2) ->
-//            // Let binding.
-//            if (var.IsMutable) then
-//                printf "let mutable %s = " var.Name
-//            else
-//                printf "let %s = " var.Name
-//            print expr1
-//            printf " in "
-//            print expr2
-//        | PropertyGet(_, propOrValInfo, _) ->
-//            printf "PropertyGet %s" propOrValInfo.Name
-//        | String(str) ->
-//            printf "%s" str
-//        | Value(value, typ) ->
-//            printf "%s" (value.ToString())
-//        | Var(var) ->
-//            printf "%s" var.Name
-//        | _ -> printf "%s" (expr.ToString())
-//    print expr
-//    printfn ""
+let throttling = [largeNegative; smallNegative; zero; smallPositive; largePositive] 
 
+speed |> Seq.map getChart |> Chart.Combine
+distance |> Seq.map getChart |> Chart.Combine
+throttling |> Seq.map getChart |> Chart.Combine
 
+// Rules
+let rules = 
+    [
+        (far, low, largePositive)
+        (far, average, smallPositive)
+        (far, high, zero)
+        (medium, low, largePositive)
+        (medium, average, zero) 
+        (medium, high, smallNegative)
+        (near, low, zero)
+        (near, average, smallNegative)
+        (near, high, largeNegative)
+    ]
+
+let handleRule v1 v2 (input1, input2, output)  =
+    (output, [(input1, v1); (input2, v2)])
+
+let visualize v1 v2 rules =
+    rules 
+    |> getTriggeredOutputs (handleRule v1 v2)
+    |> Seq.collect (fun (fs, y) -> [fs |> getPoints |> Chart.Line; slice y fs |> Chart.Area]) 
+    |> Chart.Combine
+
+rules |> visualize 80.0 80.0
+
+let showResults v1 v2 rules =
+    let outputs = rules |> fireRules (handleRule v1 v2)
+    let figures = 
+        outputs
+        |> Seq.filter (fun (fs, y) -> y > 0.0)
+        |> Seq.groupBy fst 
+        |> Seq.map (fun (key, s) -> s |> Seq.maxBy (fun (_, y) -> y))
+        |> Seq.distinct 
+        |> Seq.sortBy (fun (fs, y) -> getMax fs)
+    let cs = figures |> List.ofSeq |> unionResults |> Seq.pairwise |> Seq.map (fun (p1, p2) -> centroid p1 p2) 
+    let outputFigures = outputs |> Seq.map (fun (fs, y) -> fs |> getPoints |> Chart.Line) |> List.ofSeq 
+    let slicedFigures = figures |> Seq.map (fun (fs, y) -> slice y fs |> Chart.Area) |> List.ofSeq
+    let centroid = Chart.Point ([ cs |> centroidOfCompositeShape |> fst ], Color = System.Drawing.Color.Red)
+    List.concat
+        [
+            outputFigures
+            slicedFigures
+            [ centroid ]
+        ] 
+    |> Chart.Combine
+
+rules |> showResults 100.0 10.0
+
+rules |> getOutputValue (handleRule 10.0 80.0)
 //
-//type Test = 
-//    static member EchoExpression([<ReflectedDefinition(true)>] x : Expr<_>) =
-//        let rec toCode = function
-//            | PropertyGet(_, v, _) -> v.Name
-//            | Call (_, mthd, args) ->
-//                let argStr = args |> List.map toCode |> String.concat ","
-//                sprintf "%s.%s(%s)" mthd.DeclaringType.Name mthd.Name argStr
-//        let (WithValue(value, _, expr)) = x
-//        printfn "%s evaluates to %O" (toCode expr) value
-//
-//
-//let x, y = 23, 93
-//
-//
-//let velocity = 5
-//Test.EchoExpression(velocity)
-
-//let expr : Expr<FuzzySet> = <@ low @>
-
-//println expr
-
-
+//[
+//    largeNegative,0.9
+//    smallNegative, 0.6
+//    zero, 0.4
+//    smallPositive, 0.5
+//    largePositive, 1.0
+//]
+//|> unionResults 
+//|> Chart.Area
